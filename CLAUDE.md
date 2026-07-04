@@ -1,105 +1,44 @@
-Default to using Bun instead of Node.js.
+# CLAUDE.md
 
-- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
-- Use `bun test` instead of `jest` or `vitest`
-- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
-- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
-- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
-- Use `bunx <package> <command>` instead of `npx <package> <command>`
-- Bun automatically loads .env, so don't use dotenv.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## APIs
+## What this is
 
-- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
-- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
-- `Bun.redis` for Redis. Don't use `ioredis`.
-- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
-- `WebSocket` is built-in. Don't use `ws`.
-- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
-- Bun.$`ls` instead of execa.
+`project-office-cli` is an **agent-facing** CLI that is intended to become the controlled interface between AI agents and the Project Office / MVP Task Manager web application. The web app stays the human interface; this CLI is the agent interface. Agents are meant to work inside an explicit project scope and reach the application only through its API — never through direct database, filesystem, or internal-structure access.
 
-## Testing
+This is an early local MVP: `src/index.ts` currently does nothing more than a single test request against the backend. Treat the README's "Direction" section (scoped context building, controlled read commands, submitting notes/proposals/feedback) as the roadmap, not as implemented behavior. Keep the implementation simple until the actual workflow is clear.
 
-Use `bun test` to run tests.
+The backend it talks to lives at `https://task.igor-yuzkiv-dev.tech` (see the request URL in `src/index.ts`). This CLI is a separate repo from the application it targets.
 
-```ts#index.test.ts
-import { test, expect } from "bun:test";
+## Contracts & direction
 
-test("hello world", () => {
-  expect(1).toBe(1);
-});
-```
+The agreed design contracts for this CLI live in `docs/contracts.md` — treat it as the authoritative reference for domain model, scope, I/O format, error/exit codes, the `/api/cli/v1` backend contract, auth, and command routing. It is **design/direction**, not yet-implemented behavior; the README "Direction" still applies until commands land.
 
-## Frontend
+Non-negotiables when building: agents reach Task Manager only through this CLI (never direct DB/API/internal access); work stays inside one project scope; the CLI renders, the backend stays pure JSON.
 
-Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
-
-Server:
-
-```ts#index.ts
-import index from "./index.html"
-
-Bun.serve({
-  routes: {
-    "/": index,
-    "/api/users/:id": {
-      GET: (req) => {
-        return new Response(JSON.stringify({ id: req.params.id }));
-      },
-    },
-  },
-  // optional websocket support
-  websocket: {
-    open: (ws) => {
-      ws.send("Hello, world!");
-    },
-    message: (ws, message) => {
-      ws.send(message);
-    },
-    close: (ws) => {
-      // handle close
-    }
-  },
-  development: {
-    hmr: true,
-    console: true,
-  }
-})
-```
-
-HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
-
-```html#index.html
-<html>
-  <body>
-    <h1>Hello, world!</h1>
-    <script type="module" src="./frontend.tsx"></script>
-  </body>
-</html>
-```
-
-With the following `frontend.tsx`:
-
-```tsx#frontend.tsx
-import React from "react";
-import { createRoot } from "react-dom/client";
-
-// import .css files directly and it works
-import './index.css';
-
-const root = createRoot(document.body);
-
-export default function Frontend() {
-  return <h1>Hello, world!</h1>;
-}
-
-root.render(<Frontend />);
-```
-
-Then, run index.ts
+## Commands
 
 ```sh
-bun --hot ./index.ts
+bun run dev        # run the CLI from source (bun run src/index.ts)
+bun run build      # bundle to dist/project-office (bun target)
+bun run compile    # produce a standalone compiled binary
+bunx prettier --write .   # format
+bun test           # run tests (no tests exist yet)
 ```
 
-For more information, read the Bun API docs in `node_modules/bun-types/docs/**.mdx`.
+There is no lint step and no test suite yet. `src/index.ts` is the single entry point (declared as `module` in package.json).
+
+## Conventions
+
+- **CLI framework:** `commander` (v15) is a dependency and is the intended tool for defining commands/subcommands as the CLI grows.
+- **HTTP:** `axios` is used for talking to the backend API. Prefer it for outbound requests to the application layer.
+- **Formatting (`.prettierrc`):** no semicolons, single quotes, 4-space indent, 120 print width, es5 trailing commas. Run prettier before committing.
+
+## Bun runtime
+
+Default to Bun instead of Node.js. `tsconfig.json` is configured for Bun bundler mode with strict settings (`noUncheckedIndexedAccess`, `noFallthroughCasesInSwitch`, etc.) and `noEmit` — Bun runs/bundles TypeScript directly, so there is no separate `tsc` build.
+
+- `bun <file>` instead of `node`/`ts-node`; `bun test` instead of jest/vitest; `bun install`; `bun run <script>`; `bunx` instead of `npx`.
+- Bun auto-loads `.env` — do not add `dotenv`.
+- Prefer Bun built-ins when adding functionality: `Bun.serve()` (not express), `bun:sqlite` (not better-sqlite3), `Bun.redis`, `Bun.sql` (Postgres), built-in `WebSocket` (not `ws`), `Bun.file` (over `node:fs`), `Bun.$` (over execa).
+- Bun API docs are available locally under `node_modules/bun-types/docs/**.mdx`.
