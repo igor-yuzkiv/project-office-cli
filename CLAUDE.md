@@ -8,12 +8,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is an early local MVP: `src/index.ts` currently does nothing more than a single test request against the backend. Treat the README's "Direction" section (scoped context building, controlled read commands, submitting notes/proposals/feedback) as the roadmap, not as implemented behavior. Keep the implementation simple until the actual workflow is clear.
 
-The backend it talks to lives at `https://task.igor-yuzkiv-dev.tech` (see the request URL in `src/index.ts`). This CLI is a separate repo from the application it targets.
-
-## Contracts & direction
-
-The agreed design contracts for this CLI live in `docs/contracts.md` — treat it as the authoritative reference for domain model, scope, I/O format, error/exit codes, the `/api/cli/v1` backend contract, auth, and command routing. It is **design/direction**, not yet-implemented behavior; the README "Direction" still applies until commands land.
-
 Non-negotiables when building: agents reach Task Manager only through this CLI (never direct DB/API/internal access); work stays inside one project scope; the CLI renders, the backend stays pure JSON.
 
 ## Commands
