@@ -36,14 +36,26 @@ Keep the implementation simple until the actual workflow is clear.
 - Prefer small, explicit implementation over large abstractions. Do not over-engineer
   contracts, layers, or architecture before the real workflow proves them necessary.
 
+## Verification
+
+`package.json` scripts are the source of truth for build/run:
+
+- `bun run dev` — run the CLI from source.
+- `bun run build` — bundle to `dist/project-office`.
+- `bun run compile` — compile a standalone binary to `dist/project-office`.
+
+After changing source, verify with:
+
+- `bunx tsc --noEmit` — type-check.
+- `bunx prettier --check src/` — formatting.
+
 ## Project rules
 
-Load and follow these rules:
+Rule files in `.claude/rules/` are **loaded automatically** by Claude Code — they are not
+`@`-imported here (that would load them twice). For reference:
 
-- @.claude/rules/architecture.md — project structure, entities/commands/shared, entity
-  API organization, exports.
-- @.claude/rules/conventions.md — code style and CLI command/option style.
-- @.claude/rules/development.md — how to approach changes (clarify, minimal changes,
-  incremental implementation).
-- @.claude/rules/configuration.md — global runtime configuration (env file, typing).
-- @.claude/rules/review-gate.md — review gate for assembled artifacts needing approval.
+- `architecture.md` — structure, entities/commands/shared, entity API, exports (scoped to `src/**`).
+- `conventions.md` — file naming, code style, CLI command/option style (scoped to `src/**`).
+- `configuration.md` — global runtime configuration (scoped to env/config files).
+- `development.md` — how to approach changes (always loaded).
+- `review-gate.md` — review gate for assembled artifacts needing approval (always loaded).

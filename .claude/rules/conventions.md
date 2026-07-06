@@ -1,3 +1,8 @@
+---
+paths:
+  - "src/**/*.ts"
+---
+
 # Rule: Code and CLI conventions
 
 ## File naming

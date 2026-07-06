@@ -1,7 +1,13 @@
+---
+paths:
+  - "src/**/*.ts"
+---
+
 # Rule: Project architecture and structure
 
-Where code lives and how the project grows. The structure is inspired by
-Feature-Sliced Design but does not follow it strictly.
+Where code lives and how the project grows. This is **not** Feature-Sliced Design — it
+only borrows the entity/shared separation. Do not pull in FSD layers, slices, or
+conventions beyond what is described here.
 
 ## Structure
 

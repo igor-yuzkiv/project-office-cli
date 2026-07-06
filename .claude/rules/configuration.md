@@ -1,3 +1,10 @@
+---
+paths:
+  - ".env.example"
+  - "src/env.d.ts"
+  - "src/shared/libs/config/**"
+---
+
 # Rule: Configuration
 
 Scope: **global runtime configuration** for the CLI itself. Project-office-scoped and

@@ -5,21 +5,31 @@ How to approach changes in this repository. The CLI-boundary rules live in
 
 ## Clarify before acting
 
-Stop and ask before making changes when any of the following is true:
+Ask first for decisions about product behavior, business logic, or external contracts —
+not for small local implementation choices.
 
-- Requirements, acceptance criteria, or expected behavior are missing or ambiguous.
-- Multiple reasonable implementation approaches exist and the task does not specify which.
-- The task implies business logic that is not explicitly stated.
-- An architectural decision is needed (new abstraction, new layer, API contract, DTO shape).
+Stop and ask when:
+
+- Requirements, acceptance criteria, or expected product behavior are missing or ambiguous.
+- The task implies business logic, validation rules, or domain behavior that is not stated.
+- An external contract must be decided (API request/response shape, DTO, a command's
+  public interface).
+- Multiple materially different approaches exist and the choice affects behavior or scope.
 - The change could affect behavior outside the explicitly requested scope.
 - Existing code contradicts the task description.
 
+Proceed without asking (investigate, decide, implement) when:
+
+- The decision is a low-blast-radius local technical choice (naming, file placement, a
+  small helper extraction, internal control flow).
+- The scope is obvious and the change stays within it.
+- A project convention already answers the question.
+
 Never:
 
-- Invent business logic, validation rules, or domain behavior not specified in the task.
-- Choose between multiple valid approaches without surfacing the options and asking.
+- Invent business logic, validation, or domain behavior not specified in the task.
 - Treat an assumption as a fact — surface it explicitly.
-- Proceed when scope is unclear, even if a reasonable guess exists.
+- Silently pick between materially different product/contract approaches — surface the options.
 
 ## Change strategy
 
