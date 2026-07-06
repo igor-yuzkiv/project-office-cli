@@ -2,6 +2,8 @@
 
 Guidance for Claude Code (claude.ai/code) when working in this repository.
 
+> This project uses a project office — for its tasks and documentation see .project-office/AGENTS.md.
+
 ## Language
 
 Match the user's language. When the user writes in Ukrainian, respond in Ukrainian —
