@@ -37,9 +37,7 @@ belong in `commands`.
 
 ```ts
 // entities/task/api/task.api.ts
-export async function fetchTasksRequest(
-  params?: TaskFetchParams,
-): Promise<PaginatedResponse<Task>> {
+export async function fetchTasksRequest( params?: TaskFetchParams ): Promise<PaginatedResponse<Task>> {
   const { include, ...rest } = params ?? {};
   return httpClient
     .get<PaginatedResponse<Task>>('/tasks', {
@@ -47,28 +45,7 @@ export async function fetchTasksRequest(
     })
     .then((res) => res.data);
 }
-
-export async function searchTasksRequest(
-  params: TaskSearchParams,
-): Promise<PaginatedResponse<Task>> {
-  return httpClient
-    .post<PaginatedResponse<Task>>('/tasks/search', params)
-    .then((res) => res.data);
-}
 ```
-
-### Cross-cutting entities
-
-Some entities are universal — they attach to any consumer (`comment`, `tag`,
-`attachment`).
-
-- A universal entity module operates only on itself, by its own id:
-  `deleteCommentRequest(commentId)`, `updateCommentRequest(commentId, data)`. It must
-  not know its consumers — `fetchTaskCommentsRequest(taskId)` does not belong here.
-- Operations scoped to a consumer by its id belong to that consumer's entity:
-  `fetchTaskCommentsRequest` lives in `entities/task/api/`. When `project` needs
-  comments, it gets its own `fetchProjectCommentsRequest` in `entities/project/api/`.
-- Duplication across consumers is acceptable and preferred over shared abstractions.
 
 ## commands
 
@@ -85,7 +62,7 @@ Reusable code lives in `src/shared`. Only put something here when it is genuinel
 reusable across multiple parts of the project. Do not use `shared` as a dumping ground.
 
 - `shared/utils` — small, focused utilities grouped by responsibility
-  (`date.util.ts`, `string.util.ts`, `primitive.util.ts`).
+(`date.util.ts`, `string.util.ts`, `primitive.util.ts`).
 - `shared/config` — all configuration values in the project, logically split
   one file per concern (`exit-code.config.ts`, `cli-settings.config.ts`, ...), each
   re-exported through `shared/config/index.ts`. There are no standalone `.const.ts`
