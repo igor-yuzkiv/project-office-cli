@@ -3,6 +3,7 @@ paths:
   - ".env.example"
   - "src/env.d.ts"
   - "src/shared/libs/config/**"
+  - "src/**"
 ---
 
 # Rule: Configuration
@@ -40,3 +41,42 @@ declare module "bun" {
 
 If configuration reads need validation or defaults, centralize them in
 `shared/libs/config/` rather than scattering `Bun.env` access across the codebase.
+
+## No project-level magic values in code
+
+No **bare magic literal** in `src/`. Every value that carries meaning gets a home: either
+a `.env` variable (read through typed `Bun.env`) or a **named** in-code constant. What this
+rule forbids outright is an unnamed literal encoding a URL, path, secret, or tunable sitting
+inline in the logic. The only real question is *which home* — and there is one test for it.
+
+**The test — env or constant?** Ask: *would two correct runs of this CLI ever need a
+different value?*
+
+- Differs by environment, deployment, machine, or user → **`.env`**.
+- It is a secret or credential → **`.env`, always** — no exceptions, never a constant.
+- Same for every correct run and part of the program's own meaning or the code's contract
+  → **named constant** in code.
+
+**Goes to `.env`** (read via `Bun.env`, documented in `.env.example` + `src/env.d.ts`):
+
+- backend base URL and API paths — this project already splits these into `BACKEND_*`
+  variables (e.g. `BACKEND_BASE_URL`, `BACKEND_*_PATH`); follow that pattern;
+- tokens, credentials, any secret — never inline, never committed;
+- filesystem locations the CLI depends on (cache dir, config dir);
+- timeouts, retry counts, page sizes, and similar tunables a deployment may want to change.
+
+**Stays a named constant in code** (not env):
+
+- domain constants that are part of the logic (enum values, fixed status strings, exit
+  codes, formatting/layout literals);
+- values identical in every environment that encode *how the program works*, not *how it
+  is deployed*.
+
+**Borderline?** If a value only *might* need to vary and there is no concrete reason a
+deployment would change it today, keep it as a named constant — a constant promotes to
+`.env` later without drama, so do not add configuration surface speculatively. The
+exception overrides this: anything secret or part of an external contract goes to `.env`
+now, even when in doubt.
+
+When a value does land in `.env`, adding it means updating `.env.example` and
+`src/env.d.ts` in the same change (see above).

@@ -2,6 +2,13 @@
 
 Guidance for Claude Code (claude.ai/code) when working in this repository.
 
+## Language
+
+Match the user's language. When the user writes in Ukrainian, respond in Ukrainian —
+in chat, in summaries, and in any artifact assembled for the user's review (plans, task
+proposals, review-gate documents). Keep code, identifiers, file paths, CLI commands, and
+technical terms in their original form; translate the prose around them, not the tokens.
+
 ## What this is
 
 `project-office-cli` is an **agent-facing CLI**: the controlled interface between AI
@@ -56,6 +63,6 @@ Rule files in `.claude/rules/` are **loaded automatically** by Claude Code — t
 
 - `architecture.md` — structure, entities/commands/shared, entity API, exports (scoped to `src/**`).
 - `conventions.md` — file naming, code style, CLI command/option style (scoped to `src/**`).
-- `configuration.md` — global runtime configuration (scoped to env/config files).
+- `configuration.md` — global runtime configuration; no project-level magic values in code (scoped to env/config files and `src/**`).
 - `development-workflow.md` — the task workflow and how to approach changes (always loaded).
 - `review-gate.md` — review gate for assembled artifacts needing approval (always loaded).

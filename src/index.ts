@@ -1,4 +1,13 @@
-import axios, { AxiosError } from 'axios'
-import * as console from 'node:console'
+import { Command } from 'commander'
 
-axios.get('https://task.igor-yuzkiv-dev.tech/project-office-cli/test').then(r => console.log(r.data))
+import { debugCommand } from '@/commands/debug'
+import { installCommand } from '@/commands/install'
+
+const program = new Command()
+
+program.name('project-office').description('Agent-facing CLI for the Project Office / MVP Task Manager')
+
+program.addCommand(installCommand)
+program.addCommand(debugCommand)
+
+await program.parseAsync()
