@@ -2,7 +2,8 @@ import { existsSync } from 'node:fs'
 
 import { Command } from 'commander'
 
-import { SETTINGS_FILE, cliSettingsProvider, cliSettingsSetupService } from '@/shared/libs/settings'
+import { SETTINGS_FILE } from '@/shared/config'
+import { cliSettingsProvider, cliSettingsSetupService } from '@/shared/libs/settings'
 
 export const installCommand = new Command('install')
     .description('Install the Project Office CLI and set up per-user settings')

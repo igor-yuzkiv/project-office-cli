@@ -1,7 +1,7 @@
 import { input, password } from '@inquirer/prompts'
 
 import type { CliSettings } from '@/shared/libs/settings/cli-settings.type'
-import { cliSettingsSetupDefinition } from '@/shared/libs/settings/cli-settings.const'
+import { cliSettingsSetupDefinition } from '@/shared/config'
 
 class CliSettingsSetupService {
     async collect(): Promise<CliSettings> {

@@ -24,7 +24,7 @@ Domain entities live in `src/entities`, one folder per entity (`task/`, `project
 `user/`). An entity folder may contain `api/`, `types/`, `config/`, `index.ts`.
 
 Use entity folders for entity types, API request functions, entity-specific
-configuration/constants, and entity-specific helpers. Keep entity logic close to the
+configuration, and entity-specific helpers. Keep entity logic close to the
 entity it belongs to. Do not put CLI command orchestration in `entities` — commands
 belong in `commands`.
 
@@ -86,9 +86,14 @@ reusable across multiple parts of the project. Do not use `shared` as a dumping 
 
 - `shared/utils` — small, focused utilities grouped by responsibility
   (`date.util.ts`, `string.util.ts`, `primitive.util.ts`).
+- `shared/config` — all configuration values in the project, logically split
+  one file per concern (`exit-code.config.ts`, `cli-settings.config.ts`, ...), each
+  re-exported through `shared/config/index.ts`. There are no standalone `.const.ts`
+  files anywhere else in `src/` — see `configuration.md` for the env-vs-config rule.
 - `shared/libs` — reusable service/library wrappers grouped in folders (`http/`,
-  `config/`, `output/`): HTTP client setup, config loading, output rendering,
-  filesystem helpers, third-party adapters.
+  `settings/`, `output/`): HTTP client setup, output rendering, filesystem helpers,
+  third-party adapters. Types (`.type.ts`) stay inside the lib's own folder; the lib's
+  configuration live in `shared/config` instead.
 
 ## Exports
 

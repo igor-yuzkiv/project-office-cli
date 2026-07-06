@@ -2,6 +2,9 @@ import { Command } from 'commander'
 
 import { debugCommand } from '@/commands/debug'
 import { installCommand } from '@/commands/install'
+import { cliSettingsProvider } from '@/shared/libs/settings'
+
+await cliSettingsProvider.bootstrap()
 
 const program = new Command()
 

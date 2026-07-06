@@ -25,8 +25,7 @@ Follow a NestJS-style convention: **kebab-case** filenames shaped as `name.role.
 | `.command.ts` | CLI command definition | `view-task.command.ts` |
 | `.api.ts` | entity backend request functions | `task.api.ts`, `task-comments.api.ts` |
 | `.type.ts` | types and interfaces | `task.type.ts` |
-| `.config.ts` | entity or module configuration | `task.config.ts` |
-| `.const.ts` | constants | `task-status.const.ts` |
+| `.config.ts` | configuration values (entity/module or `shared/config/`) | `task.config.ts`, `exit-code.config.ts` |
 | `.util.ts` | utility functions | `date.util.ts` |
 | `.spec.ts` | tests | `task.api.spec.ts` |
 | `index.ts` | barrel export | `index.ts` |

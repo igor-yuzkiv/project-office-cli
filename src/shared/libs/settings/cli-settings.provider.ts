@@ -3,7 +3,7 @@ import { existsSync } from 'node:fs'
 import { dirname } from 'node:path'
 
 import type { CliSettings } from '@/shared/libs/settings/cli-settings.type'
-import { SETTINGS_FILE } from '@/shared/libs/settings/cli-settings.const'
+import { SETTINGS_FILE } from '@/shared/config'
 
 class CliSettingsProvider {
     private settings: CliSettings | null = null

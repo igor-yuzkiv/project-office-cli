@@ -1,82 +1,103 @@
 ---
+
 paths:
-  - ".env.example"
-  - "src/env.d.ts"
-  - "src/shared/libs/config/**"
-  - "src/**"
+
+* ".env.example"
+* "src/env.d.ts"
+* "src/shared/config/**"
+* "src/**"
+
 ---
 
 # Rule: Configuration
 
-Scope: **global runtime configuration** for the CLI itself. Project-office-scoped and
-per-user configuration are separate concerns and are not covered here.
+Scope: configuration for `project-office-cli` itself.
 
-## Where configuration lives
+The project has two configuration homes:
 
-- Global configuration is read from a `.env` file at the repository root, loaded
-  automatically by Bun.
-- `.env` holds real local values and is **git-ignored**. Never commit it.
-- A committed **`.env.example`** documents every variable the CLI reads, with safe
-  placeholder values (no secrets). Keep it in sync: adding or removing a variable means
-  updating `.env.example` in the same change.
-- Environment variable names are `UPPER_SNAKE_CASE`.
+* `.env` — runtime values that may differ between correct runs;
+* `src/shared/config/` — shared program configuration that defines how the CLI works.
 
-## Typing
+Project Office workspace state, per-repository `.project-office` metadata, and per-user
+settings are separate concerns.
 
-Declare the shape of the environment in `src/env.d.ts` by augmenting Bun's `Env`
-interface, so `Bun.env` is fully typed:
+## Environment variables
+
+Runtime configuration is read from `.env` at the repository root.
+
+`.env` contains real local values and is git-ignored. Never commit it.
+
+`.env.example` documents every variable the CLI reads, using safe placeholder values only.
+When adding, renaming, or removing an environment variable, update `.env.example` in the
+same change.
+
+Environment variable names use `UPPER_SNAKE_CASE`.
+
+Declare all environment variables in `src/env.d.ts`:
 
 ```ts
-// src/env.d.ts
 declare module "bun" {
   interface Env {
-    BACKEND_URL: string;
+    BACKEND_BASE_URL: string
   }
 }
 ```
 
-- Read configuration through the typed `Bun.env` (for example `Bun.env.BACKEND_URL`),
-  not untyped `process.env`.
-- Every variable added to `.env.example` gets a matching entry in `src/env.d.ts`.
+Read environment variables through `Bun.env`, not `process.env`.
 
-If configuration reads need validation or defaults, centralize them in
-`shared/libs/config/` rather than scattering `Bun.env` access across the codebase.
+## Env or config
 
-## No project-level magic values in code
+Use this test:
 
-No **bare magic literal** in `src/`. Every value that carries meaning gets a home: either
-a `.env` variable (read through typed `Bun.env`) or a **named** in-code constant. What this
-rule forbids outright is an unnamed literal encoding a URL, path, secret, or tunable sitting
-inline in the logic. The only real question is *which home* — and there is one test for it.
+**Would two correct runs of this CLI reasonably need different values?**
 
-**The test — env or constant?** Ask: *would two correct runs of this CLI ever need a
-different value?*
+If yes, put the value in `.env`.
 
-- Differs by environment, deployment, machine, or user → **`.env`**.
-- It is a secret or credential → **`.env`, always** — no exceptions, never a constant.
-- Same for every correct run and part of the program's own meaning or the code's contract
-  → **named constant** in code.
+If no, and the value defines shared CLI behavior, put it in `src/shared/config/`.
 
-**Goes to `.env`** (read via `Bun.env`, documented in `.env.example` + `src/env.d.ts`):
+## Put in `.env`
 
-- backend base URL and API paths — this project already splits these into `BACKEND_*`
-  variables (e.g. `BACKEND_BASE_URL`, `BACKEND_*_PATH`); follow that pattern;
-- tokens, credentials, any secret — never inline, never committed;
-- filesystem locations the CLI depends on (cache dir, config dir);
-- timeouts, retry counts, page sizes, and similar tunables a deployment may want to change.
+Use `.env` for:
 
-**Stays a named constant in code** (not env):
+* backend base URL;
+* tokens, credentials, and secrets;
+* local filesystem locations that depend on the user's machine;
+* feature flags intended to vary between runs;
+* timeouts, retry limits, page sizes, or similar tunables when they really need runtime
+  control.
 
-- domain constants that are part of the logic (enum values, fixed status strings, exit
-  codes, formatting/layout literals);
-- values identical in every environment that encode *how the program works*, not *how it
-  is deployed*.
+Secrets always belong in `.env`. Never commit them.
 
-**Borderline?** If a value only *might* need to vary and there is no concrete reason a
-deployment would change it today, keep it as a named constant — a constant promotes to
-`.env` later without drama, so do not add configuration surface speculatively. The
-exception overrides this: anything secret or part of an external contract goes to `.env`
-now, even when in doubt.
+## Put in `shared/config`
 
-When a value does land in `.env`, adding it means updating `.env.example` and
-`src/env.d.ts` in the same change (see above).
+Use `src/shared/config/` for shared program configuration:
+
+* exit codes;
+* default command behavior;
+* settings file names and directory names;
+* fixed backend API paths;
+* formatting values reused across commands;
+* interactive setup prompt definitions;
+* shared enum-like values and status strings.
+
+Split config by concern:
+
+```txt
+src/shared/config/
+  api.config.ts
+  cli-settings.config.ts
+  index.ts
+```
+
+Every config file should be re-exported through `src/shared/config/index.ts`.
+
+Avoid catch-all config files.
+
+## Borderline values
+
+If a value might vary someday but has no real reason to vary today, keep it in
+`shared/config`.
+
+Promote it to `.env` only when runtime control becomes necessary.
+
+Secrets are the exception: keep them out of the repository from day one.
