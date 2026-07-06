@@ -57,5 +57,5 @@ Rule files in `.claude/rules/` are **loaded automatically** by Claude Code — t
 - `architecture.md` — structure, entities/commands/shared, entity API, exports (scoped to `src/**`).
 - `conventions.md` — file naming, code style, CLI command/option style (scoped to `src/**`).
 - `configuration.md` — global runtime configuration (scoped to env/config files).
-- `development.md` — how to approach changes (always loaded).
+- `development-workflow.md` — the task workflow and how to approach changes (always loaded).
 - `review-gate.md` — review gate for assembled artifacts needing approval (always loaded).
