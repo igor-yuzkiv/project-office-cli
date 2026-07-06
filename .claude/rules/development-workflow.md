@@ -3,6 +3,43 @@
 How to approach changes in this repository. The CLI-boundary rules live in
 `CLAUDE.md` (non-negotiables) and are not repeated here.
 
+## The workflow
+
+Work every task through these steps in order. The principles below (`Clarify before
+acting`, `Change strategy`, `Incremental implementation`, `Do not`) govern *how* each step
+is carried out.
+
+1. **Receive the requirements.** They arrive either as a Project Office task or as a direct
+   message in chat. Treat both as the source of what to build.
+2. **Analyze the task.** Understand the scope, the expected behavior, the risks, and the
+   existing contracts and constraints it touches before writing any code.
+3. **Ask when requirements are incomplete or ambiguous** — following `Clarify before
+   acting`. Do not ask about small local technical choices the agent can decide itself.
+4. **Implement with minimal changes** — following `Change strategy` and `Incremental
+   implementation`. No opportunistic refactoring, no scope expansion.
+5. **Run an independent code review.** After implementing, hand the change to a *separate*
+   reviewer — a distinct subagent or review lane, not the same context that wrote the code.
+   Do this whenever the agent environment provides such a mechanism. Keep it tool-neutral:
+   use an independent reviewer/subagent **when available**.
+6. **Use the environment's own term for that reviewer.** Different agent environments name
+   this differently. Check the current environment's docs/conventions and use its correct
+   term for an independent reviewer or subagent. If the environment offers no such
+   mechanism, say so plainly and do a self-review pass in a clearly separate lane instead.
+7. **Report what was done.** Give the user a short summary: the important changes, the
+   risks, what was verified, and what still needs attention.
+8. **Open the review gate.** The implementation is not accepted until the user confirms it.
+   Route the sign-off through the review gate (see `review-gate.md`), not a bare chat "ok?".
+9. **After acceptance, decide whether documentation is needed.** Documentation is needed
+   when the change is a new feature, an architecture change, an important contract, a new
+   workflow, or a decision that will matter for future development. Routine, self-evident
+   changes do not need docs.
+10. **If documentation is needed, ask the user** whether they want to add or update it
+    before writing anything.
+11. **Choose new vs. existing doc.** Decide whether to create a new document or update an
+    existing one.
+12. **Keep all project documentation under `docs/`.** Every document for this project lives
+    in the `docs` folder.
+
 ## Clarify before acting
 
 Ask first for decisions about product behavior, business logic, or external contracts —
