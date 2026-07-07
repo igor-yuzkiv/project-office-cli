@@ -3,8 +3,10 @@ import { Command } from 'commander'
 import { debugCommand } from '@/commands/debug'
 import { installCommand } from '@/commands/install'
 import { cliSettingsProvider } from '@/shared/libs/settings'
+import { projectOfficeContextProvider } from '@/shared/libs/project-office'
 
 await cliSettingsProvider.bootstrap()
+await projectOfficeContextProvider.bootstrap()
 
 const program = new Command()
 
