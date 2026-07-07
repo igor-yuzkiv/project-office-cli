@@ -6,7 +6,7 @@ The CLI has two separate configuration concerns, kept intentionally apart:
    points the CLI at a backend and controls where it stores data. Lives in `.env`, read
    through `Bun.env`.
 2. **[CLI settings](#cli-settings)** — per-user data the CLI collects and stores. Lives in
-   `settings.json`, collected by the [install command](./install-command.md).
+   `settings.json`, collected by the [install command](commands/install-command.md).
 
 Environment is *how the CLI is deployed*; CLI settings are *the user's own runtime data*.
 They are not mixed.
@@ -33,7 +33,7 @@ and typed in `src/env.d.ts`; adding or removing one means updating both in the s
 
 ## CLI settings
 
-Per-user settings the CLI collects during [install](./install-command.md) and stores in
+Per-user settings the CLI collects during [install](commands/install-command.md) and stores in
 `settings.json`. For the MVP they hold a single global `apiToken` used to authorize backend
 API requests (global across all projects for now). The
 [available settings](#available-settings) section grows as new settings are added.

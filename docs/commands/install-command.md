@@ -2,7 +2,7 @@
 
 How `project-office install` works. This is the one-time local setup for the CLI. For the
 settings it collects and stores (contract, storage, provider API) and the environment
-configuration it depends on, see [Configuration](./configuration.md).
+configuration it depends on, see [Configuration](../configuration.md).
 
 ## Overview
 
@@ -33,7 +33,7 @@ prompt. There is no `reinstall` / `reset` / `update` flow yet — once installed
    created folder never counts as "installed".
 3. **Collect settings.** The interactive setup flow asks for each setting one at a time.
    Secret values (such as the API token) are read through a masked prompt so they are never
-   echoed. See [Configuration](./configuration.md#cli-settings) for the full list.
+   echoed. See [Configuration](../configuration.md#cli-settings) for the full list.
 4. **Persist.** The settings folder is created (lazily, at write time) and the settings
    file is written with permissions `0600`.
 5. **Confirm.** On success the command prints `Project Office CLI installed.`

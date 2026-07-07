@@ -35,7 +35,7 @@ function buildTaskListProperties(response: PaginatedResponse<TaskOverview>): Mar
 }
 
 function buildTaskListContent(tasks: TaskOverview[]): string {
-    return tasks.map((task, index) => `${index + 1}. ${task.name}`).join('\n')
+    return tasks.map((task) => `${task.key} ${task.name}`).join('\n')
 }
 
 export function renderTaskListAsMarkdown(response: PaginatedResponse<TaskOverview>): string {
