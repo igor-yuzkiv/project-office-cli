@@ -1,6 +1,6 @@
 import { Command } from 'commander'
 
-import { projectOfficeContextProvider } from '@/shared/libs/project-office'
+import { selectedProjectContext } from '@/shared/libs/project-office'
 import { searchTasksRequest, renderTaskListAsMarkdown } from '@/entities/task'
 import type { TaskInclude, TaskSearchParams } from '@/entities/task'
 import type { SortDirection } from '@/shared/types'
@@ -27,7 +27,7 @@ export const taskSearchCommand = new Command('task:search')
     .option('--sort-order <order>', 'Sort order (asc|desc)')
     .option('--include <fields>', 'Comma-separated related data to include')
     .action(async (options: TaskSearchCommandOptions) => {
-        const projectId = projectOfficeContextProvider.getProjectId()
+        const projectId = selectedProjectContext.getProjectId()
 
         const params: TaskSearchParams = {
             query: options.query,

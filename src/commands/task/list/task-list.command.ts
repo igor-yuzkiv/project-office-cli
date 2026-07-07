@@ -1,6 +1,6 @@
 import { Command } from 'commander'
 
-import { projectOfficeContextProvider } from '@/shared/libs/project-office'
+import { selectedProjectContext } from '@/shared/libs/project-office'
 import { fetchTasksRequest, renderTaskListAsMarkdown } from '@/entities/task'
 import type { TaskInclude, TaskFetchParams } from '@/entities/task'
 import type { SortDirection } from '@/shared/types'
@@ -25,7 +25,7 @@ export const taskListCommand = new Command('task:list')
     .option('--sort-order <order>', 'Sort order (asc|desc)')
     .option('--include <fields>', 'Comma-separated related data to include')
     .action(async (options: TaskListCommandOptions) => {
-        const projectId = projectOfficeContextProvider.getProjectId()
+        const projectId = selectedProjectContext.getProjectId()
 
         const params: TaskFetchParams = {
             page: options.page ? Number(options.page) : undefined,

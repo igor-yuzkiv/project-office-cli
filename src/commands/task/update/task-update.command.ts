@@ -1,6 +1,6 @@
 import { Command } from 'commander'
 
-import { projectOfficeContextProvider } from '@/shared/libs/project-office'
+import { selectedProjectContext } from '@/shared/libs/project-office'
 import { updateTaskRequest, renderTaskAsMarkdown } from '@/entities/task'
 import type { UpdateTaskInput, TaskStatus } from '@/entities/task'
 import { resolveTextInput } from '@/shared/utils'
@@ -27,7 +27,7 @@ export const taskUpdateCommand = new Command('task:update')
             return
         }
 
-        const projectId = projectOfficeContextProvider.getProjectId()
+        const projectId = selectedProjectContext.getProjectId()
 
         const input: UpdateTaskInput = {
             status: options.status,

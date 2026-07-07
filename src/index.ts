@@ -3,8 +3,8 @@ import { Command } from 'commander'
 import { debugCommand } from '@/commands/debug'
 import { installCommand } from '@/commands/install'
 import { cliSettingsProvider } from '@/shared/libs/settings'
-import { projectOfficeContextProvider } from '@/shared/libs/project-office'
-import { projectViewCommand } from '@/commands/project'
+import { selectedProjectContext } from '@/shared/libs/project-office'
+import { projectViewCommand, projectConnectCommand, projectLinkRepoCommand } from '@/commands/project'
 import {
     taskListCommand,
     taskSearchCommand,
@@ -18,7 +18,7 @@ import {
 import { instructionsCommand } from '@/commands/instructions'
 
 await cliSettingsProvider.bootstrap()
-await projectOfficeContextProvider.bootstrap()
+await selectedProjectContext.bootstrap()
 
 const program = new Command()
 
@@ -27,6 +27,8 @@ program.name('project-office').description('Agent-facing CLI for the Project Off
 program.addCommand(debugCommand)
 program.addCommand(installCommand)
 program.addCommand(projectViewCommand)
+program.addCommand(projectConnectCommand)
+program.addCommand(projectLinkRepoCommand)
 program.addCommand(taskListCommand)
 program.addCommand(taskSearchCommand)
 program.addCommand(taskViewCommand)

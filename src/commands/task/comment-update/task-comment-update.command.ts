@@ -1,6 +1,6 @@
 import { Command } from 'commander'
 
-import { projectOfficeContextProvider } from '@/shared/libs/project-office'
+import { selectedProjectContext } from '@/shared/libs/project-office'
 import { updateTaskCommentRequest, renderTaskCommentAsMarkdown } from '@/entities/task'
 import type { UpdateTaskCommentInput } from '@/entities/task'
 import { resolveTextInput } from '@/shared/utils'
@@ -27,7 +27,7 @@ export const taskCommentUpdateCommand = new Command('task:comment-update')
             return
         }
 
-        const projectId = projectOfficeContextProvider.getProjectId()
+        const projectId = selectedProjectContext.getProjectId()
 
         const content = await resolveTextInput(options.content)
         const input: UpdateTaskCommentInput = { content }

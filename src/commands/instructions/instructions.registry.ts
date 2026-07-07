@@ -1,5 +1,7 @@
 import overview from '@/commands/instructions/content/overview.md' with { type: 'text' }
 import projectView from '@/commands/instructions/content/project-view.md' with { type: 'text' }
+import projectConnect from '@/commands/instructions/content/project-connect.md' with { type: 'text' }
+import projectLinkRepo from '@/commands/instructions/content/project-link-repo.md' with { type: 'text' }
 import taskList from '@/commands/instructions/content/task-list.md' with { type: 'text' }
 import taskSearch from '@/commands/instructions/content/task-search.md' with { type: 'text' }
 import taskView from '@/commands/instructions/content/task-view.md' with { type: 'text' }
@@ -15,6 +17,8 @@ export const instructionsOverview = overview
 
 export const instructionsRegistry: Record<string, string> = {
     'project:view': projectView,
+    'project:connect': projectConnect,
+    'project:link-repo': projectLinkRepo,
     'task:list': taskList,
     'task:search': taskSearch,
     'task:view': taskView,

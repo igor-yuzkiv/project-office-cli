@@ -1,6 +1,6 @@
 import { Command } from 'commander'
 
-import { projectOfficeContextProvider } from '@/shared/libs/project-office'
+import { selectedProjectContext } from '@/shared/libs/project-office'
 import { createTaskRequest, renderTaskAsMarkdown, resolveTaskPriority } from '@/entities/task'
 import type { CreateTaskInput, TaskPriorityValue } from '@/entities/task'
 import { resolveTextInput } from '@/shared/utils'
@@ -42,7 +42,7 @@ export const taskCreateCommand = new Command('task:create')
             return
         }
 
-        const projectId = projectOfficeContextProvider.getProjectId()
+        const projectId = selectedProjectContext.getProjectId()
 
         const input: CreateTaskInput = {
             name: options.name,

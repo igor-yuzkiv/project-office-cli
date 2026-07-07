@@ -1,6 +1,6 @@
 import { Command } from 'commander'
 
-import { projectOfficeContextProvider } from '@/shared/libs/project-office'
+import { selectedProjectContext } from '@/shared/libs/project-office'
 import { fetchTaskRequest, renderTaskAsMarkdown } from '@/entities/task'
 import { renderJson, type CliOutputFormat } from '@/shared/libs/output'
 import { DEFAULT_OUTPUT_FORMAT } from '@/shared/config'
@@ -15,7 +15,7 @@ export const taskViewCommand = new Command('task:view')
     .requiredOption('-t, --task <task>', 'Task ULID or key')
     .option('-f, --format <format>', 'Output format (json|markdown)', DEFAULT_OUTPUT_FORMAT)
     .action(async (options: TaskViewCommandOptions) => {
-        const projectId = projectOfficeContextProvider.getProjectId()
+        const projectId = selectedProjectContext.getProjectId()
 
         const response = await fetchTaskRequest(projectId, options.task)
 

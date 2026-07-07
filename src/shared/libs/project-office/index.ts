@@ -1,2 +1,3 @@
-export * from '@/shared/libs/project-office/project-office-context.type'
-export * from '@/shared/libs/project-office/project-office-context.provider'
+export * from '@/shared/libs/project-office/types'
+export * from '@/shared/libs/project-office/selected-project-context'
+export * from '@/shared/libs/project-office/projects-register'

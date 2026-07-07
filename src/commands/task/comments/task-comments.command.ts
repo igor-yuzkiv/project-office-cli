@@ -1,6 +1,6 @@
 import { Command } from 'commander'
 
-import { projectOfficeContextProvider } from '@/shared/libs/project-office'
+import { selectedProjectContext } from '@/shared/libs/project-office'
 import { fetchTaskCommentsRequest, renderTaskCommentsAsMarkdown } from '@/entities/task'
 import type { PagingParams } from '@/shared/types'
 import { renderJson, type CliOutputFormat } from '@/shared/libs/output'
@@ -20,7 +20,7 @@ export const taskCommentsCommand = new Command('task:comments')
     .option('--page <page>', 'Page number')
     .option('--per-page <perPage>', 'Items per page')
     .action(async (options: TaskCommentsCommandOptions) => {
-        const projectId = projectOfficeContextProvider.getProjectId()
+        const projectId = selectedProjectContext.getProjectId()
 
         const params: PagingParams = {
             page: options.page ? Number(options.page) : undefined,

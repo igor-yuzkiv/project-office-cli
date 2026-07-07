@@ -1,5 +1,8 @@
-export const PROJECT_REPO_CONTEXT_DIR = '.project-office'
-export const PROJECT_REPO_SETTINGS_FILE = 'settings.json'
+import { join } from 'node:path'
 
-export const PROJECT_OFFICE_CONTEXT_DIR = '.project-office'
-export const PROJECT_OFFICE_SETTINGS_FILE = 'settings.json'
+import { SETTINGS_DIR } from '@/shared/config/cli-settings.config'
+
+export const PROJECT_OFFICE_REPO_DIR = '.project-office'
+export const PROJECT_OFFICE_REPO_SETTINGS_FILE = 'repo-settings.json'
+
+export const PROJECT_OFFICE_PROJECTS_CACHE_DIR = join(SETTINGS_DIR, 'projects')

@@ -1,6 +1,6 @@
 import { Command } from 'commander'
 
-import { projectOfficeContextProvider } from '@/shared/libs/project-office'
+import { selectedProjectContext } from '@/shared/libs/project-office'
 import { createTaskCommentsRequest, renderCreatedTaskCommentsAsMarkdown } from '@/entities/task'
 import type { CreateTaskCommentsInput } from '@/entities/task'
 import { resolveTextInput } from '@/shared/utils'
@@ -19,7 +19,7 @@ export const taskCommentAddCommand = new Command('task:comment-add')
     .requiredOption('--content <content>', 'Comment content (inline, @file, or - for stdin)')
     .option('-f, --format <format>', 'Output format (json|markdown)', DEFAULT_OUTPUT_FORMAT)
     .action(async (options: TaskCommentAddCommandOptions) => {
-        const projectId = projectOfficeContextProvider.getProjectId()
+        const projectId = selectedProjectContext.getProjectId()
 
         const content = await resolveTextInput(options.content)
         const input: CreateTaskCommentsInput = { comments: [{ content }] }
