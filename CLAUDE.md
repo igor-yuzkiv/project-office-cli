@@ -63,5 +63,6 @@ After changing source, verify with:
 - `architecture.md` — structure, entities/commands/shared, entity API, exports (scoped to `src/**`).
 - `conventions.md` — file naming, code style, CLI command/option style (scoped to `src/**`).
 - `configuration.md` — global runtime configuration; no project-level magic values in code (scoped to env/config files and `src/**`).
+- `instructions.md` — keeping agent-facing `instructions` content in sync when commands change (scoped to `src/commands/**`).
 - `development-workflow.md` — the task workflow and how to approach changes (always loaded).
 - `review-gate.md` — review gate for assembled artifacts needing approval (always loaded).
