@@ -10,7 +10,9 @@ configuration it depends on, see [Configuration](../configuration.md).
 
 1. creates the per-user settings folder,
 2. runs an interactive setup flow to collect settings,
-3. writes them to the settings file.
+3. writes them to the settings file,
+4. creates the local project cache directory used by
+   [`project:connect`](./project-connect.md) / [`project:link-repo`](./project-link-repo.md).
 
 ## Usage
 
@@ -36,12 +38,15 @@ prompt. There is no `reinstall` / `reset` / `update` flow yet — once installed
    echoed. See [Configuration](../configuration.md#cli-settings) for the full list.
 4. **Persist.** The settings folder is created (lazily, at write time) and the settings
    file is written with permissions `0600`.
-5. **Confirm.** On success the command prints `Project Office CLI installed.`
+5. **Create the project cache directory.** `~/.project-office-cache/projects/` is created
+   (see [Project Office context](../project-office-context.md)) — installing does **not**
+   link any repo to a project; run [`project:link-repo`](./project-link-repo.md) afterward.
+6. **Confirm.** On success the command prints `Project Office CLI installed.`
 
 ## Exit codes
 
-| Situation | Exit code |
-| --- | --- |
-| Successful install | `0` |
-| Missing required backend env var(s) | non-zero |
-| Already installed | non-zero |
+| Situation                           | Exit code |
+| ----------------------------------- | --------- |
+| Successful install                  | `0`       |
+| Missing required backend env var(s) | non-zero  |
+| Already installed                   | non-zero  |
