@@ -60,9 +60,6 @@ After changing source, verify with:
 
 ## Project rules
 
-Rule files in `.claude/rules/` are **loaded automatically** by Claude Code — they are not
-`@`-imported here (that would load them twice). For reference:
-
 - `architecture.md` — structure, entities/commands/shared, entity API, exports (scoped to `src/**`).
 - `conventions.md` — file naming, code style, CLI command/option style (scoped to `src/**`).
 - `configuration.md` — global runtime configuration; no project-level magic values in code (scoped to env/config files and `src/**`).
