@@ -28,8 +28,8 @@ them.
 // entities/task/api/task.api.ts
 import { httpClient } from '@/shared/libs/http'
 
-export async function fetchTasksRequest(): Promise<Task[]> {
-    return httpClient.get<Task[]>('/tasks').then((res) => res.data)
+export async function fetchTaskRequest(projectId: string, taskId: string): Promise<TaskResponse> {
+    return httpClient.get<TaskResponse>(`projects/${projectId}/tasks/${taskId}`).then((res) => res.data)
 }
 ```
 
@@ -67,17 +67,20 @@ never loaded) is not wrapped — it passes through unchanged. Only HTTP/axios fa
 `src/shared/config/exit-codes.config.ts` defines `ExitCode`, and `mapAxiosErrorToHttpError`
 maps every response status to one:
 
-| Status | `ExitCode` |
-| --- | --- |
-| `401` | `Unauthenticated` |
-| `403` | `Forbidden` |
-| `404` | `NotFound` |
-| `409` | `Conflict` |
-| `400`, `422` | `GenericError` |
-| `5xx` | `BackendUnavailable` |
+| Status                        | `ExitCode`           |
+| ----------------------------- | -------------------- |
+| `401`                         | `Unauthenticated`    |
+| `403`                         | `Forbidden`          |
+| `404`                         | `NotFound`           |
+| `409`                         | `Conflict`           |
+| `400`, `422`                  | `GenericError`       |
+| `5xx`                         | `BackendUnavailable` |
 | no response (network/timeout) | `BackendUnavailable` |
-| anything else | `GenericError` |
+| anything else                 | `GenericError`       |
 
-`HttpError.exitCode` is not yet read anywhere to set `process.exitCode` — no command
-consumes `httpClient` yet. The first command that does should read `.exitCode` off a caught
-`HttpError` and assign it to `process.exitCode`.
+Every read/write command consumes `httpClient` indirectly through an entity `api/` function
+(e.g. `fetchTaskRequest`, `createTaskRequest`). None of them currently catch a rejected
+`HttpError` to map `.exitCode` onto `process.exitCode` — an unhandled backend failure today
+surfaces as an uncaught rejection instead of a mapped exit code. The first command that adds
+that handling should read `.exitCode` off a caught `HttpError` and assign it to
+`process.exitCode`.

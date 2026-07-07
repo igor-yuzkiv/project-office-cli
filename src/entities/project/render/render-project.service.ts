@@ -1,6 +1,7 @@
 import { renderMarkdown } from '@/shared/libs/output'
 import type { MarkdownProperties } from '@/shared/libs/output'
 import type { Project } from '@/entities/project/types'
+import type { ProjectRepositoryDefinition } from '@/shared/libs/project-office'
 
 function buildProjectProperties(project: Project): MarkdownProperties {
     return {
@@ -14,10 +15,16 @@ function buildProjectProperties(project: Project): MarkdownProperties {
     }
 }
 
-function buildProjectContent(project: Project): string {
-    return `# ${project.name}\n\n${project.description ?? ''}`
+function buildProjectContent(project: Project, repos: ProjectRepositoryDefinition[]): string {
+    const base = `# ${project.name}\n\n${project.description ?? ''}`
+    if (repos.length === 0) {
+        return base
+    }
+
+    const reposList = repos.map((repo) => `- ${repo.name} (${repo.path})`).join('\n')
+    return `${base}\n\n## Repositories\n\n${reposList}`
 }
 
-export function renderProjectAsMarkdown(project: Project): string {
-    return renderMarkdown(buildProjectContent(project), buildProjectProperties(project))
+export function renderProjectAsMarkdown(project: Project, repos: ProjectRepositoryDefinition[] = []): string {
+    return renderMarkdown(buildProjectContent(project, repos), buildProjectProperties(project))
 }

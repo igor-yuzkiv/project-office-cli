@@ -6,9 +6,9 @@ The CLI has two separate configuration concerns, kept intentionally apart:
    points the CLI at a backend and controls where it stores data. Lives in `.env`, read
    through `Bun.env`.
 2. **[CLI settings](#cli-settings)** — per-user data the CLI collects and stores. Lives in
-   `settings.json`, collected by the [install command](commands/install-command.md).
+   `settings.json`, collected by the [install command](commands/install.md).
 
-Environment is *how the CLI is deployed*; CLI settings are *the user's own runtime data*.
+Environment is _how the CLI is deployed_; CLI settings are _the user's own runtime data_.
 They are not mixed.
 
 ---
@@ -21,19 +21,19 @@ names are `UPPER_SNAKE_CASE`. Every variable is documented in the committed `.en
 and typed in `src/env.d.ts`; adding or removing one means updating both in the same change.
 `.env` holds real local values and is git-ignored.
 
-| Variable | Required | Default | Purpose |
-| --- | --- | --- | --- |
-| `BACKEND_BASE_URL` | yes | — | Backend base URL; used for the token-creation link. |
-| `BACKEND_USER_PROFILE_PATH` | yes | — | User-profile path appended to the base URL for the token-creation link. |
-| `API_BASE_URL` | yes | — | Backend API base URL used by the [HTTP client](./http-client.md) for all CLI requests. |
-| `PROJECT_OFFICE_CACHE_DIR` | no | `.project-office-cache` | Settings directory name under the user's home. |
-| `PROJECT_OFFICE_SETTINGS_FILE` | no | `settings.json` | Settings file name inside the settings directory. |
+| Variable                       | Required | Default                 | Purpose                                                                                |
+| ------------------------------ | -------- | ----------------------- | -------------------------------------------------------------------------------------- |
+| `BACKEND_BASE_URL`             | yes      | —                       | Backend base URL; used for the token-creation link.                                    |
+| `BACKEND_USER_PROFILE_PATH`    | yes      | —                       | User-profile path appended to the base URL for the token-creation link.                |
+| `API_BASE_URL`                 | yes      | —                       | Backend API base URL used by the [HTTP client](./http-client.md) for all CLI requests. |
+| `PROJECT_OFFICE_CACHE_DIR`     | no       | `.project-office-cache` | Settings directory name under the user's home.                                         |
+| `PROJECT_OFFICE_SETTINGS_FILE` | no       | `settings.json`         | Settings file name inside the settings directory.                                      |
 
 ---
 
 ## CLI settings
 
-Per-user settings the CLI collects during [install](commands/install-command.md) and stores in
+Per-user settings the CLI collects during [install](commands/install.md) and stores in
 `settings.json`. For the MVP they hold a single global `apiToken` used to authorize backend
 API requests (global across all projects for now). The
 [available settings](#available-settings) section grows as new settings are added.
@@ -51,10 +51,10 @@ the final shape of the settings file. Current shape:
 
 ### Storage
 
-| What | Path (default) |
-| --- | --- |
-| Settings directory | `~/.project-office-cache/` |
-| Settings file | `~/.project-office-cache/settings.json` |
+| What               | Path (default)                          |
+| ------------------ | --------------------------------------- |
+| Settings directory | `~/.project-office-cache/`              |
+| Settings file      | `~/.project-office-cache/settings.json` |
 
 The directory and file names come from the environment variables `PROJECT_OFFICE_CACHE_DIR`
 and `PROJECT_OFFICE_SETTINGS_FILE` (see [Environment configuration](#environment-configuration)).
@@ -91,20 +91,20 @@ All under `src/shared/libs/settings/`:
   the filesystem.
 - **`cliSettingsProvider`** (`cli-settings.provider.ts`) — singleton that owns settings
   persistence and access:
-  - `save(settings)` — creates the directory if needed and writes the settings file
-    (`0600`, pretty JSON).
-  - `load()` — reads and validates the settings file; throws a clear error when the file is
-    missing, corrupt, or missing a valid `apiToken`.
-  - `bootstrap()` — a quiet startup variant: runs `load()` but, instead of throwing, prints
-    the error and returns `null`, so CLI startup never halts on a missing/unreadable config.
-  - `get(key)` — returns a single setting value by key.
-  - `getAll()` — returns the whole `CliSettings` object.
+    - `save(settings)` — creates the directory if needed and writes the settings file
+      (`0600`, pretty JSON).
+    - `load()` — reads and validates the settings file; throws a clear error when the file is
+      missing, corrupt, or missing a valid `apiToken`.
+    - `bootstrap()` — a quiet startup variant: runs `load()` but, instead of throwing, prints
+      the error and returns `null`, so CLI startup never halts on a missing/unreadable config.
+    - `get(key)` — returns a single setting value by key.
+    - `getAll()` — returns the whole `CliSettings` object.
 
-  `get`/`getAll` require settings to have been loaded first. `src/index.ts` calls
-  `bootstrap()` once before any command runs, so settings are already loaded (or
-  known-missing) by the time a command's action executes. A command that requires
-  settings to be present should call `load()` itself when it needs a hard failure
-  instead of a silently missing value.
+    `get`/`getAll` require settings to have been loaded first. `src/index.ts` calls
+    `bootstrap()` once before any command runs, so settings are already loaded (or
+    known-missing) by the time a command's action executes. A command that requires
+    settings to be present should call `load()` itself when it needs a hard failure
+    instead of a silently missing value.
 
 ### Adding a new setting
 

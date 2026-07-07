@@ -15,14 +15,14 @@ project-office task:list --include project,tags
 
 ## Options
 
-| Option | Default | Purpose |
-| --- | --- | --- |
-| `-f, --format <format>` | `markdown` | `json` or `markdown`. See [Output rendering](../output-rendering.md). |
-| `--page <page>` | backend default | Page number. |
-| `--per-page <perPage>` | backend default | Items per page (backend enforces no upper bound for `list`). |
-| `--sort-by <field>` | `updated_at` (backend default) | Field to sort by. |
-| `--sort-order <order>` | `desc` (backend default) | `asc` or `desc`. |
-| `--include <fields>` | — | Comma-separated `TaskInclude` values (`project`, `taskList`, `createdBy`, `updatedBy`, `tags`). |
+| Option                  | Default                        | Purpose                                                                                         |
+| ----------------------- | ------------------------------ | ----------------------------------------------------------------------------------------------- |
+| `-f, --format <format>` | `markdown`                     | `json` or `markdown`. See [Output rendering](../output-rendering.md).                           |
+| `--page <page>`         | backend default                | Page number.                                                                                    |
+| `--per-page <perPage>`  | backend default                | Items per page (backend enforces no upper bound for `list`).                                    |
+| `--sort-by <field>`     | `updated_at` (backend default) | Field to sort by.                                                                               |
+| `--sort-order <order>`  | `desc` (backend default)       | `asc` or `desc`.                                                                                |
+| `--include <fields>`    | —                              | Comma-separated `TaskInclude` values (`project`, `taskList`, `createdBy`, `updatedBy`, `tags`). |
 
 ## Output
 

@@ -1,4 +1,4 @@
-# Install command
+# `install`
 
 How `project-office install` works. This is the one-time local setup for the CLI. For the
 settings it collects and stores (contract, storage, provider API) and the environment

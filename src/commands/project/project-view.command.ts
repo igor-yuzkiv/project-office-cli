@@ -1,6 +1,6 @@
 import { Command } from 'commander'
 
-import { selectedProjectContext } from '@/shared/libs/project-office'
+import { selectedProjectContext, projectsRegister } from '@/shared/libs/project-office'
 import { fetchProjectRequest, renderProjectAsMarkdown } from '@/entities/project'
 import type { ProjectInclude } from '@/entities/project'
 import { renderJson, type CliOutputFormat } from '@/shared/libs/output'
@@ -21,10 +21,13 @@ export const projectViewCommand = new Command('project:view')
         const include = options.include?.split(',') as ProjectInclude[] | undefined
         const response = await fetchProjectRequest(projectId, { include })
 
+        const cache = await projectsRegister.getProjectRecord(projectId)
+        const repos = cache?.repos ?? []
+
         if (options.format === 'markdown') {
-            console.log(renderProjectAsMarkdown(response.data))
+            console.log(renderProjectAsMarkdown(response.data, repos))
             return
         }
 
-        console.log(renderJson(response.data))
+        console.log(renderJson({ ...response.data, repos }))
     })
