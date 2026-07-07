@@ -1,1 +1,2 @@
-export * from '@/entities/user/types/user.type'
+export * from '@/entities/user/types'
+export * from '@/entities/user/api'

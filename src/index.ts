@@ -16,6 +16,7 @@ import {
     taskCommentUpdateCommand,
 } from '@/commands/task'
 import { instructionsCommand } from '@/commands/instructions'
+import { statusCommand } from '@/commands/status'
 
 await cliSettingsProvider.bootstrap()
 await selectedProjectContext.bootstrap()
@@ -38,5 +39,6 @@ program.addCommand(taskUpdateCommand)
 program.addCommand(taskCommentAddCommand)
 program.addCommand(taskCommentUpdateCommand)
 program.addCommand(instructionsCommand)
+program.addCommand(statusCommand)
 
 await program.parseAsync()

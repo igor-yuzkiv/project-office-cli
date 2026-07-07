@@ -4,6 +4,14 @@
 Project Office data. Use it instead of direct database access, backend API calls, or
 filesystem shortcuts — those are not available to you and should never be attempted.
 
+## Start here
+
+Before anything else, run `project-office status`. It never fails — it reports whether the
+CLI is installed, the current repo is linked to a project, and the backend is reachable, all
+in one structured, non-throwing call. Use it instead of manually checking for
+`repo-settings.json` or guessing why another command failed. See
+`project-office instructions status`.
+
 ## Scope
 
 Every command operates inside a single, already-resolved Project Office project. The project

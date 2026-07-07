@@ -40,4 +40,4 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 .omc
 /bun.lock
 
-/.project-office
+/.project-office/repo-settings.json

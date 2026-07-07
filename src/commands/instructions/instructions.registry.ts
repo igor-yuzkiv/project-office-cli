@@ -1,4 +1,5 @@
 import overview from '@/commands/instructions/content/overview.md' with { type: 'text' }
+import status from '@/commands/instructions/content/status.md' with { type: 'text' }
 import projectView from '@/commands/instructions/content/project-view.md' with { type: 'text' }
 import projectConnect from '@/commands/instructions/content/project-connect.md' with { type: 'text' }
 import projectLinkRepo from '@/commands/instructions/content/project-link-repo.md' with { type: 'text' }
@@ -16,6 +17,7 @@ import debug from '@/commands/instructions/content/debug.md' with { type: 'text'
 export const instructionsOverview = overview
 
 export const instructionsRegistry: Record<string, string> = {
+    status: status,
     'project:view': projectView,
     'project:connect': projectConnect,
     'project:link-repo': projectLinkRepo,

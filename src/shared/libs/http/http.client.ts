@@ -3,9 +3,10 @@ import axios from 'axios'
 import { cliSettingsProvider } from '@/shared/libs/settings'
 import { mapAxiosErrorToHttpError } from '@/shared/libs/http/http.error'
 
-const httpClient = axios.create({ baseURL: Bun.env.API_BASE_URL })
+const httpClient = axios.create()
 
 httpClient.interceptors.request.use((config) => {
+    config.baseURL = cliSettingsProvider.get('apiBaseUrl')
     config.headers.Authorization = `Bearer ${cliSettingsProvider.get('apiToken')}`
     return config
 })

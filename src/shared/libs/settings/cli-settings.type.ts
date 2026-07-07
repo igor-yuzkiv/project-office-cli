@@ -1,4 +1,7 @@
 export interface CliSettings {
+    backendBaseUrl: string
+    backendUserProfilePath: string
+    apiBaseUrl: string
     apiToken: string
 }
 

@@ -37,9 +37,16 @@ class CliSettingsProvider {
         }
 
         const settings = parsed as CliSettings
-        if (typeof settings.apiToken !== 'string' || settings.apiToken.length === 0) {
+        const requiredKeys: (keyof CliSettings)[] = [
+            'backendBaseUrl',
+            'backendUserProfilePath',
+            'apiBaseUrl',
+            'apiToken',
+        ]
+        const missingKey = requiredKeys.find((key) => typeof settings[key] !== 'string' || settings[key].length === 0)
+        if (missingKey) {
             throw new Error(
-                `${SETTINGS_FILE} is missing a valid apiToken. Try running \`project-office install\` again.`
+                `${SETTINGS_FILE} is missing a valid "${missingKey}". Try running \`project-office install\` again.`
             )
         }
 
