@@ -1,7 +1,7 @@
 import { Command } from 'commander'
 import { projectOfficeContextProvider } from '@/shared/libs/project-office'
 import { fetchProjectRequest } from '@/entities/project'
-import type { CliOutputFormat } from '@/shared/types/output.type.ts'
+import type { CliOutputFormat } from '@/shared/libs/output'
 
 type ProjectShowCommandOptions = {
     format?: CliOutputFormat
@@ -17,7 +17,7 @@ export const projectShowCommand = new Command('project:show')
 
         if (options.format === 'markdown') {
             console.warn('not implemented yet')
-            return;
+            return
         }
 
         console.log(JSON.stringify(response.data, null, 2))
