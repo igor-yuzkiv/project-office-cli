@@ -1,15 +1,28 @@
 import type { MarkdownProperties, MarkdownPropertyValue } from '@/shared/libs/output/output.type'
 
-function renderPropertyValue(value: MarkdownPropertyValue): string {
+function quoteScalar(value: string | number | boolean): string {
+    return `"${String(value).replace(/"/g, '\\"')}"`
+}
+
+function renderPropertyLine(key: string, value: MarkdownPropertyValue): string {
     if (Array.isArray(value)) {
-        return `[${value.join(', ')}]`
+        if (value.length === 0) {
+            return `${key}: null`
+        }
+
+        const items = value.map((item) => `  - ${item}`)
+        return `${key}:\n${items.join('\n')}`
     }
 
-    return String(value)
+    if (value === null) {
+        return `${key}: null`
+    }
+
+    return `${key}: ${quoteScalar(value)}`
 }
 
 function renderFrontmatter(properties: MarkdownProperties): string {
-    const lines = Object.entries(properties).map(([key, value]) => `${key}: ${renderPropertyValue(value)}`)
+    const lines = Object.entries(properties).map(([key, value]) => renderPropertyLine(key, value))
 
     return `---\n${lines.join('\n')}\n---`
 }

@@ -1,6 +1,7 @@
 import { renderMarkdown } from '@/shared/libs/output'
 import type { MarkdownProperties } from '@/shared/libs/output'
-import type { Task } from '@/entities/task/types'
+import type { PaginatedResponse } from '@/shared/types'
+import type { Task, TaskOverview } from '@/entities/task/types'
 
 function buildTaskProperties(task: Task): MarkdownProperties {
     return {
@@ -23,4 +24,20 @@ function buildTaskContent(task: Task): string {
 
 export function renderTaskAsMarkdown(task: Task): string {
     return renderMarkdown(buildTaskContent(task), buildTaskProperties(task))
+}
+
+function buildTaskListProperties(response: PaginatedResponse<TaskOverview>): MarkdownProperties {
+    return {
+        total: response.meta.total,
+        page: response.meta.current_page,
+        per_page: response.meta.per_page,
+    }
+}
+
+function buildTaskListContent(tasks: TaskOverview[]): string {
+    return tasks.map((task, index) => `${index + 1}. ${task.name}`).join('\n')
+}
+
+export function renderTaskListAsMarkdown(response: PaginatedResponse<TaskOverview>): string {
+    return renderMarkdown(buildTaskListContent(response.data), buildTaskListProperties(response))
 }

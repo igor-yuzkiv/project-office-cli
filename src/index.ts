@@ -4,7 +4,8 @@ import { debugCommand } from '@/commands/debug'
 import { installCommand } from '@/commands/install'
 import { cliSettingsProvider } from '@/shared/libs/settings'
 import { projectOfficeContextProvider } from '@/shared/libs/project-office'
-import { projectShowCommand } from '@/commands/project/project-show.command.ts'
+import { projectViewCommand } from '@/commands/project'
+import { taskListCommand, taskSearchCommand, taskViewCommand, taskCommentsCommand } from '@/commands/task'
 
 await cliSettingsProvider.bootstrap()
 await projectOfficeContextProvider.bootstrap()
@@ -15,6 +16,10 @@ program.name('project-office').description('Agent-facing CLI for the Project Off
 
 program.addCommand(debugCommand)
 program.addCommand(installCommand)
-program.addCommand(projectShowCommand)
+program.addCommand(projectViewCommand)
+program.addCommand(taskListCommand)
+program.addCommand(taskSearchCommand)
+program.addCommand(taskViewCommand)
+program.addCommand(taskCommentsCommand)
 
 await program.parseAsync()
