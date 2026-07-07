@@ -6,6 +6,7 @@ import { cliSettingsProvider } from '@/shared/libs/settings'
 import { projectOfficeContextProvider } from '@/shared/libs/project-office'
 import { projectViewCommand } from '@/commands/project'
 import { taskListCommand, taskSearchCommand, taskViewCommand, taskCommentsCommand } from '@/commands/task'
+import { instructionsCommand } from '@/commands/instructions'
 
 await cliSettingsProvider.bootstrap()
 await projectOfficeContextProvider.bootstrap()
@@ -21,5 +22,6 @@ program.addCommand(taskListCommand)
 program.addCommand(taskSearchCommand)
 program.addCommand(taskViewCommand)
 program.addCommand(taskCommentsCommand)
+program.addCommand(instructionsCommand)
 
 await program.parseAsync()
