@@ -20,3 +20,24 @@ function buildTaskCommentsContent(comments: TaskComment[]): string {
 export function renderTaskCommentsAsMarkdown(response: PaginatedResponse<TaskComment>): string {
     return renderMarkdown(buildTaskCommentsContent(response.data), buildTaskCommentsProperties(response))
 }
+
+function buildCommentProperties(comment: TaskComment): MarkdownProperties {
+    return {
+        id: comment.id,
+        author: comment.author.name,
+        created_at: comment.created_at,
+        updated_at: comment.updated_at,
+    }
+}
+
+export function renderTaskCommentAsMarkdown(comment: TaskComment): string {
+    return renderMarkdown(comment.content, buildCommentProperties(comment))
+}
+
+function buildCreatedCommentsProperties(comments: TaskComment[]): MarkdownProperties {
+    return { count: comments.length }
+}
+
+export function renderCreatedTaskCommentsAsMarkdown(comments: TaskComment[]): string {
+    return renderMarkdown(buildTaskCommentsContent(comments), buildCreatedCommentsProperties(comments))
+}

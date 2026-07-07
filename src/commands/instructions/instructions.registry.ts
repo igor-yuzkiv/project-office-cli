@@ -4,6 +4,10 @@ import taskList from '@/commands/instructions/content/task-list.md' with { type:
 import taskSearch from '@/commands/instructions/content/task-search.md' with { type: 'text' }
 import taskView from '@/commands/instructions/content/task-view.md' with { type: 'text' }
 import taskComments from '@/commands/instructions/content/task-comments.md' with { type: 'text' }
+import taskCreate from '@/commands/instructions/content/task-create.md' with { type: 'text' }
+import taskUpdate from '@/commands/instructions/content/task-update.md' with { type: 'text' }
+import taskCommentAdd from '@/commands/instructions/content/task-comment-add.md' with { type: 'text' }
+import taskCommentUpdate from '@/commands/instructions/content/task-comment-update.md' with { type: 'text' }
 import install from '@/commands/instructions/content/install.md' with { type: 'text' }
 import debug from '@/commands/instructions/content/debug.md' with { type: 'text' }
 
@@ -15,6 +19,10 @@ export const instructionsRegistry: Record<string, string> = {
     'task:search': taskSearch,
     'task:view': taskView,
     'task:comments': taskComments,
+    'task:create': taskCreate,
+    'task:update': taskUpdate,
+    'task:comment-add': taskCommentAdd,
+    'task:comment-update': taskCommentUpdate,
     install: install,
     debug: debug,
 }

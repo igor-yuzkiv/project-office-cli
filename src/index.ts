@@ -5,7 +5,16 @@ import { installCommand } from '@/commands/install'
 import { cliSettingsProvider } from '@/shared/libs/settings'
 import { projectOfficeContextProvider } from '@/shared/libs/project-office'
 import { projectViewCommand } from '@/commands/project'
-import { taskListCommand, taskSearchCommand, taskViewCommand, taskCommentsCommand } from '@/commands/task'
+import {
+    taskListCommand,
+    taskSearchCommand,
+    taskViewCommand,
+    taskCommentsCommand,
+    taskCreateCommand,
+    taskUpdateCommand,
+    taskCommentAddCommand,
+    taskCommentUpdateCommand,
+} from '@/commands/task'
 import { instructionsCommand } from '@/commands/instructions'
 
 await cliSettingsProvider.bootstrap()
@@ -22,6 +31,10 @@ program.addCommand(taskListCommand)
 program.addCommand(taskSearchCommand)
 program.addCommand(taskViewCommand)
 program.addCommand(taskCommentsCommand)
+program.addCommand(taskCreateCommand)
+program.addCommand(taskUpdateCommand)
+program.addCommand(taskCommentAddCommand)
+program.addCommand(taskCommentUpdateCommand)
 program.addCommand(instructionsCommand)
 
 await program.parseAsync()
