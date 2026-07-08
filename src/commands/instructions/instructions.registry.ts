@@ -12,7 +12,6 @@ import taskUpdate from '@/commands/instructions/content/task-update.md' with { t
 import taskCommentAdd from '@/commands/instructions/content/task-comment-add.md' with { type: 'text' }
 import taskCommentUpdate from '@/commands/instructions/content/task-comment-update.md' with { type: 'text' }
 import install from '@/commands/instructions/content/install.md' with { type: 'text' }
-import debug from '@/commands/instructions/content/debug.md' with { type: 'text' }
 
 export const instructionsOverview = overview
 
@@ -29,6 +28,5 @@ export const instructionsRegistry: Record<string, string> = {
     'task:update': taskUpdate,
     'task:comment-add': taskCommentAdd,
     'task:comment-update': taskCommentUpdate,
-    install: install,
-    debug: debug,
+    install: install
 }
