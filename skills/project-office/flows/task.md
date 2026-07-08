@@ -44,9 +44,8 @@ task `description`.
 ## Policies
 
 - **Name the target repo** (absolute path) in the task `description` — the backend task has no
-  repo field. The current repo's path/name are in its `.project-office/repo-settings.json`;
-  sibling repos on the same project are listed by `project:view` (from the local cache — see
-  `references/office-cli.md` §"Local artifacts").
+  repo field. The current repo and the other repos linked to the project are listed by
+  `project-office project:view` (the current one is marked `(this repo)`).
 - **Ground claims; never invent** requirements — keep open questions visible as a task comment
   (`task:comment-add`), not as invented description text.
 - The access invariants (CLI-only, marker ownership) are in `SKILL.md` — they apply here.

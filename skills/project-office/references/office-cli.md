@@ -52,7 +52,7 @@ session, read its instructions: `project-office instructions <command>`.
 | Operation | Command |
 | --- | --- |
 | Preflight readiness | `project-office status` |
-| View the project (+ linked repos) | `project-office project:view` |
+| View the project (+ current and linked repos) | `project-office project:view` |
 | List tasks | `project-office task:list` |
 | View one task | `project-office task:view --task TASK-1` |
 | Read a task's comments | `project-office task:comments --task TASK-1` |

@@ -26,6 +26,7 @@ project-office project:connect --project 01k... --format json
 
 ## Output
 
-Same shape as `project:view`: `markdown` (default) renders the fetched project through
-`renderProjectAsMarkdown`; `json` returns the project object (not wrapped in a `data`
-envelope).
+- `markdown` (default): the fetched project — frontmatter with `id, prefix, status,
+start_date, end_date, tags, created_at, updated_at`, then `# {name}` and the description.
+  Unlike `project:view`, no repository sections — this command runs outside any repo context.
+- `json`: the project object only (not wrapped in a `data` envelope, no `current_repo`/`repos`).

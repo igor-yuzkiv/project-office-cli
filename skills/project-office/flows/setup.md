@@ -53,9 +53,10 @@ path.
 
 1. **Seed the per-repo AGENTS.md.** Copy `templates/repo-agents.md` →
    `<repo>/.project-office/AGENTS.md`, filling in `<project_name>` / `<projectId>` (read them back
-   from `project:view`). If it already exists, replace only the block between
-   `<!-- project-office:managed:start -->` and `:end` (refresh the general rules) and leave the
-   user's own sections untouched.
+   from `project-office project:view` — `id` is in the frontmatter, the name is the `#` heading).
+   If it already exists, replace only the block between `<!-- project-office:managed:start -->`
+   and `<!-- project-office:managed:end -->` (refresh the general rules) and leave the user's own
+   sections untouched.
 2. **Offer Claude Code discovery** (`AskUserQuestion`): import the repo's office rules from
    `CLAUDE.md` or `CLAUDE.local.md` so Claude Code loads them at session start instead of relying
    on the model to notice a pointer. Options: **CLAUDE.md** (committed, shared),

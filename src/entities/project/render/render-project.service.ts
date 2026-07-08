@@ -5,6 +5,7 @@ import type { ProjectRepositoryDefinition } from '@/shared/libs/project-office'
 
 function buildProjectProperties(project: Project): MarkdownProperties {
     return {
+        id: project.id,
         prefix: project.prefix,
         status: project.status,
         start_date: project.start_date,
@@ -15,16 +16,31 @@ function buildProjectProperties(project: Project): MarkdownProperties {
     }
 }
 
-function buildProjectContent(project: Project, repos: ProjectRepositoryDefinition[]): string {
-    const base = `# ${project.name}\n\n${project.description ?? ''}`
-    if (repos.length === 0) {
-        return base
+function buildProjectContent(
+    project: Project,
+    repos: ProjectRepositoryDefinition[],
+    currentRepo?: ProjectRepositoryDefinition
+): string {
+    let content = `# ${project.name}\n\n${project.description ?? ''}`
+
+    if (currentRepo) {
+        content += `\n\n## Current repository\n\n- ${currentRepo.name} (${currentRepo.path})`
     }
 
-    const reposList = repos.map((repo) => `- ${repo.name} (${repo.path})`).join('\n')
-    return `${base}\n\n## Repositories\n\n${reposList}`
+    if (repos.length > 0) {
+        const reposList = repos
+            .map((repo) => `- ${repo.name} (${repo.path})${repo.path === currentRepo?.path ? ' (this repo)' : ''}`)
+            .join('\n')
+        content += `\n\n## Repositories\n\n${reposList}`
+    }
+
+    return content
 }
 
-export function renderProjectAsMarkdown(project: Project, repos: ProjectRepositoryDefinition[] = []): string {
-    return renderMarkdown(buildProjectContent(project, repos), buildProjectProperties(project))
+export function renderProjectAsMarkdown(
+    project: Project,
+    repos: ProjectRepositoryDefinition[] = [],
+    currentRepo?: ProjectRepositoryDefinition
+): string {
+    return renderMarkdown(buildProjectContent(project, repos, currentRepo), buildProjectProperties(project))
 }

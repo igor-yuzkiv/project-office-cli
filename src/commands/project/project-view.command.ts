@@ -17,6 +17,7 @@ export const projectViewCommand = new Command('project:view')
     .option('--include <fields>', 'Comma-separated related data to include')
     .action(async (options: ProjectViewCommandOptions) => {
         const projectId = selectedProjectContext.getProjectId()
+        const currentRepo = selectedProjectContext.getRepositorySettings()
 
         const include = options.include?.split(',') as ProjectInclude[] | undefined
         const response = await fetchProjectRequest(projectId, { include })
@@ -25,9 +26,9 @@ export const projectViewCommand = new Command('project:view')
         const repos = cache?.repos ?? []
 
         if (options.format === 'markdown') {
-            console.log(renderProjectAsMarkdown(response.data, repos))
+            console.log(renderProjectAsMarkdown(response.data, repos, currentRepo))
             return
         }
 
-        console.log(renderJson({ ...response.data, repos }))
+        console.log(renderJson({ project: response.data, current_repo: currentRepo, repos }))
     })
