@@ -37,8 +37,9 @@ The overview's command index is generated at runtime from
 Two sources exist on purpose: this `docs/` tree is for humans; the embedded content is
 tuned for an agent (purpose, exact invocation, option semantics, output shape, scope rule,
 common errors, copy-ready examples). See
-[`.claude/rules/instructions.md`](../../.claude/rules/instructions.md) — adding or changing
-a command requires keeping its embedded instruction file in sync in the same change.
+[`.claude/rules/agent-facing-upkeep.md`](../../.claude/rules/agent-facing-upkeep.md) —
+adding or changing a command requires keeping its embedded instruction file in sync in the
+same change.
 
 ## Covered commands
 

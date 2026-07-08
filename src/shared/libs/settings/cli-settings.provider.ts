@@ -21,7 +21,7 @@ class CliSettingsProvider {
         }
     }
 
-    private async readRawSettings(): Promise<Partial<CliSettings>> {
+    async readRawSettings(): Promise<Partial<CliSettings>> {
         if (!existsSync(SETTINGS_FILE)) {
             throw new Error('Project Office CLI is not installed — run `project-office install` first.')
         }

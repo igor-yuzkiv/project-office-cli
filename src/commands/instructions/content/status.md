@@ -2,8 +2,8 @@
 
 Call this **first**, before any other command, in any new session or when you're unsure
 whether the CLI is installed or the current repo is linked to a project. It never fails —
-always exits `0` — and reports readiness in fields instead of throwing, so you don't need
-`try`/`catch` around it.
+always exits `0` — and reports readiness as an ordered preflight checklist instead of
+throwing, so you don't need `try`/`catch` around it.
 
 ## Call
 
@@ -16,41 +16,36 @@ project-office status --format json
 
 - `-f, --format <json|markdown>` — optional, default `markdown`.
 
+## Checks (run in this order, every time — one check failing does not stop the rest)
+
+1. **CLI settings** — the per-user settings file exists and is valid.
+2. **Repository link** — the current repo has a valid `<repo>/.project-office/repo-settings.json`.
+3. **Server connection** — the Project Office API is reachable.
+4. **Authentication** — the CLI token is present and accepted by the server.
+5. **Project access** — the linked project actually exists on the server.
+
+A check that depends on an earlier one (e.g. Authentication needs the server to be
+reachable) reports "cannot verify …" instead of failing on its own — read its own
+`messages` for the reason.
+
 ## Output shape (`json`)
 
 ```ts
 {
-  cli:     { installed: boolean }
-  server:  { reachable: boolean, authenticated: boolean, user?: {id, name, email}, baseUrl: string, error?: string }
-  repo:    { linked: false } | { linked: true, repoRoot, settingsPath, projectId, name, description?, stack? }
-  project: <project object> | null   // only fetched when repo.linked
-  cache:   { present: boolean, repos: [...] }  // local project cache, only read when repo.linked
-  ready:   boolean       // installed && repo.linked
-  issues:  string[]      // non-fatal problems encountered while building this report
+    checks: Array<{ title: string; passed: boolean; messages: string[] }>
+    result: 'ready' | 'failed' // 'ready' only when every check passed
 }
 ```
 
-`markdown` (default): frontmatter with `installed, linked, project_id, project,
-server_reachable, server_authenticated, ready`; body is a checklist (CLI installed / repo
-linked / server reachable / server authenticated), plus an `## Issues` section when `issues`
-is non-empty.
+`markdown` (default): plain-text checklist, no frontmatter — one block per check
+(`[X]`/`[ ]` + title + indented `messages`), then a trailing `Result: ready|failed` line.
 
 ## How to use it
 
-- **`ready: false` + `cli.installed: false`** — the CLI has no local settings yet. Tell the
-  user, or run `project-office install` if you're allowed to (see
-  `project-office instructions install`).
-- **`ready: false` + `cli.installed: true` + `repo.linked: false`** — installed, but this
-  repo has no `repo-settings.json` yet. Run
-  `project-office project:link-repo --project <id> --name <repo-name>`
-  (see `project-office instructions project:link-repo`).
-- **`ready: true`** — proceed with any other command; `repo.projectId` is the project every
-  other command already resolves automatically.
-- **`server.reachable: false` or `server.authenticated: false`** — check `server.error`
-  before assuming the project/repo state is the problem; a down backend or expired token
-  looks different from "not linked".
-- **Non-empty `issues`** — something degraded (e.g. a corrupt local project cache) without
-  blocking the report; `repo`/`project` may still be valid even if an issue was recorded.
-
-`project` and `cache` are only populated when `repo.linked` is `true` — they stay
-`null`/`{present: false, repos: []}` otherwise, at no extra cost.
+- **`result: 'failed'`** — find the first failing check in `checks` and read its
+  `messages` for the reason and any remediation hint (e.g. run `project-office install`,
+  or `project-office project:link-repo --project <id> --name <repo-name>`).
+- **`result: 'ready'`** — every check passed; proceed with any other command.
+- Checks run independently and in order — a later check may say "cannot verify … because
+  the server is not reachable" when an earlier one already failed; that is expected, not a
+  bug.
