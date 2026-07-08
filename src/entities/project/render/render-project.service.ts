@@ -2,6 +2,7 @@ import { renderMarkdown } from '@/shared/libs/output'
 import type { MarkdownProperties } from '@/shared/libs/output'
 import type { Project } from '@/entities/project/types'
 import type { ProjectRepositoryDefinition } from '@/shared/libs/project-office'
+import { EMPTY_DESCRIPTION_PLACEHOLDER } from '@/shared/config'
 
 function buildProjectProperties(project: Project): MarkdownProperties {
     return {
@@ -21,7 +22,7 @@ function buildProjectContent(
     repos: ProjectRepositoryDefinition[],
     currentRepo?: ProjectRepositoryDefinition
 ): string {
-    let content = `# ${project.name}\n\n${project.description ?? ''}`
+    let content = `# ${project.name}\n\n${project.description || EMPTY_DESCRIPTION_PLACEHOLDER}`
 
     if (currentRepo) {
         content += `\n\n## Current repository\n\n- ${currentRepo.name} (${currentRepo.path})`

@@ -2,6 +2,7 @@ import { renderMarkdown } from '@/shared/libs/output'
 import type { MarkdownProperties } from '@/shared/libs/output'
 import type { PaginatedResponse } from '@/shared/types'
 import type { Task, TaskOverview } from '@/entities/task/types'
+import { EMPTY_DESCRIPTION_PLACEHOLDER } from '@/shared/config'
 
 function buildTaskProperties(task: Task): MarkdownProperties {
     return {
@@ -19,7 +20,7 @@ function buildTaskProperties(task: Task): MarkdownProperties {
 }
 
 function buildTaskContent(task: Task): string {
-    return `# ${task.name}\n\n${task.description ?? ''}`
+    return `# ${task.name}\n\n${task.description || EMPTY_DESCRIPTION_PLACEHOLDER}`
 }
 
 export function renderTaskAsMarkdown(task: Task): string {

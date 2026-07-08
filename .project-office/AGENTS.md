@@ -67,3 +67,19 @@ structure — two points: **what changed** and **how it was verified**. It has a
 takes the task for testing); that is why the structure exists here and nowhere else. No other
 metadata, tags, or type fields — the event dictates the content, and the backend has no schema
 for structure inside a comment body.
+
+### Project-specific conventions
+
+**Multi-repo project.** This Project Office project spans more than one repository:
+- `project-office-cli` (this repo) — `/var/www/task-manager/project-office-cli`
+- `mvp-task-manager` — `/var/www/task-manager/mvp-task-manager`
+
+Run `project-office project:view` to confirm the current list of linked repos and paths — it's
+the source of truth, don't hardcode this list from memory.
+
+**`repo:<name>` tags route a task to its repository.** A task tagged `repo:mvp-task-manager`
+describes work for that repo's codebase, not this one. Before starting implementation, check a
+task's tags for a `repo:*` value:
+- if it names a **different** repo than the one you're currently in, stop and tell the user —
+  switch to (or point them at) that repo's working directory before touching any code there;
+- if it names **this** repo, or there's no `repo:*` tag at all, the task belongs here.
