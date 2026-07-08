@@ -1,7 +1,8 @@
 # `task:list`
 
 Lists tasks in the current Project Office project. No query text or filtering — this is
-the only way to fetch tasks.
+the only way to fetch tasks. Tasks with status `closed` are never returned — they still
+exist, just not through this command; use `task:view` with a known key/id to fetch one.
 
 ## Call
 

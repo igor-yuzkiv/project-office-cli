@@ -32,7 +32,7 @@ command's flags and output — read those from the CLI itself with
   semantics and output shape, run `project-office instructions <command>` — prefer it over
   `--help` (which lists flags but not their meaning or the output shape). Overview:
   `project-office instructions`. Command keys:
-  `status`, `project:view`, `project:connect`, `project:link-repo`, `task:list`, `task:search`,
+  `status`, `project:view`, `project:connect`, `project:link-repo`, `task:list`,
   `task:view`, `task:create`, `task:update`, `task:comments`, `task:comment-add`,
   `task:comment-update`, `install`.
 - **Output format.** Every read command takes `-f, --format <json|markdown>` (default
@@ -94,7 +94,6 @@ below, first run `project-office instructions <command>`.
 ```bash
 project-office project:view                         # the office/project itself
 project-office task:list                             # list tasks (pagination/sort flags exist)
-project-office task:search "<query>"                 # text search across tasks
 project-office task:view --task TASK-1               # a single task (frontmatter + description)
 project-office task:comments --task TASK-1           # comments on a task
 ```

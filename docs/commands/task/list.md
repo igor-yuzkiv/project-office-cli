@@ -1,7 +1,9 @@
 # `task:list`
 
 Lists tasks in the current Project Office project (`GET tasks/list`), no query text or
-filtering — this is the only way to fetch tasks.
+filtering — this is the only way to fetch tasks. Tasks with status `closed` are excluded
+from the response (backend-side); they still exist, just not through this endpoint — use
+[`task:view`](./view.md) with a known key/id to fetch one.
 
 ## Usage
 

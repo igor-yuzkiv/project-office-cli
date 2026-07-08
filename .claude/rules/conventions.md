@@ -82,7 +82,7 @@ This CLI is agent-facing, so commands must be boring, explicit, predictable, and
 to misunderstand.
 
 - Binary name: `project-office`.
-- Use `namespace:action` for grouped commands (`task:view`, `task:search`); simple
+- Use `namespace:action` for grouped commands (`task:view`, `task:update`); simple
   top-level commands stay bare (`install`).
 - Use explicit named options; prefer full names for clarity (`--task`, `--project`,
   `--format`).
