@@ -1,4 +1,4 @@
-import type { StatusCheckResult } from '@/commands/status/status.type'
+import type { StatusCheckResult } from '@/commands/status/status.type.ts'
 import { selectedProjectContext } from '@/shared/libs/project-office'
 
 export async function checkRepositoryLink(): Promise<StatusCheckResult> {

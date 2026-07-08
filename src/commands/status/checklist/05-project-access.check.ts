@@ -1,4 +1,4 @@
-import type { StatusCheckResult } from '@/commands/status/status.type'
+import type { StatusCheckResult } from '@/commands/status/status.type.ts'
 import { fetchProjectRequest } from '@/entities/project'
 import { selectedProjectContext } from '@/shared/libs/project-office'
 import { HttpError } from '@/shared/libs/http'

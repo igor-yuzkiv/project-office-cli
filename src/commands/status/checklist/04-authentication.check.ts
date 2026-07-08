@@ -1,4 +1,4 @@
-import type { StatusCheckResult } from '@/commands/status/status.type'
+import type { StatusCheckResult } from '@/commands/status/status.type.ts'
 import { fetchUserProfileRequest } from '@/entities/user'
 import { HttpError } from '@/shared/libs/http'
 import { ExitCode } from '@/shared/config'

@@ -1,4 +1,4 @@
-import type { StatusCheckResult } from '@/commands/status/status.type'
+import type { StatusCheckResult } from '@/commands/status/status.type.ts'
 import { SETTINGS_FILE } from '@/shared/config'
 import { cliSettingsProvider } from '@/shared/libs/settings'
 

@@ -1,6 +1,6 @@
 import { Command } from 'commander'
 
-import { checklist } from '@/commands/status/setup/checklist'
+import { checklist } from '@/commands/status/checklist'
 import type { StatusCheckResult, StatusCommandOptions } from '@/commands/status/status.type'
 import { renderJson, renderMarkdown } from '@/shared/libs/output'
 import { DEFAULT_OUTPUT_FORMAT } from '@/shared/config'
