@@ -14,9 +14,9 @@ project-office project:connect --project 01k... --format json
 
 ## Options
 
-| Option                  | Default      | Purpose                                                               |
-| ----------------------- | ------------ | --------------------------------------------------------------------- |
-| `--project <id>`        | — (required) | Project id to fetch and cache.                                        |
+| Option                  | Default      | Purpose                                                                  |
+| ----------------------- | ------------ | ------------------------------------------------------------------------ |
+| `--project <id>`        | — (required) | Project id to fetch and cache.                                           |
 | `-f, --format <format>` | `markdown`   | `json` or `markdown`. See [Output rendering](../../output-rendering.md). |
 
 ## Behavior

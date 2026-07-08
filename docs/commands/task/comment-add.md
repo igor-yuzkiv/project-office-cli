@@ -12,11 +12,11 @@ echo "Reviewed and approved." | project-office task:comment-add -t TASK-1 --cont
 
 ## Options
 
-| Option                  | Default      | Purpose                                                                |
-| ----------------------- | ------------ | ---------------------------------------------------------------------- |
-| `-t, --task <task>`     | — (required) | Task ULID or key.                                                      |
-| `--content <content>`   | — (required) | Inline text, `@<path>` to read from a file, or `-` to read from stdin. |
-| `-f, --format <format>` | `markdown`   | `json` or `markdown`. See [Output rendering](../../output-rendering.md).  |
+| Option                  | Default      | Purpose                                                                  |
+| ----------------------- | ------------ | ------------------------------------------------------------------------ |
+| `-t, --task <task>`     | — (required) | Task ULID or key.                                                        |
+| `--content <content>`   | — (required) | Inline text, `@<path>` to read from a file, or `-` to read from stdin.   |
+| `-f, --format <format>` | `markdown`   | `json` or `markdown`. See [Output rendering](../../output-rendering.md). |
 
 The command sends a single comment wrapped as `{ comments: [{ content }] }` — the backend
 endpoint accepts a batch (doc-0004 §4.8), but this command only ever submits one.

@@ -23,7 +23,7 @@ project-office project:link-repo --project 01k... --name my-repo --description "
 | `--path <dir>`                | current directory | Absolute or relative path to the repo being linked; `repo-settings.json` is written under `<path>/.project-office/`. |
 | `--description <description>` | —                 | Repo description.                                                                                                    |
 | `--stack <tech>`              | `[]`              | Repeatable — one `--stack` per technology.                                                                           |
-| `-f, --format <format>`       | `markdown`        | `json` or `markdown`. See [Output rendering](../../output-rendering.md).                                                |
+| `-f, --format <format>`       | `markdown`        | `json` or `markdown`. See [Output rendering](../../output-rendering.md).                                             |
 
 ## Behavior
 

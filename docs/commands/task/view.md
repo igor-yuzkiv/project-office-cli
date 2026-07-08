@@ -11,9 +11,9 @@ project-office task:view -t TASK-1 --format json
 
 ## Options
 
-| Option                  | Default      | Purpose                                                               |
-| ----------------------- | ------------ | --------------------------------------------------------------------- |
-| `-t, --task <task>`     | **required** | Task ULID or key (e.g. `TASK-1`).                                     |
+| Option                  | Default      | Purpose                                                                  |
+| ----------------------- | ------------ | ------------------------------------------------------------------------ |
+| `-t, --task <task>`     | **required** | Task ULID or key (e.g. `TASK-1`).                                        |
 | `-f, --format <format>` | `markdown`   | `json` or `markdown`. See [Output rendering](../../output-rendering.md). |
 
 The command exits with commander's own "required option" error if `--task` is omitted.

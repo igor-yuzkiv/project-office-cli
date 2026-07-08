@@ -17,7 +17,7 @@ project-office project:view --include tags,createdBy
 
 | Option                  | Default    | Purpose                                                                                                            |
 | ----------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------ |
-| `-f, --format <format>` | `markdown` | `json` or `markdown`. See [Output rendering](../../output-rendering.md).                                              |
+| `-f, --format <format>` | `markdown` | `json` or `markdown`. See [Output rendering](../../output-rendering.md).                                           |
 | `--include <fields>`    | —          | Comma-separated `ProjectInclude` values (`createdBy`, `updatedBy`, `archivedBy`, `tags`) to embed in the response. |
 
 ## Output

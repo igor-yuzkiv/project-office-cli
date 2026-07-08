@@ -46,7 +46,7 @@ using the current values as prompt defaults instead of failing.
 
 ## Exit codes
 
-| Situation                       | Exit code |
-| -------------------------------- | -------- |
-| Successful install               | `0`      |
-| Collected settings are invalid   | non-zero |
+| Situation                      | Exit code |
+| ------------------------------ | --------- |
+| Successful install             | `0`       |
+| Collected settings are invalid | non-zero  |
