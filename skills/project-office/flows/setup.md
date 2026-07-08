@@ -6,53 +6,56 @@ already exists in Task Manager; setup only links this repo to it by `projectId`.
 
 ## A. Read the state — `project-office status`
 
-Run **`project-office status`** first (it never fails, needs no marker) and act on its fields.
+Read the state from **`project-office status`** — reuse this session's result if you already have
+a fresh one; re-run it only when the state may have changed (e.g. after `install` or linking).
 If `status` itself does not run, confirm the binary is on `PATH` (`command -v project-office`) and
 ask the user to place/symlink it before continuing.
 
-- **`installed: false`** (`next_action: install`) — the CLI has no per-user settings yet. Tell the
-  user to run **`project-office install`** themselves — it is interactive (a masked token prompt)
-  and needs a real terminal plus the backend env (`BACKEND_BASE_URL`, `BACKEND_USER_PROFILE_PATH`,
-  `API_BASE_URL`). Do **not** try to run it for them. Resume once installed (re-run `status`).
-- **`server_reachable: false` / `server_authenticated: false`** — surface `server.error`; a down
-  backend, a missing/expired token, or a missing `API_BASE_URL` in the CLI's environment is a
-  different problem from "not linked". Resolve it before linking, or the link's verification (C4)
-  will fail too.
+Act on the first failing check:
+
+- **CLI settings** failing — the CLI has no per-user settings yet. Tell the user to run
+  **`project-office install`** themselves — it is interactive (prompts for backend URLs with
+  defaults and a masked API token) and needs a real terminal. Do **not** try to run it for them.
+  Resume once installed (re-run `status`).
+- **Server connection / Authentication** failing — surface that check's messages; a down backend
+  or a missing/expired token is a different problem from "not linked". Resolve it before linking,
+  or the link's verification (C4) will fail too.
+- **Repository link** failing — this repo is not linked; that is what this flow fixes (C).
+- **Project access** failing — the repo is linked, but the linked project is missing or
+  inaccessible on the server. Surface the check's messages; re-linking with a valid `projectId`
+  (C) may be needed — confirm the id with the user, do not guess one.
 
 ## B. Determine the situation
 
-From `status`: **`linked: false`** → this repo is not linked → link it (C), then configure context
-(D). **`linked: true`** + the user wants to re-point or refresh → re-run C with the new
+From `status`: **Repository link failing** → link this repo (C), then configure context (D).
+**All checks passing** + the user wants to re-point or refresh → re-run C with the new
 `projectId`, then D. Confirm the repo root (has `.git`, or the user names it) — take its absolute
 path.
 
-## C. Link the repo (via `project:link-repo` — never by hand)
-
-The marker `repo-settings.json` is written **only** by the CLI. Do not create or edit it yourself.
+## C. Link the repo (via `project:link-repo` — never by hand; see `SKILL.md` invariants)
 
 1. **Ask the user for the `projectId`** — the Task Manager backend project this repo maps to. It
    is not discoverable from the CLI; the user must supply it.
 2. **Gather repo metadata** for the link: `--name` (required), and optionally `--description` and
    one `--stack` per technology. Default `--path` is the current directory; pass an explicit
-   `--path <repo root>` if the agent is not sitting at the repo root.
+   `--path <repo root>` if the agent is not sitting at the repo root. Exact options:
+   `project-office instructions project:link-repo`.
 3. **Run the link command** from the repo:
    ```bash
    project-office project:link-repo --project <projectId> --name "<repo name>" \
      --description "<what this repo is>" --stack <tech> --stack <tech>
    ```
-   This writes `<repo>/.project-office/repo-settings.json` and creates/updates the project's local
-   cache record. For its exact options, `project-office instructions project:link-repo`.
 4. **Verify:** run `project-office project:view` from the repo — it should resolve the project via
    the new marker and print it. If it errors, surface the message (bad `projectId`, missing token
    → back to A, or connectivity) and fix before moving on.
 
-## D. Configure per-project context (skill superstructure)
+## D. Configure per-project context
 
 1. **Seed the per-repo AGENTS.md.** Copy `templates/repo-agents.md` →
    `<repo>/.project-office/AGENTS.md`, filling in `<project_name>` / `<projectId>` (read them back
    from `project:view`). If it already exists, replace only the block between
    `<!-- project-office:managed:start -->` and `:end` (refresh the general rules) and leave the
-   user's "Project-specific conventions" untouched.
+   user's own sections untouched.
 2. **Offer Claude Code discovery** (`AskUserQuestion`): import the repo's office rules from
    `CLAUDE.md` or `CLAUDE.local.md` so Claude Code loads them at session start instead of relying
    on the model to notice a pointer. Options: **CLAUDE.md** (committed, shared),
@@ -67,6 +70,6 @@ The marker `repo-settings.json` is written **only** by the CLI. Do not create or
 
 ## E. Report
 
-The linked `projectId` and project name, what happened, the repo path, whether a
-CLAUDE.md/CLAUDE.local.md import was added (or skipped), and that per-project rules live in
-`.project-office/AGENTS.md`.
+Tell the user: the linked project (`projectId` + name), the repo path, what was done or skipped
+(including the CLAUDE.md/CLAUDE.local.md import choice), and that the project's working rules now
+live in `.project-office/AGENTS.md` and can be edited there.

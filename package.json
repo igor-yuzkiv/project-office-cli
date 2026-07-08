@@ -23,6 +23,7 @@
         "dev": "bun run src/index.ts",
         "build": "bun build src/index.ts --target=bun --outfile=dist/project-office",
         "compile": "bun build src/index.ts --compile --outfile=dist/project-office",
+        "deploy-skill": "rm -rf \"$HOME/.claude/skills/project-office\" && mkdir -p \"$HOME/.claude/skills\" && cp -R skills/project-office \"$HOME/.claude/skills/project-office\"",
         "lint": "eslint src"
     }
 }
