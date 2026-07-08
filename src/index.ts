@@ -1,6 +1,5 @@
 import { Command } from 'commander'
 
-import { debugCommand } from '@/commands/debug'
 import { installCommand } from '@/commands/install'
 import { cliSettingsProvider } from '@/shared/libs/settings'
 import { selectedProjectContext } from '@/shared/libs/project-office'
@@ -25,7 +24,6 @@ const program = new Command()
 
 program.name('project-office').description('Agent-facing CLI for the Project Office / MVP Task Manager')
 
-program.addCommand(debugCommand)
 program.addCommand(installCommand)
 program.addCommand(projectViewCommand)
 program.addCommand(projectConnectCommand)
