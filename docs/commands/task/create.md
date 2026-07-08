@@ -6,22 +6,22 @@ Creates a task in the current Project Office project.
 
 ```bash
 project-office task:create --name "Fix login bug"
-project-office task:create --name "Fix login bug" --description "Steps to reproduce..." --priority high
+project-office task:create --name "Fix login bug" --description "Steps to reproduce..."
 project-office task:create --name "Fix login bug" --description @/tmp/description.md
-project-office task:create --name "Fix login bug" --tag tag_1 --tag tag_2
+project-office task:create --name "Fix login bug" --tags "bug,backend,urgent"
 ```
 
 ## Options
 
-| Option                                     | Default      | Purpose                                                                                                                                                                              |
-| ------------------------------------------ | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--name <name>`                            | — (required) | Task name.                                                                                                                                                                           |
-| `--description <description>`              | —            | Inline text, `@<path>` to read from a file, or `-` to read from stdin.                                                                                                               |
-| `--priority <priority>`                    | —            | `none`, `low`, `medium`, `high`, or `urgent` (case-insensitive) — mapped client-side to the backend's numeric priority. An unrecognized value fails immediately, before any request. |
-| `--start-date <date>`, `--due-date <date>` | —            | Passed through as-is; the backend validates the format.                                                                                                                              |
-| `--task-list <taskListId>`                 | —            | Task list id.                                                                                                                                                                        |
-| `--tag <tagId>`                            | `[]`         | Repeatable — one `--tag` per tag id; the backend validates that each tag exists.                                                                                                     |
-| `-f, --format <format>`                    | `markdown`   | `json` or `markdown`. See [Output rendering](../../output-rendering.md).                                                                                                             |
+| Option                         | Default      | Purpose                                                                                                             |
+| ------------------------------ | ------------ | --------------------------------------------------------------------------------------------------------------------- |
+| `--name <name>`                | — (required) | Task name.                                                                                                          |
+| `--description <description>`  | —            | Inline text, `@<path>` to read from a file, or `-` to read from stdin.                                             |
+| `--tags <tags>`                | —            | Comma-separated tag names (e.g. `"bug,backend,urgent"`). No tag ids needed — the backend finds or creates each tag by name. |
+| `-f, --format <format>`        | `markdown`   | `json` or `markdown`. See [Output rendering](../../output-rendering.md).                                           |
+
+Priority, task list, start date, and due date cannot be set through this command — every
+created task gets the backend's defaults (`priority: none`, `task_list: null`, no dates).
 
 ## Output
 
@@ -32,5 +32,4 @@ mapping treats them as optional.
 
 ## Errors
 
-An unrecognized `--priority` value fails client-side before any request. All other
-validation (dates, tag existence) happens on the backend and surfaces as a backend error.
+Validation (tag names, etc.) happens on the backend and surfaces as a backend error.

@@ -136,8 +136,8 @@ tags:
 
 | Команда               | Що робить                                                                                      |
 | --------------------- | ---------------------------------------------------------------------------------------------- |
-| `task:create`         | Створює задачу.                                                                                |
-| `task:update`         | Змінює **лише** статус і/або опис задачі — бекенд більше нічого через цей ендпоінт не приймає. |
+| `task:create`         | Створює задачу (назва, опис, теги через кому).                                                |
+| `task:update`         | Змінює назву, статус, опис і/або теги задачі.                                                 |
 | `task:comment-add`    | Додає коментар до задачі.                                                                      |
 | `task:comment-update` | Редагує наявний коментар.                                                                      |
 
@@ -218,7 +218,7 @@ project-office project:link-repo --project 01k... --name my-repo
 # 3. Далі — звичайна робота, projectId підставляється сам
 project-office task:list
 project-office task:view --task TASK-1
-project-office task:create --name "Нова задача" --priority high
+project-office task:create --name "Нова задача" --tags "bug,backend"
 
 # 4. Якщо потрібна підказка, як викликати команду
 project-office instructions task:create
