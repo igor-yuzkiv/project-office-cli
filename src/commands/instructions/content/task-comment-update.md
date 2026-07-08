@@ -14,7 +14,7 @@ project-office task:comment-update -t TASK-1 --comment 42 --content @/tmp/commen
 - `-t, --task <task>` — **required**. The task's ULID or human key.
 - `--comment <comment>` — **required**. Numeric comment id, scoped to `--task`.
 - `--content <content>` — **required**. Inline text, `@<path>` to read from a file, or `-`
-  to read from stdin.
+  (also accepted: `@-`) to read from stdin.
 - `-f, --format <json|markdown>` — optional, default `markdown`.
 
 ## Output

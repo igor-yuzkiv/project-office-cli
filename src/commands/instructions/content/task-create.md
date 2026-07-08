@@ -15,7 +15,7 @@ project-office task:create --name "Fix login bug" --tags "bug,backend,urgent"
 
 - `--name <name>` — **required**. Task name.
 - `--description <description>` — optional. Inline text, `@<path>` to read from a file, or
-  `-` to read from stdin.
+  `-` (also accepted: `@-`) to read from stdin.
 - `--tags <tags>` — optional. Comma-separated tag names (e.g. `"bug,backend,urgent"`). No
   tag ids needed — the backend finds or creates each tag by name.
 - `-f, --format <json|markdown>` — optional, default `markdown`.
