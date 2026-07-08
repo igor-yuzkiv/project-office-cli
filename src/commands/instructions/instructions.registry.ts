@@ -4,7 +4,6 @@ import projectView from '@/commands/instructions/content/project-view.md' with {
 import projectConnect from '@/commands/instructions/content/project-connect.md' with { type: 'text' }
 import projectLinkRepo from '@/commands/instructions/content/project-link-repo.md' with { type: 'text' }
 import taskList from '@/commands/instructions/content/task-list.md' with { type: 'text' }
-import taskSearch from '@/commands/instructions/content/task-search.md' with { type: 'text' }
 import taskView from '@/commands/instructions/content/task-view.md' with { type: 'text' }
 import taskComments from '@/commands/instructions/content/task-comments.md' with { type: 'text' }
 import taskCreate from '@/commands/instructions/content/task-create.md' with { type: 'text' }
@@ -21,7 +20,6 @@ export const instructionsRegistry: Record<string, string> = {
     'project:connect': projectConnect,
     'project:link-repo': projectLinkRepo,
     'task:list': taskList,
-    'task:search': taskSearch,
     'task:view': taskView,
     'task:comments': taskComments,
     'task:create': taskCreate,

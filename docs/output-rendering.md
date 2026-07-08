@@ -69,9 +69,8 @@ properties and which become content, then calls `renderMarkdown` (used by
 Content is `# {task.name}` followed by `task.description` (or an empty string).
 
 The same file also exports `renderTaskListAsMarkdown(response: PaginatedResponse<TaskOverview>): string`,
-used by [`task:list`](./commands/task/list.md) and [`task:search`](./commands/task/search.md).
-Content is one `{key} {name}` line per task; frontmatter properties are the pagination meta
-(`total`, `page`, `per_page`).
+used by [`task:list`](./commands/task/list.md). Content is one `{key} {name}` line per
+task; frontmatter properties are the pagination meta (`total`, `page`, `per_page`).
 
 ## `src/entities/task/render/render-task-comment.service.ts`
 

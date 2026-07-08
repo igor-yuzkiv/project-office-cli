@@ -1,7 +1,7 @@
 # `task:list`
 
-Lists tasks in the current Project Office project. No query text or filters — for text
-search use `task:search` (`project-office instructions task:search`).
+Lists tasks in the current Project Office project. No query text or filtering — this is
+the only way to fetch tasks.
 
 ## Call
 

@@ -43,6 +43,6 @@ same change.
 
 ## Covered commands
 
-`project:view`, `task:list`, `task:search`, `task:view`, `task:comments`, `install`,
+`project:view`, `task:list`, `task:view`, `task:comments`, `install`,
 `debug`. `instructions` itself is documented only in the overview's prose, not as a
 registry/index entry.

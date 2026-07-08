@@ -1,8 +1,8 @@
-import type { PagingParams, SortParams, FilterPayloadItem } from '@/shared/types'
+import type { PagingParams, SortParams } from '@/shared/types'
 import type { UserOverviewDto } from '@/entities/user'
 import type { Tag } from '@/entities/tag'
 
-export type TaskStatus = 'open' | 'in_progress' | 'completed' | 'closed'
+export type TaskStatus = 'open' | 'ready_for_development' | 'in_progress' | 'ready_to_test' | 'completed' | 'closed'
 
 export type TaskPriorityName = 'None' | 'Low' | 'Medium' | 'High' | 'Urgent'
 
@@ -45,8 +45,7 @@ export interface Task {
     task_list?: TaskListRef
 }
 
-// Shape returned by `tasks/list` and `tasks/search` (TaskOverviewResource, doc-0004 §4.2):
-// no `description` / `sequence_number`.
+// Shape returned by `tasks/list` (TaskOverviewResource): no `description` / `sequence_number`.
 export type TaskOverview = Pick<
     Task,
     | 'id'
@@ -69,13 +68,6 @@ export type TaskOverview = Pick<
 
 export type TaskFetchParams = PagingParams &
     SortParams & {
-        include?: TaskInclude[]
-    }
-
-export type TaskSearchParams = PagingParams &
-    SortParams & {
-        query?: string
-        filters?: FilterPayloadItem[]
         include?: TaskInclude[]
     }
 

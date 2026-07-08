@@ -17,7 +17,8 @@ project-office task:update -t TASK-1 --status completed --description -
 
 - `-t, --task <task>` — **required**. The task's ULID or human key.
 - `--name <name>` — optional. New task name.
-- `--status <status>` — optional. One of `open`, `in_progress`, `completed`, `closed`.
+- `--status <status>` — optional. One of `open`, `ready_for_development`, `in_progress`,
+  `ready_to_test`, `completed`, `closed`.
 - `--description <description>` — optional. Inline text, `@<path>` to read from a file, or
   `-` to read from stdin.
 - `--tags <tags>` — optional. Comma-separated tag names — **replaces the task's entire tag

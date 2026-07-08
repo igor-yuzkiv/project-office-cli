@@ -1,13 +1,6 @@
 import { httpClient } from '@/shared/libs/http'
 import type { PaginatedResponse } from '@/shared/types'
-import type {
-    Task,
-    TaskOverview,
-    TaskFetchParams,
-    TaskSearchParams,
-    CreateTaskInput,
-    UpdateTaskInput,
-} from '@/entities/task/types'
+import type { Task, TaskOverview, TaskFetchParams, CreateTaskInput, UpdateTaskInput } from '@/entities/task/types'
 
 interface TaskResponse {
     data: Task
@@ -21,21 +14,6 @@ export async function fetchTasksRequest(
     return httpClient
         .get<PaginatedResponse<TaskOverview>>(`projects/${projectId}/tasks/list`, {
             params: { ...rest, include: include?.join(',') },
-        })
-        .then((response) => response.data)
-}
-
-export async function searchTasksRequest(
-    projectId: string,
-    params: TaskSearchParams
-): Promise<PaginatedResponse<TaskOverview>> {
-    const { query = '', filters = [], include, ...pagination } = params
-    return httpClient
-        .post<PaginatedResponse<TaskOverview>>(`projects/${projectId}/tasks/search`, {
-            query,
-            filters,
-            include,
-            ...pagination,
         })
         .then((response) => response.data)
 }

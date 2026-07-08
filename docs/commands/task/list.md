@@ -1,7 +1,7 @@
 # `task:list`
 
 Lists tasks in the current Project Office project (`GET tasks/list`), no query text or
-filters — for text search use [`task:search`](./search.md).
+filtering — this is the only way to fetch tasks.
 
 ## Usage
 

@@ -19,7 +19,7 @@ project-office task:update -t TASK-1 --status completed --description -
 | ------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------- |
 | `-t, --task <task>`             | — (required) | Task ULID or key.                                                                                                          |
 | `--name <name>`                 | —            | New task name.                                                                                                              |
-| `--status <status>`             | —            | `open`, `in_progress`, `completed`, or `closed`.                                                                            |
+| `--status <status>`             | —            | `open`, `ready_for_development`, `in_progress`, `ready_to_test`, `completed`, or `closed`.                                   |
 | `--description <description>`   | —            | Inline text, `@<path>` to read from a file, or `-` to read from stdin.                                                     |
 | `--tags <tags>`                 | —            | Comma-separated tag names — **replaces the task's entire tag set** (not additive). Pass `""` to remove all tags. No tag ids needed. |
 | `-f, --format <format>`         | `markdown`   | `json` or `markdown`. See [Output rendering](../../output-rendering.md).                                                   |

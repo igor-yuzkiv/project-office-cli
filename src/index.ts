@@ -6,7 +6,6 @@ import { selectedProjectContext } from '@/shared/libs/project-office'
 import { projectViewCommand, projectConnectCommand, projectLinkRepoCommand } from '@/commands/project'
 import {
     taskListCommand,
-    taskSearchCommand,
     taskViewCommand,
     taskCommentsCommand,
     taskCreateCommand,
@@ -29,7 +28,6 @@ program.addCommand(projectViewCommand)
 program.addCommand(projectConnectCommand)
 program.addCommand(projectLinkRepoCommand)
 program.addCommand(taskListCommand)
-program.addCommand(taskSearchCommand)
 program.addCommand(taskViewCommand)
 program.addCommand(taskCommentsCommand)
 program.addCommand(taskCreateCommand)
