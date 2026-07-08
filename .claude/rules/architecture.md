@@ -66,7 +66,7 @@ reusable across multiple parts of the project. Do not use `shared` as a dumping 
 - `shared/config` — all configuration values in the project, logically split
   one file per concern (`exit-code.config.ts`, `cli-settings.config.ts`, ...), each
   re-exported through `shared/config/index.ts`. There are no standalone `.const.ts`
-  files anywhere else in `src/` — see `configuration.md` for the env-vs-config rule.
+  files anywhere else in `src/`.
 - `shared/libs` — reusable service/library wrappers grouped in folders (`http/`,
   `settings/`, `output/`): HTTP client setup, output rendering, filesystem helpers,
   third-party adapters. Types (`.type.ts`) stay inside the lib's own folder; the lib's

@@ -7,8 +7,8 @@ purpose-tuned source served by the CLI itself) live in
 
 ## Getting started
 
-- [Configuration](./configuration.md) — environment variables (`.env`) vs. per-user CLI
-  settings (`settings.json`); what each controls and where it lives.
+- [Configuration](./configuration.md) — per-user CLI settings (`settings.json`); what each
+  setting controls and where it lives.
 - [`install`](./commands/install.md) — one-time local setup; run this first.
 - [Project Office context](./project-office-context.md) — how the CLI resolves which
   project it's operating in, and the local project cache; run

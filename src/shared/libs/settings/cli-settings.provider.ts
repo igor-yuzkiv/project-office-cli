@@ -2,19 +2,26 @@ import { mkdir, writeFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import { dirname } from 'node:path'
 
-import type { CliSettings } from '@/shared/libs/settings/cli-settings.type'
-import { SETTINGS_FILE } from '@/shared/config'
+import type { CliSettings, CliSettingsValidationError } from '@/shared/libs/settings/cli-settings.type'
+import { SETTINGS_FILE, cliSettingsDefinition } from '@/shared/config'
 
 class CliSettingsProvider {
     private settings: CliSettings | null = null
 
-    async save(settings: CliSettings): Promise<void> {
-        await mkdir(dirname(SETTINGS_FILE), { recursive: true })
-        await writeFile(SETTINGS_FILE, `${JSON.stringify(settings, null, 4)}\n`, { mode: 0o600 })
-        this.settings = settings
+    async bootstrap(): Promise<CliSettings | null> {
+        try {
+            const settings = await this.readRawSettings()
+            this.assertValid(settings)
+
+            this.settings = settings
+            return this.settings
+        } catch (error) {
+            console.error(error instanceof Error ? error.message : String(error))
+            return null
+        }
     }
 
-    async load(): Promise<CliSettings> {
+    private async readRawSettings(): Promise<Partial<CliSettings>> {
         if (!existsSync(SETTINGS_FILE)) {
             throw new Error('Project Office CLI is not installed — run `project-office install` first.')
         }
@@ -36,36 +43,53 @@ class CliSettingsProvider {
             )
         }
 
-        const settings = parsed as CliSettings
-        const requiredKeys: (keyof CliSettings)[] = [
-            'backendBaseUrl',
-            'backendUserProfilePath',
-            'apiBaseUrl',
-            'apiToken',
-        ]
-        const missingKey = requiredKeys.find((key) => typeof settings[key] !== 'string' || settings[key].length === 0)
-        if (missingKey) {
-            throw new Error(
-                `${SETTINGS_FILE} is missing a valid "${missingKey}". Try running \`project-office install\` again.`
-            )
-        }
-
-        this.settings = settings
-        return this.settings
+        return parsed as Partial<CliSettings>
     }
 
-    async bootstrap(): Promise<CliSettings | null> {
-        try {
-            return await this.load()
-        } catch (error) {
-            console.error(error instanceof Error ? error.message : String(error))
-            return null
+    assertValid(settings: Partial<CliSettings>): asserts settings is CliSettings {
+        const errors = this.validate(settings)
+        if (errors.length === 0) {
+            return
         }
+
+        const details = errors.map(({ key, message }) => `${key} → ${message}`).join('; ')
+        throw new Error(`${SETTINGS_FILE} is invalid (${details}). Try running \`project-office install\` again.`)
+    }
+
+    validate(settings: Partial<CliSettings>): CliSettingsValidationError[] {
+        const errors: CliSettingsValidationError[] = []
+        const definitions = cliSettingsDefinition()
+
+        for (const key of Object.keys(definitions) as (keyof CliSettings)[]) {
+            const definition = definitions[key]
+            const value = settings[key]
+
+            if (definition.required && (typeof value !== 'string' || value.length === 0)) {
+                errors.push({ key, message: `${definition.label} is required` })
+                continue
+            }
+
+            if (typeof value === 'string' && definition.validate && !definition.validate(value)) {
+                errors.push({ key, message: `${definition.label} is invalid` })
+            }
+        }
+
+        return errors
+    }
+
+    async save(settings: CliSettings): Promise<void> {
+        await mkdir(dirname(SETTINGS_FILE), { recursive: true })
+        await writeFile(SETTINGS_FILE, `${JSON.stringify(settings, null, 4)}\n`, { mode: 0o600 })
+        this.settings = settings
+    }
+
+    isLoaded(): boolean {
+        return this.settings !== null
     }
 
     get<K extends keyof CliSettings>(key: K): CliSettings[K] {
         if (!this.settings) {
-            throw new Error('CLI settings are not loaded — call load() first.')
+            throw new Error('CLI settings are not loaded — call bootstrap() first.')
         }
 
         return this.settings[key]
@@ -73,11 +97,11 @@ class CliSettingsProvider {
 
     getAll(): CliSettings {
         if (!this.settings) {
-            throw new Error('CLI settings are not loaded — call load() first.')
+            throw new Error('CLI settings are not loaded — call bootstrap() first.')
         }
 
         return this.settings
     }
 }
 
-export const cliSettingsProvider = new CliSettingsProvider()
+export const cliSettingsProvider: CliSettingsProvider = new CliSettingsProvider()

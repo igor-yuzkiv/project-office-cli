@@ -33,15 +33,9 @@ change contracts only when the task requires it.
 
 Prefer incremental changes that are easy to review and verify.
 
-### 3. Review and reporting
+### 3. Reporting and corrections
 
-After implementation, run an independent code review when the agent environment provides
-such a mechanism.
-
-The review must be independent from the implementation context: use a separate subagent,
-review lane, or equivalent mechanism when available.
-
-After review, report briefly:
+After implementation, report briefly:
 
 * what was changed;
 * what was verified;
@@ -50,13 +44,28 @@ After review, report briefly:
 
 At the end of the report, explicitly ask the user whether any corrections are needed.
 
-Do not move to the documentation phase until the user either confirms that no corrections
-are needed or provides corrections and they are handled.
+Do not run an independent code review automatically at this point, and do not re-run one
+after every correction. Apply whatever corrections the user gives, report again, and repeat
+until the user confirms no further corrections are needed.
 
-### 4. Documentation
+### 4. Review
 
-Documentation is a separate phase after implementation, review, reporting, and user
-correction approval.
+Run an independent code review (a separate subagent, review lane, or equivalent mechanism
+when available) in either of these cases, whichever comes first:
+
+* the user explicitly asks for a review, at any point;
+* the user has confirmed no further corrections are needed in phase 3 — run the review once,
+  right before moving into the documentation phase.
+
+Do not run a review after every individual change during phase 3; it belongs either to an
+explicit request or to this one checkpoint before documentation.
+
+If the review surfaces findings, treat them like any other correction: apply them or discuss
+them with the user, then continue to documentation once resolved.
+
+### 5. Documentation
+
+Documentation is a separate phase after implementation, reporting/corrections, and review.
 
 Before writing or updating documentation, explicitly ask the user whether documentation is
 needed by using `AskUserQuestion`.

@@ -1,8 +1,7 @@
 # HTTP client
 
-The shared HTTP layer every backend request goes through. For the environment variable
-it depends on, see [Configuration](./configuration.md#environment-configuration); for the
-`apiToken` it authorizes requests with, see [CLI settings](./configuration.md#cli-settings).
+The shared HTTP layer every backend request goes through. For the `apiBaseUrl` it depends
+on and the `apiToken` it authorizes requests with, see [CLI settings](./configuration.md#cli-settings).
 
 This is a thin `axios` wrapper — not a framework. It centralizes the backend base URL, the
 `Authorization` header, and safe error mapping. It does not implement retries, caching,
@@ -13,7 +12,7 @@ them.
 
 `src/shared/libs/http/http.client.ts` exports a plain `axios` instance, `httpClient`:
 
-- **`baseURL`** — `Bun.env.API_BASE_URL`.
+- **`baseURL`** — `cliSettingsProvider.get('apiBaseUrl')`.
 - **Request interceptor** — reads `apiToken` from `cliSettingsProvider.get('apiToken')` and
   sets `Authorization: Bearer <apiToken>` on every request. `cliSettingsProvider` must have
   loaded settings first (see [CLI settings](./configuration.md#cli-settings)); `src/index.ts`

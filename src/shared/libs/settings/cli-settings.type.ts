@@ -5,13 +5,20 @@ export interface CliSettings {
     apiToken: string
 }
 
-export type CliSettingsSetupDefinition = {
-    [K in keyof CliSettings]: CliSettingsSetupDefinitionItem<CliSettings[K]>
+export type CliSettingsDefinition = {
+    [K in keyof CliSettings]: CliSettingsDefinitionItem
 }
 
-export type CliSettingsSetupDefinitionItem<TValue> = {
+export type CliSettingsDefinitionItem = {
     label: string
-    prompt: string
-    value?: TValue
+    prompt: (collected?: Partial<CliSettings>) => string
+    value?: string
     password?: boolean
+    required?: boolean
+    validate?: (value: string) => boolean
+}
+
+export interface CliSettingsValidationError {
+    key: keyof CliSettings
+    message: string
 }

@@ -5,6 +5,23 @@ paths:
 
 # Rule: Code and CLI conventions
 
+## KISS / simple-first
+
+Keep implementations simple, direct, and easy to review.
+
+Solve the current problem without adding speculative architecture, generic abstractions, or future-proofing unless the task explicitly requires it. Prefer boring, readable code over clever code.
+
+* Make the smallest reasonable change that solves the task.
+* Reuse existing project patterns when they fit.
+* Avoid broad refactors unless they are part of the task scope.
+* Do not introduce new layers, services, managers, factories, or helpers just to make the code look “architectural”.
+* Extract functions only when they make the current code easier to read, test, or reuse immediately.
+* Prefer explicit flow over overly generic configuration-driven behavior.
+* Do not prepare for imaginary future requirements. Leave the code easy to change later instead.
+
+A good change should be understandable from the diff without needing a map, a compass, and a senior architect.
+
+
 ## File naming
 
 Follow a NestJS-style convention: **kebab-case** filenames shaped as `name.role.ext`.
