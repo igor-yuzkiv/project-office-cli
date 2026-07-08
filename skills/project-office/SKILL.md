@@ -38,7 +38,8 @@ failing repository link means linking this repo; a failing CLI-settings / server
 (linking would not help). Otherwise pick by intent:
 
 - **setup** → `flows/setup.md` — the repo is not linked yet, or the user asks to
-  link this repo to a project, or to (re)configure the per-project office context.
+  link this repo to a project, to (re)configure the per-project office context, or to
+  refresh/update it to the current skill version.
 - **task** → `flows/task.md` — the user refers to a task (`PREFIX-<number>`), the
   task board, or asks to read / find / create / update a task or its comments.
 

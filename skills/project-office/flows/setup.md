@@ -28,9 +28,10 @@ Act on the first failing check:
 ## B. Determine the situation
 
 From `status`: **Repository link failing** → link this repo (C), then configure context (D).
-**All checks passing** + the user wants to re-point or refresh → re-run C with the new
-`projectId`, then D. Confirm the repo root (has `.git`, or the user names it) — take its absolute
-path.
+**All checks passing** + the user wants to re-point to another project → re-run C with the new
+`projectId`, then D. **All checks passing** + the user asks to refresh/update the office context
+(e.g. after a skill update) → F. Confirm the repo root (has `.git`, or the user names it) — take
+its absolute path.
 
 ## C. Link the repo (via `project:link-repo` — never by hand; see `SKILL.md` invariants)
 
@@ -74,3 +75,17 @@ path.
 Tell the user: the linked project (`projectId` + name), the repo path, what was done or skipped
 (including the CLAUDE.md/CLAUDE.local.md import choice), and that the project's working rules now
 live in `.project-office/AGENTS.md` and can be edited there.
+
+## F. Refresh — re-sync an already-linked repo after a skill update
+
+1. **Compare the managed block** in `<repo>/.project-office/AGENTS.md` with the one in
+   `templates/repo-agents.md` (between `<!-- project-office:managed:start -->` and
+   `<!-- project-office:managed:end -->`). If they differ, re-run D1 — it replaces only that
+   block and leaves the user's sections untouched.
+2. **Re-verify the surroundings:** the `.gitignore` entry for
+   `.project-office/repo-settings.json` (D3) and the `@.project-office/AGENTS.md` import line
+   (D2). Add the gitignore entry if missing; if the import line is absent and you cannot tell
+   whether it was skipped on purpose, ask (D2) rather than adding it silently.
+3. **Report** what was refreshed. Everything below the managed block ("Working flow",
+   project-specific conventions) is user-owned once seeded — never overwrite it during refresh;
+   if the template's defaults evolved there too, say so and let the user merge manually.
