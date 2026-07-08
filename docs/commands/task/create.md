@@ -21,11 +21,11 @@ project-office task:create --name "Fix login bug" --tag tag_1 --tag tag_2
 | `--start-date <date>`, `--due-date <date>` | —            | Passed through as-is; the backend validates the format.                                                                                                                              |
 | `--task-list <taskListId>`                 | —            | Task list id.                                                                                                                                                                        |
 | `--tag <tagId>`                            | `[]`         | Repeatable — one `--tag` per tag id; the backend validates that each tag exists.                                                                                                     |
-| `-f, --format <format>`                    | `markdown`   | `json` or `markdown`. See [Output rendering](../output-rendering.md).                                                                                                                |
+| `-f, --format <format>`                    | `markdown`   | `json` or `markdown`. See [Output rendering](../../output-rendering.md).                                                                                                                |
 
 ## Output
 
-Same shape as [`task:view`](./task-view.md): `markdown` (default) renders through
+Same shape as [`task:view`](./view.md): `markdown` (default) renders through
 `renderTaskAsMarkdown`; `json` returns the raw API response object. The create response may
 omit `project`/`task_list`/`tags` — those render as `null`/`[]` when absent, since the
 mapping treats them as optional.

@@ -2,7 +2,7 @@
 
 Fetches a project by id and creates or updates its local cache record
 (`~/.project-office-cache/projects/<id>.json`). See
-[Project Office context](../project-office-context.md) for the full model. A bootstrap
+[Project Office context](../../project-office-context.md) for the full model. A bootstrap
 command — never touches `<repo>/.project-office/repo-settings.json`.
 
 ## Usage
@@ -17,7 +17,7 @@ project-office project:connect --project 01k... --format json
 | Option                  | Default      | Purpose                                                               |
 | ----------------------- | ------------ | --------------------------------------------------------------------- |
 | `--project <id>`        | — (required) | Project id to fetch and cache.                                        |
-| `-f, --format <format>` | `markdown`   | `json` or `markdown`. See [Output rendering](../output-rendering.md). |
+| `-f, --format <format>` | `markdown`   | `json` or `markdown`. See [Output rendering](../../output-rendering.md). |
 
 ## Behavior
 
@@ -28,5 +28,5 @@ project-office project:connect --project 01k... --format json
 
 ## Output
 
-Same shape as [`project:view`](./project-view.md): `markdown` (default) renders the fetched
+Same shape as [`project:view`](./view.md): `markdown` (default) renders the fetched
 project through `renderProjectAsMarkdown`; `json` returns the project object.

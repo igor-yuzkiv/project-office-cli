@@ -9,7 +9,7 @@ backend. Locally there are only two things:
 
 1. **`<repo>/.project-office/repo-settings.json`** — the marker that ties one repo to one
    project id. Read by every command that needs a project; written **exclusively** by
-   [`project:link-repo`](./commands/project-link-repo.md).
+   [`project:link-repo`](./commands/project/link-repo.md).
 2. **`~/.project-office-cache/projects/<projectId>.json`** — an optional, purely local cache
    of a project's snapshot plus the repos linked to it. Nothing requires it to exist for
    commands to work; it exists for offline metadata and repo-mapping convenience.
@@ -67,7 +67,7 @@ project cache and `repo-settings.json`.
   is idempotent.
 - **`writeRepositorySettings(repoDir, repositoryLink)`** — writes
   `<repoDir>/.project-office/repo-settings.json`. **Never call this directly from anywhere
-  except [`project:link-repo`](./commands/project-link-repo.md).**
+  except [`project:link-repo`](./commands/project/link-repo.md).**
 
 ### Types
 
@@ -96,9 +96,9 @@ repo description.
 
 Nothing writes `repo-settings.json` automatically. Two commands exist for that:
 
-- [`project:connect`](./commands/project-connect.md) — fetches a project and creates/updates
+- [`project:connect`](./commands/project/connect.md) — fetches a project and creates/updates
   its local cache record only. Never touches `repo-settings.json`.
-- [`project:link-repo`](./commands/project-link-repo.md) — ensures the project's cache
+- [`project:link-repo`](./commands/project/link-repo.md) — ensures the project's cache
   record exists (same fetch as `project:connect` if it doesn't), records the current repo in
   it, and writes `repo-settings.json`. This is the only command allowed to do the latter.
 

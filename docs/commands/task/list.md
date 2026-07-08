@@ -1,7 +1,7 @@
 # `task:list`
 
 Lists tasks in the current Project Office project (`GET tasks/list`), no query text or
-filters — for text search use [`task:search`](./task-search.md).
+filters — for text search use [`task:search`](./search.md).
 
 ## Usage
 
@@ -17,7 +17,7 @@ project-office task:list --include project,tags
 
 | Option                  | Default                        | Purpose                                                                                         |
 | ----------------------- | ------------------------------ | ----------------------------------------------------------------------------------------------- |
-| `-f, --format <format>` | `markdown`                     | `json` or `markdown`. See [Output rendering](../output-rendering.md).                           |
+| `-f, --format <format>` | `markdown`                     | `json` or `markdown`. See [Output rendering](../../output-rendering.md).                           |
 | `--page <page>`         | backend default                | Page number.                                                                                    |
 | `--per-page <perPage>`  | backend default                | Items per page (backend enforces no upper bound for `list`).                                    |
 | `--sort-by <field>`     | `updated_at` (backend default) | Field to sort by.                                                                               |

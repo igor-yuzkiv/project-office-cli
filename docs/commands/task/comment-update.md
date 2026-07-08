@@ -16,7 +16,7 @@ project-office task:comment-update -t TASK-1 --comment 42 --content @/tmp/commen
 | `-t, --task <task>`     | — (required) | Task ULID or key.                                                      |
 | `--comment <comment>`   | — (required) | Numeric comment id, scoped to `--task`. Must match `/^\d+$/`.          |
 | `--content <content>`   | — (required) | Inline text, `@<path>` to read from a file, or `-` to read from stdin. |
-| `-f, --format <format>` | `markdown`   | `json` or `markdown`. See [Output rendering](../output-rendering.md).  |
+| `-f, --format <format>` | `markdown`   | `json` or `markdown`. See [Output rendering](../../output-rendering.md).  |
 
 ## Output
 

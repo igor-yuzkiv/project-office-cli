@@ -14,7 +14,7 @@ For the settings it collects and stores (contract, storage, provider API), see
 2. validates the collected values and stops (without writing anything) if any are invalid,
 3. writes them to the settings file,
 4. creates the local project cache directory used by
-   [`project:connect`](./project-connect.md) / [`project:link-repo`](./project-link-repo.md).
+   [`project:connect`](./project/connect.md) / [`project:link-repo`](./project/link-repo.md).
 
 ## Usage
 
@@ -41,7 +41,7 @@ using the current values as prompt defaults instead of failing.
    file is written with permissions `0600`.
 4. **Create the project cache directory.** `~/.project-office-cache/projects/` is created
    (see [Project Office context](../project-office-context.md)) — installing does **not**
-   link any repo to a project; run [`project:link-repo`](./project-link-repo.md) afterward.
+   link any repo to a project; run [`project:link-repo`](./project/link-repo.md) afterward.
 5. **Confirm.** On success the command prints `Project Office CLI installed.`
 
 ## Exit codes

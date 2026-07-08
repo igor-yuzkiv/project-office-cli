@@ -15,7 +15,7 @@ project-office task:search -q "login bug" --page 1 --per-page 10 --include tags
 
 | Option                  | Default                        | Purpose                                                                                         |
 | ----------------------- | ------------------------------ | ----------------------------------------------------------------------------------------------- |
-| `-f, --format <format>` | `markdown`                     | `json` or `markdown`. See [Output rendering](../output-rendering.md).                           |
+| `-f, --format <format>` | `markdown`                     | `json` or `markdown`. See [Output rendering](../../output-rendering.md).                           |
 | `-q, --query <query>`   | —                              | Free-text search query.                                                                         |
 | `--page <page>`         | backend default                | Page number.                                                                                    |
 | `--per-page <perPage>`  | backend default                | Items per page (backend caps `search` at 100).                                                  |
@@ -28,6 +28,6 @@ is always sent with an empty `filters` array.
 
 ## Output
 
-Same shape as [`task:list`](./task-list.md): `json` returns the raw paginated response;
+Same shape as [`task:list`](./list.md): `json` returns the raw paginated response;
 `markdown` renders through `renderTaskListAsMarkdown` (`{key} {name}` list + pagination
 meta).

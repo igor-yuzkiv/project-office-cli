@@ -3,7 +3,7 @@
 Links a repository to a Project Office project: ensures the project's local cache record
 exists, records the repo in it, and writes `<repo>/.project-office/repo-settings.json` —
 the **only** command allowed to write that file. See
-[Project Office context](../project-office-context.md) for the full model. Once run, every
+[Project Office context](../../project-office-context.md) for the full model. Once run, every
 other command in that repo resolves its project id automatically.
 
 ## Usage
@@ -23,12 +23,12 @@ project-office project:link-repo --project 01k... --name my-repo --description "
 | `--path <dir>`                | current directory | Absolute or relative path to the repo being linked; `repo-settings.json` is written under `<path>/.project-office/`. |
 | `--description <description>` | —                 | Repo description.                                                                                                    |
 | `--stack <tech>`              | `[]`              | Repeatable — one `--stack` per technology.                                                                           |
-| `-f, --format <format>`       | `markdown`        | `json` or `markdown`. See [Output rendering](../output-rendering.md).                                                |
+| `-f, --format <format>`       | `markdown`        | `json` or `markdown`. See [Output rendering](../../output-rendering.md).                                                |
 
 ## Behavior
 
 1. If the project has no cache record yet, fetches it and creates one (`projectsRegister.setProjectRecord`)
-   — same as [`project:connect`](./project-connect.md).
+   — same as [`project:connect`](./connect.md).
 2. Builds one `ProjectRepositoryDefinition` from `--project`/`--path`/`--name`/`--description`/`--stack`.
 3. Records/replaces that repo's entry in the project cache's `repos[]`, keyed by `path`
    (`projectsRegister.linkRepositoryToProject`) — running this again for the same path

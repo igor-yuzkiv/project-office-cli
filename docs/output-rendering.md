@@ -51,7 +51,7 @@ not an oversight.
 
 `renderTaskAsMarkdown(task: Task): string` decides which `Task` fields become frontmatter
 properties and which become content, then calls `renderMarkdown` (used by
-[`task:view`](./commands/task-view.md)):
+[`task:view`](./commands/task/view.md)):
 
 | Frontmatter property | Source                                     |
 | -------------------- | ------------------------------------------ |
@@ -69,21 +69,21 @@ properties and which become content, then calls `renderMarkdown` (used by
 Content is `# {task.name}` followed by `task.description` (or an empty string).
 
 The same file also exports `renderTaskListAsMarkdown(response: PaginatedResponse<TaskOverview>): string`,
-used by [`task:list`](./commands/task-list.md) and [`task:search`](./commands/task-search.md).
+used by [`task:list`](./commands/task/list.md) and [`task:search`](./commands/task/search.md).
 Content is one `{key} {name}` line per task; frontmatter properties are the pagination meta
 (`total`, `page`, `per_page`).
 
 ## `src/entities/task/render/render-task-comment.service.ts`
 
 `renderTaskCommentsAsMarkdown(response: PaginatedResponse<TaskComment>): string`, used by
-[`task:comments`](./commands/task-comments.md). Content is one
+[`task:comments`](./commands/task/comments.md). Content is one
 `- **{author.name}** ({created_at}): {content}` line per comment; frontmatter properties are
 the pagination meta (`total`, `page`, `per_page`) — same shape as the task list renderer.
 
 ## `src/entities/project/render/render-project.service.ts`
 
 `renderProjectAsMarkdown(project: Project): string`, used by
-[`project:view`](./commands/project-view.md). Mirrors the Task renderer's split: `prefix`,
+[`project:view`](./commands/project/view.md). Mirrors the Task renderer's split: `prefix`,
 `status`, `start_date`, `end_date`, `tags` (`project.tags?.map(tag => tag.name) ?? []`),
 `created_at`, `updated_at` as frontmatter properties; `# {project.name}` followed by
 `project.description` (or an empty string) as content.

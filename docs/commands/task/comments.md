@@ -16,7 +16,7 @@ project-office task:comments -t TASK-1 --page 1 --per-page 20
 | Option                  | Default         | Purpose                                                               |
 | ----------------------- | --------------- | --------------------------------------------------------------------- |
 | `-t, --task <task>`     | **required**    | Task ULID or key (e.g. `TASK-1`).                                     |
-| `-f, --format <format>` | `markdown`      | `json` or `markdown`. See [Output rendering](../output-rendering.md). |
+| `-f, --format <format>` | `markdown`      | `json` or `markdown`. See [Output rendering](../../output-rendering.md). |
 | `--page <page>`         | backend default | Page number.                                                          |
 | `--per-page <perPage>`  | backend default | Items per page (backend caps `comments` at 100).                      |
 

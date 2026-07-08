@@ -20,10 +20,9 @@ agents and the Project Office / MVP Task Manager web application.
 - The CLI may call the backend API. Agents must reach Task Manager **only** through
   this CLI — never through direct database access, backend API calls, filesystem
   shortcuts, or web-app internals.
-- This is an early local MVP. `src/index.ts` currently does little more than a single
-  test request against the backend. Treat the README's "Direction" section (scoped
-  context building, controlled read commands, submitting notes/proposals/feedback) as
-  the roadmap, not as implemented behavior.
+- This started as an early local MVP; the command set now covers task/project reads and
+  writes, install/status/instructions. See the root [`README.md`](./README.md) for a
+  current overview and links into `docs/`.
 
 Keep the implementation simple until the actual workflow is clear.
 
