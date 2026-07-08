@@ -6,9 +6,6 @@ export type TaskStatus = 'open' | 'in_progress' | 'completed' | 'closed'
 
 export type TaskPriorityName = 'None' | 'Low' | 'Medium' | 'High' | 'Urgent'
 
-// Priority values accepted by `POST tasks` (doc-0004 §4.4): TaskPriority enum.
-export type TaskPriorityValue = 0 | 10 | 50 | 75 | 100
-
 export interface TaskPriority {
     value: number
     name: TaskPriorityName
@@ -84,16 +81,13 @@ export type TaskSearchParams = PagingParams &
 
 export interface CreateTaskInput {
     name: string
-    task_list_id?: string | null
     description?: string | null
-    priority?: TaskPriorityValue | null
-    start_date?: string | null
-    due_date?: string | null
-    tag_ids?: string[]
+    tags?: string
 }
 
-// `PUT tasks/{task}` only accepts `status` and `description` (doc-0004 §4.6).
 export interface UpdateTaskInput {
+    name?: string
     status?: TaskStatus
     description?: string | null
+    tags?: string
 }
