@@ -7,6 +7,8 @@ purpose-tuned source served by the CLI itself) live in
 
 ## Getting started
 
+- [`status`](./commands/status.md) — run this first, in any session: a preflight checklist
+  of CLI readiness that never fails.
 - [Configuration](./configuration.md) — per-user CLI settings (`settings.json`); what each
   setting controls and where it lives.
 - [`install`](./commands/install.md) — one-time local setup; run this first.
@@ -38,6 +40,7 @@ Project Office context bootstrap:
 
 Setup and self-documentation:
 
+- [`status`](./commands/status.md)
 - [`install`](./commands/install.md)
 - [`instructions`](./commands/instructions.md)
 

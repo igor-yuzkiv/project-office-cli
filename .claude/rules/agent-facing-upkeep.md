@@ -39,7 +39,7 @@ same change. The instruction must match the command's real options and output.
 
 ## Status checklist
 
-`project-office status` (`src/commands/status/setup/checklist/`) is the preflight check
+`project-office status` (`src/commands/status/checklist/`) is the preflight check
 agents run to know whether the CLI is ready to use — installed, linked to a project,
 reachable, authenticated, with access to that project. It only tells the truth if it
 actually probes everything the CLI's operation depends on.
