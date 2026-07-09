@@ -9,9 +9,9 @@ const SETTINGS_FILE_NAME = 'settings.json'
 export const SETTINGS_DIR = join(homedir(), CACHE_DIR_NAME)
 export const SETTINGS_FILE = join(SETTINGS_DIR, SETTINGS_FILE_NAME)
 
-const DEFAULT_BACKEND_BASE_URL = 'https://task.igor-yuzkiv-dev.tech'
 const DEFAULT_BACKEND_USER_PROFILE_PATH = '/#/profile'
-const DEFAULT_API_BASE_URL = 'https://task.igor-yuzkiv-dev.tech/api/cli/'
+const DEFAULT_BACKEND_BASE_URL = 'http://127.0.0.1:8000'
+const DEFAULT_API_BASE_URL = 'http://127.0.0.1:8000/api/cli/'
 
 export function cliSettingsDefinition(values: Partial<CliSettings> = {}): CliSettingsDefinition {
     return {
