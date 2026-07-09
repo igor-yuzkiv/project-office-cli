@@ -81,7 +81,7 @@ Prefer `--json` so the result can be parsed reliably.
 Plannotator has a Close button and inline comments. Treat the artifact as approved when either condition is true:
 
 1. The user closes the UI with no comments.
-2. The returned comments include an explicit approval such as `approved`, `ok`, `go`, `погоджено`, or equivalent wording.
+2. The returned comments include an explicit approval such as `approved`, `ok`, `go`, or equivalent wording.
 
 The following outputs also count as approval:
 

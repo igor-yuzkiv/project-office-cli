@@ -6,10 +6,10 @@ Guidance for Claude Code (claude.ai/code) when working in this repository.
 
 ## Language
 
-Match the user's language. When the user writes in Ukrainian, respond in Ukrainian —
-in chat, in summaries, and in any artifact assembled for the user's review (plans, task
-proposals, review-gate documents). Keep code, identifiers, file paths, CLI commands, and
-technical terms in their original form; translate the prose around them, not the tokens.
+Match the user's language in chat, summaries, and any artifact assembled for review
+(plans, task proposals, review-gate documents). Keep code, identifiers, file paths, CLI
+commands, and technical terms in their original form; translate the prose around them,
+not the tokens.
 
 ## What this is
 
