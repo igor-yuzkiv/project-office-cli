@@ -10,6 +10,9 @@ import taskCreate from '@/commands/instructions/content/task-create.md' with { t
 import taskUpdate from '@/commands/instructions/content/task-update.md' with { type: 'text' }
 import taskCommentAdd from '@/commands/instructions/content/task-comment-add.md' with { type: 'text' }
 import taskCommentUpdate from '@/commands/instructions/content/task-comment-update.md' with { type: 'text' }
+import docView from '@/commands/instructions/content/doc-view.md' with { type: 'text' }
+import docCreate from '@/commands/instructions/content/doc-create.md' with { type: 'text' }
+import docUpdate from '@/commands/instructions/content/doc-update.md' with { type: 'text' }
 import install from '@/commands/instructions/content/install.md' with { type: 'text' }
 
 export const instructionsOverview = overview
@@ -26,5 +29,8 @@ export const instructionsRegistry: Record<string, string> = {
     'task:update': taskUpdate,
     'task:comment-add': taskCommentAdd,
     'task:comment-update': taskCommentUpdate,
-    install: install
+    'doc:view': docView,
+    'doc:create': docCreate,
+    'doc:update': docUpdate,
+    install: install,
 }

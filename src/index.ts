@@ -13,6 +13,7 @@ import {
     taskCommentAddCommand,
     taskCommentUpdateCommand,
 } from '@/commands/task'
+import { docViewCommand, docCreateCommand, docUpdateCommand } from '@/commands/doc'
 import { instructionsCommand } from '@/commands/instructions'
 import { statusCommand } from '@/commands/status'
 
@@ -34,6 +35,9 @@ program.addCommand(taskCreateCommand)
 program.addCommand(taskUpdateCommand)
 program.addCommand(taskCommentAddCommand)
 program.addCommand(taskCommentUpdateCommand)
+program.addCommand(docViewCommand)
+program.addCommand(docCreateCommand)
+program.addCommand(docUpdateCommand)
 program.addCommand(instructionsCommand)
 program.addCommand(statusCommand)
 

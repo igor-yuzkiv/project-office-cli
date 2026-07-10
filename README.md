@@ -73,6 +73,13 @@ project-office task:create --name "Fix login bug" --tags "bug,backend"
 project-office task:view --task TASK-123
 ```
 
+Create and read project documentation:
+
+```bash
+project-office doc:create --title "Architecture notes" --tags "architecture"
+project-office doc:view --doc DOC-MTM-1
+```
+
 When running from source, replace `project-office` with:
 
 ```bash
@@ -139,6 +146,9 @@ The cache stores a project snapshot plus the local repositories linked to it. Se
 | `task:comments` | List task comments. |
 | `task:comment-add` | Add a task comment. |
 | `task:comment-update` | Update a task comment. |
+| `doc:view` | Show one project document. |
+| `doc:create` | Create a root project document. |
+| `doc:update` | Update a project document. |
 | `instructions` | Print bundled agent-facing command instructions. |
 
 Most data-returning commands support:
