@@ -3,24 +3,10 @@ paths:
   - "src/**/*.ts"
 ---
 
-# Rule: Code and CLI conventions
+# Rule: CLI file naming and command style
 
-## KISS / simple-first
-
-Keep implementations simple, direct, and easy to review.
-
-Solve the current problem without adding speculative architecture, generic abstractions, or future-proofing unless the task explicitly requires it. Prefer boring, readable code over clever code.
-
-* Make the smallest reasonable change that solves the task.
-* Reuse existing project patterns when they fit.
-* Avoid broad refactors unless they are part of the task scope.
-* Do not introduce new layers, services, managers, factories, or helpers just to make the code look “architectural”.
-* Extract functions only when they make the current code easier to read, test, or reuse immediately.
-* Prefer explicit flow over overly generic configuration-driven behavior.
-* Do not prepare for imaginary future requirements. Leave the code easy to change later instead.
-
-A good change should be understandable from the diff without needing a map, a compass, and a senior architect.
-
+Stack-specific conventions for this CLI. General code style and simplicity live in
+`code-conventions.md`; project structure lives in `architecture.md`.
 
 ## File naming
 
@@ -52,29 +38,6 @@ it, give it a descriptive role suffix that names its responsibility — `.servic
 `.handler.ts`, `.manager.ts`, and so on — keeping the same `name.role.ext`,
 kebab-case, lowercase shape. Reuse an existing suffix consistently instead of coining a
 near-synonym for the same role.
-
-## Code style
-
-Prefer **self-documenting code**: the code should explain itself before comments are
-needed.
-
-- Prefer intention-revealing names over short or generic ones; a slightly longer name
-  is fine when it aids understanding. Avoid abbreviations unless established in the
-  project domain.
-- Introduce explanatory variables and extracted functions when they improve readability.
-- Do not add comments that restate what the code already expresses.
-- Preserve existing comments unless they are incorrect or obsolete.
-- Comments explain **why**, not **what** — non-obvious intent, constraints, trade-offs,
-  external behavior, or a decision that would otherwise look strange.
-
-```ts
-// good
-const taskId = options.task;
-
-// avoid
-// Get task id from options
-const taskId = options.task;
-```
 
 ## CLI command and option style
 

@@ -55,4 +55,4 @@ real command failure — which is exactly what `status` exists to prevent.
 
 This rule governs the agent-facing surface only (`instructions` content and the `status`
 checklist). The human docs under `docs/` follow their own flow (see
-`development-workflow.md`); do not conflate the two sources.
+`workflow.md`); do not conflate the two sources.

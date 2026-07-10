@@ -26,60 +26,41 @@ from this code repo. All project data is reached through the `project-office` CL
 
 ## Working flow (defaults — edit or extend for this project)
 
-Sensible starting conventions for how work moves through the project here. Change anything that
-doesn't fit, and add your own rules under "Project-specific conventions".
-
 ### Tasks
-- **Pick up a task** — move it to `in_progress` when you actually start work on it, not before
-  (`project-office task:update --task TASK-1 --status in_progress`).
-- **While working** — record the work's events as **comments** (see Comments below). Don't
-  overwrite the `description` with running progress — keep it the statement of intent.
-- **Hand off** — move `in_progress → ready_to_test` when the change is implemented and verified;
-  add the hand-off comment (see Comments below). `completed` and `closed` come later, from the
-  user, after testing.
-- **Can't proceed** — don't park it in a status; leave it `in_progress`, add a comment describing
-  the blocker, and raise it with the user.
 
-### Comments
+- **Pick up** — `→ in_progress` when you actually start work, not before.
+- **While working** — log events as comments (below); keep `description` as the statement of intent, never running progress.
+- **Hand off** — `in_progress → ready_to_test` once implemented **and verified**, with a hand-off comment. `completed` / `closed` come later, from the user.
+- **Can't proceed** — don't park it in a status: leave it `in_progress`, comment the blocker, raise it with the user.
 
-Write a comment on these events (`project-office task:comment-add --task TASK-1 --content "…"`):
-- **Picking up a task** — state the intent/plan in a few lines, before changing anything.
-- **Making a non-obvious decision** — what you chose, why, and what you rejected; the code shows
-  *what*, the comment preserves *why*.
-- **Hitting an open question** — leave it visible as a comment instead of guessing the answer.
-- **Verifying work** — what exactly was checked and how; a fact of verification, not "it works".
-- **Handing off** — the final summary (mini-template below).
+### Comments — the work log
 
-Keep out of comments:
-- **The task's own state** — name, status, description change through `task:update`. Comments
-  record the events of the work; task fields record facts about the task itself.
-- Running progress belongs in comments, not in the `description` — that rule lives under Tasks.
+Add a comment (`task:comment-add --task TASK-1 --content "…"`) on each event:
 
-Findings made along the way:
-- **Contextual to this task** ("while doing X, noticed Y next to it is fragile") — a comment on
-  this task.
-- **Standalone, needing its own action** — propose a new task (skeleton create) instead of
-  burying it in a comment on a topically unrelated task: comments are visible only inside their
-  task, so a finding buried there won't be found.
+- **Picking up** — the intent/plan in a few lines, before changing anything.
+- **A non-obvious decision** — what you chose, why, what you rejected (code shows *what*; the comment preserves *why*).
+- **An open question** — leave it visible instead of guessing.
+- **Verifying** — what exactly was checked and how; a fact, not "it works".
+- **Handing off** — the final summary (see below).
 
-The **hand-off comment** (`in_progress → ready_to_test`) is the one comment with light
-structure — two points: **what changed** and **how it was verified**. It has a consumer (whoever
-takes the task for testing); that is why the structure exists here and nowhere else. No other
-metadata, tags, or type fields — the event dictates the content, and the backend has no schema
-for structure inside a comment body.
+Keep the task's own state out of comments — name / status / description / tags change through `task:update`.
+
+Findings along the way:
+
+- **Contextual** ("while doing X, noticed Y nearby is fragile") — a comment on this task.
+- **Standalone, needs its own action** — create a new task (skeleton), don't bury it in an unrelated task's comments where it won't be found.
+
+**Hand-off comment** (`→ ready_to_test`) — the one structured comment, two points: **what changed** and **how it was verified**. Nothing else; it exists for whoever takes the task to test.
 
 ### Project-specific conventions
 
-**Multi-repo project.** This Project Office project spans more than one repository:
+**Multi-repo project** — this office spans more than one repo. Run `project-office project:view`
+for the current linked repos/paths (the source of truth — don't hardcode from memory):
+
 - `project-office-cli` (this repo) — `/var/www/task-manager/project-office-cli`
 - `mvp-task-manager` — `/var/www/task-manager/mvp-task-manager`
 
-Run `project-office project:view` to confirm the current list of linked repos and paths — it's
-the source of truth, don't hardcode this list from memory.
+**`repo:<name>` tags route a task to its repo.** Before implementing, check the task's tags:
 
-**`repo:<name>` tags route a task to its repository.** A task tagged `repo:mvp-task-manager`
-describes work for that repo's codebase, not this one. Before starting implementation, check a
-task's tags for a `repo:*` value:
-- if it names a **different** repo than the one you're currently in, stop and tell the user —
-  switch to (or point them at) that repo's working directory before touching any code there;
-- if it names **this** repo, or there's no `repo:*` tag at all, the task belongs here.
+- names a **different** repo than the one you're in → stop, tell the user, switch to that repo first;
+- names **this** repo, or no `repo:*` tag → the task belongs here.
