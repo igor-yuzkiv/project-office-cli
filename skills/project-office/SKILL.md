@@ -3,8 +3,8 @@ name: project-office
 description: >-
   Read, find, create, update or comment on the tasks of the single project
   this repository is linked to. Use whenever the user refers to a task by its
-  key (PREFIX-<number>, e.g. AD-42, MTM-7), mentions the task board, or asks to
-  work with a task, its comments, or to link this repo to a project.
+  key (PROJECT_PREFIX-<number>, e.g. MTM-7), mentions the task board, asks to
+  work with a task, its comments, or a project document (e.g. DOC-PROJECT_PREFIX-<number>, e.g. DOC-MTM-1), or to link this repo to a project.
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion
 ---
 
@@ -42,6 +42,10 @@ failing repository link means linking this repo; a failing CLI-settings / server
   refresh/update it to the current skill version.
 - **task** → `flows/task.md` — the user refers to a task (`PREFIX-<number>`), the
   task board, or asks to read / find / create / update a task or its comments.
+- **documentation** → `flows/documentation.md` — the user or a task explicitly
+  references a project document (a `DOC-…` key, a documentation link, or a request
+  to read / create / update a doc). A light, context-only flow: read when
+  referenced, write only when asked.
 
 If genuinely ambiguous, ask one question before proceeding.
 

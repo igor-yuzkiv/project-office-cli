@@ -60,6 +60,9 @@ session, read its instructions: `project-office instructions <command>`.
 | Update a task (name/status/description/tags) | `project-office task:update --task TASK-1 …` |
 | Add a comment (progress / decisions / artifacts) | `project-office task:comment-add --task TASK-1 --content <text\|@file\|->` |
 | Update a comment | `project-office task:comment-update --task TASK-1 --comment <id> --content …` (comment ids come from `task:comments --format json`) |
+| View a document (context source, when referenced) | `project-office doc:view --doc DOC-MTM-1` |
+| Create a document (only when explicitly asked) | `project-office doc:create --title "<title>" --content <text\|@file\|->` |
+| Update a document (only when explicitly asked) | `project-office doc:update --doc DOC-MTM-1 --content <text\|@file\|->` |
 | Bootstrap: link this repo | `project:link-repo` (setup flow only; it fetches and caches the project itself — `project:connect` is rarely needed directly) |
 | Per-user install (human, interactive) | `project-office install` |
 

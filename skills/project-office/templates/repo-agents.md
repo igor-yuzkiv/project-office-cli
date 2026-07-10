@@ -68,6 +68,20 @@ takes the task for testing); that is why the structure exists here and nowhere e
 metadata, tags, or type fields — the event dictates the content, and the backend has no schema
 for structure inside a comment body.
 
+### Documentation
+
+Project Office has a Documentation Hub (`doc:view` / `doc:create` / `doc:update`) — a **context
+source, not a step of every task**. The rule is: **read when referenced, write only when asked.**
+
+- **Read** — only documents the user or the task explicitly names (a `DOC-…` key or a
+  documentation link); read those and nothing else. Never browse or auto-read project docs, and
+  never read unrelated docs as background.
+- **Write** — create or update a doc only on an explicit request (from the user or the task
+  scope), never as opportunistic cleanup. If the target doc or the change is unclear, ask.
+- **Where a doc belongs** — put it in the **office** when it is project-level or shared across
+  repos: domain logic, API documentation, contracts, requirements. Keep **repo-specific
+  specification** (how this codebase implements things) in the repo itself. When unsure, ask.
+
 ### Project-specific conventions
 Rules unique to this project that aren't covered above — for example: which repo is primary for
 API work.

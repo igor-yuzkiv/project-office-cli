@@ -26,7 +26,10 @@ output come from `project-office instructions <command>`.
 ## Light flow (read → clarify → apply → show)
 
 1. **Read first** — locate and view the task and its comments; scan the task list for
-   related/prior work so you don't duplicate.
+   related/prior work so you don't duplicate. If the task description explicitly references
+   documentation, a document key, or a documentation link, read only those referenced
+   documents before planning or implementation (`flows/documentation.md`) — do not search or
+   read unrelated project documentation.
 2. **Clarify only real gaps** — facts about code → explore / Grep; a genuine preference or scope
    gap → one `AskUserQuestion`. Do not interview.
 3. **Apply via the CLI** — the mapped command (multi-line `--description` / `--content` via a

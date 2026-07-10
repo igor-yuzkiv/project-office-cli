@@ -52,6 +52,19 @@ Findings along the way:
 
 **Hand-off comment** (`→ ready_to_test`) — the one structured comment, two points: **what changed** and **how it was verified**. Nothing else; it exists for whoever takes the task to test.
 
+### Documentation
+
+Project Office has a Documentation Hub (`doc:view` / `doc:create` / `doc:update`) — a **context
+source, not a step of every task**. Rule: **read when referenced, write only when asked.**
+
+- **Read** — only docs the user or the task explicitly names (a `DOC-…` key or a documentation
+  link); read those and nothing else. Never browse or auto-read project docs.
+- **Write** — create or update a doc only on an explicit request, never as opportunistic
+  cleanup. If the target doc or the change is unclear, ask.
+- **Where a doc belongs** — put it in the **office** when it is project-level or shared across
+  repos (domain logic, API documentation, contracts, requirements); keep **repo-specific
+  specification** in the repo itself. When unsure, ask.
+
 ### Project-specific conventions
 
 **Multi-repo project** — this office spans more than one repo. Run `project-office project:view`
