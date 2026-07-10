@@ -29,3 +29,4 @@ build` / `bun run compile` (binary). After changing source, verify with `bunx ts
 - `architecture.md` — structure (commands/entities/shared), entity API, exports (scoped to `src/**`).
 - `conventions.md` — file naming and CLI command/option style (scoped to `src/**`).
 - `agent-facing-upkeep.md` — keeping `instructions` content and the `status` checklist in sync (scoped to `src/commands/**`).
+- `skills.md` — verification for skill changes via an independent `prompt-engineer` review, in place of the code validators (scoped to `skills/**`).
