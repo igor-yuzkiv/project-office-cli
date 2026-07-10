@@ -5,7 +5,7 @@ description: >-
   this repository is linked to. Use whenever the user refers to a task by its
   key (PROJECT_PREFIX-<number>, e.g. MTM-7), mentions the task board, asks to
   work with a task, its comments, or a project document (e.g. DOC-PROJECT_PREFIX-<number>, e.g. DOC-MTM-1), or to link this repo to a project.
-allowed-tools: Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion
+allowed-tools: Bash, Bash(project-office:*), Read, Write, Edit, Glob, Grep, AskUserQuestion
 ---
 
 # Project Office
