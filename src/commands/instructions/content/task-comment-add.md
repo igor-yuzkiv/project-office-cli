@@ -14,7 +14,8 @@ echo "Reviewed and approved." | project-office task:comment-add -t TASK-1 --cont
 
 - `-t, --task <task>` — **required**. The task's ULID or human key.
 - `--content <content>` — **required**. Inline text, `@<path>` to read from a file, or `-`
-  (also accepted: `@-`) to read from stdin.
+  (also accepted: `@-`) to read from stdin. Stored and rendered as **markdown** in Task
+  Manager — use headings, lists, `code`, and tables to structure it.
 - `-f, --format <json|markdown>` — optional, default `markdown`.
 
 The command sends a single comment wrapped as `{ comments: [{ content }] }` — the backend

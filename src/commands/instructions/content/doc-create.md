@@ -16,7 +16,8 @@ project-office doc:create --title "Architecture notes" --tags "architecture,back
 - `--title <title>` — **required**. Document title. Must be unique among the project's root
   documents.
 - `--content <content>` — optional. Inline text, `@<path>` to read from a file, or `-` (also
-  accepted: `@-`) to read from stdin.
+  accepted: `@-`) to read from stdin. Stored and rendered as **markdown** in Task Manager —
+  use headings, lists, `code`, and tables to structure it.
 - `--tags <tags>` — optional. Comma-separated tag names (e.g. `"architecture,backend"`). No
   tag ids needed — the backend finds or creates each tag by name.
 - `-f, --format <json|markdown>` — optional, default `markdown`.

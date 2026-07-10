@@ -20,7 +20,8 @@ project-office task:update -t TASK-1 --status completed --description -
 - `--status <status>` — optional. One of `open`, `ready_for_development`, `in_progress`,
   `ready_to_test`, `completed`, `closed`.
 - `--description <description>` — optional. Inline text, `@<path>` to read from a file, or
-  `-` (also accepted: `@-`) to read from stdin.
+  `-` (also accepted: `@-`) to read from stdin. Stored and rendered as **markdown** in Task
+  Manager — use headings, lists, `code`, and tables to structure it.
 - `--tags <tags>` — optional. Comma-separated tag names — **replaces the task's entire tag
   set** (not additive). No tag ids needed — the backend finds or creates each tag by name.
   Pass an empty string (`--tags ""`) to remove all tags from the task.
