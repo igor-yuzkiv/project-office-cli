@@ -10,6 +10,9 @@ import taskCreate from '@/commands/instructions/content/task-create.md' with { t
 import taskUpdate from '@/commands/instructions/content/task-update.md' with { type: 'text' }
 import taskCommentAdd from '@/commands/instructions/content/task-comment-add.md' with { type: 'text' }
 import taskCommentUpdate from '@/commands/instructions/content/task-comment-update.md' with { type: 'text' }
+import taskStart from '@/commands/instructions/content/task-start.md' with { type: 'text' }
+import taskCheckpoint from '@/commands/instructions/content/task-checkpoint.md' with { type: 'text' }
+import taskHandoff from '@/commands/instructions/content/task-handoff.md' with { type: 'text' }
 import docView from '@/commands/instructions/content/doc-view.md' with { type: 'text' }
 import docCreate from '@/commands/instructions/content/doc-create.md' with { type: 'text' }
 import docUpdate from '@/commands/instructions/content/doc-update.md' with { type: 'text' }
@@ -22,6 +25,9 @@ export const instructionsRegistry: Record<string, string> = {
     'project:view': projectView,
     'project:connect': projectConnect,
     'project:link-repo': projectLinkRepo,
+    'task:start': taskStart,
+    'task:checkpoint': taskCheckpoint,
+    'task:handoff': taskHandoff,
     'task:list': taskList,
     'task:view': taskView,
     'task:comments': taskComments,
