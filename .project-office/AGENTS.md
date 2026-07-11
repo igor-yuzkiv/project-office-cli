@@ -39,6 +39,11 @@ After reading the `task:start` context, add an `Implementation plan` checkpoint 
 needs one: multiple steps, meaningful risk, unclear sequencing, cross-file impact, or a plan worth
 preserving for review or resume.
 
+A plan checkpoint is required when the user explicitly asks to plan the task, when a plan is
+reviewed or approved outside Project Office, or when implementation depends on decisions that are
+not obvious from the task description. Record it before deleting temporary plan files or changing
+code.
+
 ```bash
 project-office task:checkpoint --task MTM-1 --subject "Implementation plan" --comment @/tmp/plan.md
 ```
@@ -63,6 +68,10 @@ Skip the plan checkpoint for trivial, obvious edits where it would add noise.
 Use `task:checkpoint` for what is worth preserving: completed milestones, decisions and their
 reasons, discovered constraints or risks, verification results, changes to the plan, relevant
 artifacts, and the next step when work continues later.
+
+Checkpoint after decision gates: user-approved plan changes, review findings triage, validation
+results that change the plan, or a decision to defer known issues. Capture what was decided and
+why before continuing.
 
 ```text
 Done:
