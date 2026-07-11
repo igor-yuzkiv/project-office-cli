@@ -18,10 +18,11 @@ own.
   fails unexpectedly — each run probes the server). It never fails (exits 0), needs no marker, and
   prints an ordered preflight checklist ending in `Result: ready|failed`. Prefer it over probing
   files or catching errors.
-- **One resolved project, no `--project`.** Every task/comment/doc command operates inside the
-  single project the repo is linked to — do not pass or assume a project id. The only command
-  taking an explicit `--project <id>` is `project:link-repo`, which establishes the link (setup
-  flow).
+- **One resolved project, no `--project` for normal work.** Every task/comment/doc command
+  operates inside the single project the repo is linked to — do not pass or assume a project id.
+  The bootstrap commands `project:connect` and `project:link-repo` take an explicit
+  `--project <id>`; `project:link-repo` is the normal setup command because it also writes the
+  repo marker.
 - **Never hand-write `repo-settings.json`.** It is written exclusively by `project:link-repo`
   (even to fix or re-point a link). Do not create or edit it directly.
 - **Look up exact usage from the CLI, not from memory.** For a command's precise options,
@@ -57,9 +58,9 @@ Run from inside the linked repo. Read a command's instructions before its first 
 | Read a task's comments | `project-office task:comments --task TASK-1` |
 | Create a task | `project-office task:create --name "<title>" --description <text\|@file\|->` |
 | Update a task's own fields (name / description / tags) | `project-office task:update --task TASK-1 …` |
-| Start work on a task (→ `in_progress`, returns full context) | `project-office task:start --task TASK-1 [--comment <text\|@file\|->]` |
+| Start work on a task (claims work, returns full context) | `project-office task:start --task TASK-1 [--comment <text\|@file\|->]` |
 | Checkpoint a milestone (structured comment, no status change) | `project-office task:checkpoint --task TASK-1 --subject "<milestone>" --comment <text\|@file\|->` |
-| Hand off for testing (→ `ready_to_test` + resolution) | `project-office task:handoff --task TASK-1 --resolution <text\|@file\|->` |
+| Hand off for testing (records resolution and moves the handoff status) | `project-office task:handoff --task TASK-1 --resolution <text\|@file\|->` |
 | Add an ad-hoc comment (note not worth a checkpoint) | `project-office task:comment-add --task TASK-1 --content <text\|@file\|->` |
 | Update a comment | `project-office task:comment-update --task TASK-1 --comment <id> --content …` (ids come from `task:comments --format json`) |
 | View a document (context source, when referenced) | `project-office doc:view --doc DOC-MTM-1` |
@@ -68,9 +69,10 @@ Run from inside the linked repo. Read a command's instructions before its first 
 | Bootstrap: link this repo | `project-office project:link-repo` (setup flow; it fetches and caches the project itself — `project:connect` is rarely needed directly) |
 | Per-user install (human, interactive) | `project-office install` |
 
-Task status moves as a side effect of `task:start` and `task:handoff`, which record context along
-with it. `task:update --status` exists but bypasses that record — use it only when the user
-explicitly directs a status change that the workflow commands don't cover.
+Task status usually moves as a side effect of `task:start` and `task:handoff`, which record
+context along with the change. `task:update --status` exists for explicit user-directed status
+changes outside those workflow commands; read `project-office instructions task:update` first for
+current valid values and exact usage.
 
 ## Multi-line / large input (`--description`, `--content`, `--resolution`)
 

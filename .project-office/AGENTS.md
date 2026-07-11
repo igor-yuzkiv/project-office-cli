@@ -11,9 +11,11 @@ through the `project-office` CLI.
   repository.
 * Never edit `.project-office/repo-settings.json` manually — only `project:link-repo` writes it.
 * Use `project-office instructions <command>` when exact command usage is unclear.
-* Task status is a side effect of the workflow commands (`task:start`, `task:handoff`) — they move
-  it together with the context they record. Setting `--status` by hand leaves the status without
-  that record.
+* Task status usually moves as a side effect of workflow commands (`task:start`, `task:handoff`);
+  use those for workflow transitions because they record context with the change.
+* Use `task:update --status` only when the user explicitly asks for a status change outside those
+  workflow commands. Before doing that, read `project-office instructions task:update` for current
+  valid values and exact usage.
 * `task:view` inspects a task without starting work; when you are starting work, `task:start`
   already returns the context, so a separate `task:view` is redundant.
 
@@ -27,7 +29,7 @@ Taking a task into implementation:
 project-office task:start --task MTM-1
 ```
 
-It moves the task to `in_progress`, returns the full task context with recent comments, and is
+It claims the task for implementation, returns the full task context with recent comments, and is
 safe to re-run when resuming. It already gives you what `task:view` would — start here rather than
 viewing first, and read the returned context before changing code.
 
@@ -94,20 +96,20 @@ Notes:
 - Known limitations or follow-up work, when relevant.
 ```
 
-`task:handoff` records the resolution and moves the task to `ready_to_test`. Do not move a task to
-`completed` or `closed` — those are user-side decisions.
+`task:handoff` records the resolution and moves the task to the handoff status. Outside the
+workflow commands, change a task's status only when the user explicitly asks.
 
 ### 5. Blocked work
 
-Leave the task `in_progress`, add a checkpoint with subject `Blocked` describing the blocker and
-the decision or information required, and raise it with the user. Do not invent a status for
-blocked work.
+Leave the task in its current workflow state, add a checkpoint with subject `Blocked` describing
+the blocker and the decision or information required, and raise it with the user. Do not invent a
+status for blocked work.
 
 ## Task content
 
 The task description states the requested result — it is not a progress log.
 
-* `task:update` — intentional changes to name, description, or tags;
+* `task:update` — intentional changes to name, description, tags, or a user-directed status;
 * `task:checkpoint` — plans, progress, decisions, verification;
 * `task:handoff` — the final implementation resolution.
 
