@@ -14,14 +14,15 @@ from this code repo. All project data is reached through the `project-office` CL
   `project:link-repo` writes it).
 - **Look up a command's exact usage** with `project-office instructions <command>` (e.g.
   `project-office instructions task:create`) rather than guessing flags.
-- **Statuses:** `open → ready_for_development → in_progress → ready_to_test → completed →
-  closed`. The agent may claim a task (`→ in_progress`) and, once the work is implemented
-  **and verified**, hand it off to testing (`→ ready_to_test`). `ready_for_development`,
+- **Statuses & intents:** `open → ready_for_development → in_progress → ready_to_test →
+  completed → closed`. The agent drives its own transitions through the **intent commands**, not
+  a manual `--status`: `task:start` to claim (`→ in_progress`) and, once implemented **and
+  verified**, `task:handoff` to pass to testing (`→ ready_to_test`). `ready_for_development`,
   `completed`, and `closed` are **user-side** decisions — do not set them unless the user
   explicitly says so. There is no `Blocked` status.
-- **Comments are the work log.** Progress, decisions, open questions, verification results, and
-  artifacts worth keeping go in **comments** (`task:comment-add`) — `task:update` is for the
-  task's name/status/description/tags themselves.
+- **Comments are the work log.** Milestones worth resuming from go in via `task:checkpoint`
+  (structured), ad-hoc notes via `task:comment-add`; `task:update` is for the task's
+  name/description/tags (and a user-directed `--status` the intent commands don't cover).
 <!-- project-office:managed:end -->
 
 ## Working flow (defaults — edit or extend for this project)
@@ -30,30 +31,34 @@ Sensible starting conventions for how work moves through the project here. Chang
 doesn't fit, and add your own rules under "Project-specific conventions".
 
 ### Tasks
-- **Pick up a task** — move it to `in_progress` when you actually start work on it, not before
-  (`project-office task:update --task TASK-1 --status in_progress`).
-- **While working** — record the work's events as **comments** (see Comments below). Don't
-  overwrite the `description` with running progress — keep it the statement of intent.
-- **Hand off** — move `in_progress → ready_to_test` when the change is implemented and verified;
-  add the hand-off comment (see Comments below). `completed` and `closed` come later, from the
-  user, after testing.
+- **Pick up** — `task:start --task TASK-1` when you actually start work, not before; pass the
+  plan via `--comment` (sets `in_progress`, returns recent comments, safe to re-run).
+- **While working** — record milestones as checkpoints, ad-hoc notes as comments (see Comments
+  below). Don't overwrite the `description` with running progress — keep it the statement of intent.
+- **Hand off** — `task:handoff --task TASK-1 --resolution "…"` when the change is implemented and
+  verified; it records the resolution and moves the task to `ready_to_test` atomically. `completed`
+  and `closed` come later, from the user, after testing.
 - **Can't proceed** — don't park it in a status; leave it `in_progress`, add a comment describing
   the blocker, and raise it with the user.
 
-### Comments
+### Comments — the work log
 
-Write a comment on these events (`project-office task:comment-add --task TASK-1 --content "…"`):
-- **Picking up a task** — state the intent/plan in a few lines, before changing anything.
-- **Making a non-obvious decision** — what you chose, why, and what you rejected; the code shows
-  *what*, the comment preserves *why*.
-- **Hitting an open question** — leave it visible as a comment instead of guessing the answer.
-- **Verifying work** — what exactly was checked and how; a fact of verification, not "it works".
-- **Handing off** — the final summary (mini-template below).
+The intent commands carry their own records; plain comments are for the rest:
 
-Keep out of comments:
-- **The task's own state** — name, status, description change through `task:update`. Comments
-  record the events of the work; task fields record facts about the task itself.
-- Running progress belongs in comments, not in the `description` — that rule lives under Tasks.
+- **Picking up** — the intent/plan via `task:start --comment`, before changing anything.
+- **A milestone** (`task:checkpoint --subject "…" --comment "…"`) — a decision (what/why/what you
+  rejected), a verification result (what was checked and how — a fact, not "it works"), or a
+  finished sub-goal. Test: if this session died now, would a fresh agent need this to continue?
+- **Handing off** (`task:handoff --resolution "…"`) — the final summary: what changed + how it
+  was verified.
+- **An open question** — raise it with the user, not the log (record as a plain comment only if a
+  resumer must see it).
+- **An ad-hoc note** — a passing observation not worth a checkpoint → `task:comment-add`.
+
+Keep the task's own state out of comments — name / description / tags change through `task:update`.
+The agent's own transitions (`in_progress`, `ready_to_test`) go through the intent commands above,
+not a manual `--status`; a user-directed status they don't cover (`ready_for_development` /
+`completed` / `closed`) is set with `task:update --status`, only when the user explicitly asks.
 
 Findings made along the way:
 - **Contextual to this task** ("while doing X, noticed Y next to it is fragile") — a comment on
@@ -62,11 +67,9 @@ Findings made along the way:
   burying it in a comment on a topically unrelated task: comments are visible only inside their
   task, so a finding buried there won't be found.
 
-The **hand-off comment** (`in_progress → ready_to_test`) is the one comment with light
-structure — two points: **what changed** and **how it was verified**. It has a consumer (whoever
-takes the task for testing); that is why the structure exists here and nowhere else. No other
-metadata, tags, or type fields — the event dictates the content, and the backend has no schema
-for structure inside a comment body.
+The `task:start` / `task:checkpoint` / `task:handoff` records are structured by markdown headings
+in the comment body (`# Start`, `# Checkpoint` / `## subject` / `## Notes`, `# Handoff`) — that's
+what distinguishes them from a plain note; there's no separate type field.
 
 ### Documentation
 

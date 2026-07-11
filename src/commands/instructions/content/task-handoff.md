@@ -18,9 +18,9 @@ echo "Implemented X, verified with Y." | project-office task:handoff -t TASK-1 -
   `-` (also accepted: `@-`) to read from stdin.
 - `-f, --format <json|markdown>` — optional, default `markdown`.
 
-The backend stores the resolution as a comment whose content starts with the marker
-`[Handoff] {resolution}`, and moves the task's status to `ready_to_test` in the same
-operation — if the comment fails to create, the status is not changed either.
+The backend stores the resolution as a comment whose body is a `# Handoff` heading followed by
+{resolution}, and moves the task's status to `ready_to_test` in the same operation — if the
+comment fails to create, the status is not changed either.
 
 ## Output
 

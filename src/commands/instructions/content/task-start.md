@@ -17,8 +17,9 @@ project-office task:start -t TASK-1 --format json
 
 - `-t, --task <task>` — **required**. The task's ULID or human key.
 - `--comment <comment>` — optional. Inline text, `@<path>` to read from a file, or `-` (also
-  accepted: `@-`) to read from stdin. When given, records a comment marked `[Start] {comment}`
-  at the same time as the status change; when omitted, no comment is created.
+  accepted: `@-`) to read from stdin. When given, records a comment whose body is a `# Start`
+  heading followed by {comment}, at the same time as the status change; when omitted, no comment
+  is created.
 - `-f, --format <json|markdown>` — optional, default `markdown`.
 
 Idempotent: calling it again on a task that is already `in_progress` is safe — the status is

@@ -58,7 +58,10 @@ session, read its instructions: `project-office instructions <command>`.
 | Read a task's comments | `project-office task:comments --task TASK-1` |
 | Create a task | `project-office task:create --name "<title>" --description <text\|@file\|->` |
 | Update a task (name/status/description/tags) | `project-office task:update --task TASK-1 …` |
-| Add a comment (progress / decisions / artifacts) | `project-office task:comment-add --task TASK-1 --content <text\|@file\|->` |
+| Add an ad-hoc comment (non-milestone note) | `project-office task:comment-add --task TASK-1 --content <text\|@file\|->` |
+| Start work on a task (claim → `in_progress`, optional plan) | `project-office task:start --task TASK-1 [--comment <text\|@file\|->]` |
+| Checkpoint a milestone (structured comment; no status change) | `project-office task:checkpoint --task TASK-1 --subject "<milestone>" --comment <text\|@file\|->` |
+| Hand off for testing (→ `ready_to_test` + resolution) | `project-office task:handoff --task TASK-1 --resolution <text\|@file\|->` |
 | Update a comment | `project-office task:comment-update --task TASK-1 --comment <id> --content …` (comment ids come from `task:comments --format json`) |
 | View a document (context source, when referenced) | `project-office doc:view --doc DOC-MTM-1` |
 | Create a document (only when explicitly asked) | `project-office doc:create --title "<title>" --content <text\|@file\|->` |

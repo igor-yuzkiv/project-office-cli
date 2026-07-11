@@ -19,8 +19,8 @@ echo "Details..." | project-office task:checkpoint -t TASK-1 --subject "Progress
   (also accepted: `@-`) to read from stdin.
 - `-f, --format <json|markdown>` — optional, default `markdown`.
 
-The backend stores this as a regular comment whose content starts with the marker
-`[Checkpoint] {subject}`, followed by the comment body.
+The backend stores this as a regular comment whose body is a `# Checkpoint` heading, then a
+`## {subject}` heading, then a `## Notes` heading followed by the comment body.
 
 ## Output
 

@@ -10,18 +10,19 @@ output come from `project-office instructions <command>`.
 ## Operations
 
 - **Find / read** — list tasks, view a task, read its comments.
-- **Update** — change a task with `task:update` (name, status, description, tags — see its
-  instructions for semantics; priority, dates, and task list are not settable through the CLI).
-  Keep the `description` the statement of intent; do not overwrite it with running progress.
-- **Status** — statuses and who may change them when are defined in
-  `<repo>/.project-office/AGENTS.md`, not here. Read it before touching `--status`; when it is
-  absent or silent on a transition, ask the user instead of deciding alone (if absent, offer to
-  seed it — setup flow, step D1).
+- **Update** — change a task's own fields with `task:update` (name, description, tags; `--status`
+  only for user-directed exceptions — see Status & workflow; priority, dates, and task list are
+  not settable through the CLI). Keep the `description` the statement of intent; do not overwrite
+  it with running progress.
+- **Status & workflow** — how a task moves through its statuses — the transitions the agent makes
+  and the commands for them — is defined in `<repo>/.project-office/AGENTS.md`, not here. Read it
+  before changing status; when it is absent or silent on a transition, ask the user instead of
+  deciding alone (if absent, offer to seed it — setup flow, step D1).
 - **Skeleton create** — a simple, already-decided task: `--name` + a `--description` that states
   the outcome, why it matters, and the target repo absolute path.
-- **Comments — the work log.** Anything that is not name/description/status goes to
-  `task:comment-add`: progress notes, decisions, open questions, verification results, and any
-  artifacts produced while working that the project should keep for audit and history.
+- **Comments — the work log.** Anything that is not the task's own name/description/tags is
+  recorded as a comment. Which command to use for what (e.g. `task:checkpoint` for a milestone vs
+  `task:comment-add` for an ad-hoc note) is defined in the repo's `<repo>/.project-office/AGENTS.md`.
 
 ## Light flow (read → clarify → apply → show)
 
@@ -49,6 +50,6 @@ task `description`.
 - **Name the target repo** (absolute path) in the task `description` — the backend task has no
   repo field. The current repo and the other repos linked to the project are listed by
   `project-office project:view` (the current one is marked `(this repo)`).
-- **Ground claims; never invent** requirements — keep open questions visible as a task comment
-  (`task:comment-add`), not as invented description text.
+- **Ground claims; never invent** requirements — surface open questions to the user; record one
+  as a task comment only if a resumer must see it, never as invented description text.
 - The access invariants (CLI-only, marker ownership) are in `SKILL.md` — they apply here.

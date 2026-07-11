@@ -14,43 +14,44 @@ from this code repo. All project data is reached through the `project-office` CL
   `project:link-repo` writes it).
 - **Look up a command's exact usage** with `project-office instructions <command>` (e.g.
   `project-office instructions task:create`) rather than guessing flags.
-- **Statuses:** `open → ready_for_development → in_progress → ready_to_test → completed →
-  closed`. The agent may claim a task (`→ in_progress`) and, once the work is implemented
-  **and verified**, hand it off to testing (`→ ready_to_test`). `ready_for_development`,
+- **Statuses & intents:** `open → ready_for_development → in_progress → ready_to_test →
+  completed → closed`. The agent drives its own transitions through the **intent commands**, not
+  a manual `--status`: `task:start` to claim (`→ in_progress`) and, once implemented **and
+  verified**, `task:handoff` to pass to testing (`→ ready_to_test`). `ready_for_development`,
   `completed`, and `closed` are **user-side** decisions — do not set them unless the user
   explicitly says so. There is no `Blocked` status.
-- **Comments are the work log.** Progress, decisions, open questions, verification results, and
-  artifacts worth keeping go in **comments** (`task:comment-add`) — `task:update` is for the
-  task's name/status/description/tags themselves.
+- **Comments are the work log.** Milestones worth resuming from go in via `task:checkpoint`
+  (structured), ad-hoc notes via `task:comment-add`; `task:update` is for the task's
+  name/description/tags (and a user-directed `--status` the intent commands don't cover).
 <!-- project-office:managed:end -->
 
 ## Working flow (defaults — edit or extend for this project)
 
 ### Tasks
 
-- **Pick up** — `→ in_progress` when you actually start work, not before.
-- **While working** — log events as comments (below); keep `description` as the statement of intent, never running progress.
-- **Hand off** — `in_progress → ready_to_test` once implemented **and verified**, with a hand-off comment. `completed` / `closed` come later, from the user.
+- **Pick up** — `task:start --task TASK-1` when you actually start work, not before; pass the plan via `--comment` (sets `in_progress`, returns recent comments, safe to re-run).
+- **While working** — record milestones as checkpoints, ad-hoc notes as comments (below); keep `description` as the statement of intent, never running progress.
+- **Hand off** — `task:handoff --task TASK-1 --resolution "…"` once implemented **and verified** (records the resolution and moves to `ready_to_test` atomically). `completed` / `closed` come later, from the user.
 - **Can't proceed** — don't park it in a status: leave it `in_progress`, comment the blocker, raise it with the user.
 
 ### Comments — the work log
 
-Add a comment (`task:comment-add --task TASK-1 --content "…"`) on each event:
+The intent commands carry their own records; plain comments are for the rest:
 
-- **Picking up** — the intent/plan in a few lines, before changing anything.
-- **A non-obvious decision** — what you chose, why, what you rejected (code shows *what*; the comment preserves *why*).
-- **An open question** — leave it visible instead of guessing.
-- **Verifying** — what exactly was checked and how; a fact, not "it works".
-- **Handing off** — the final summary (see below).
+- **Picking up** — the intent/plan via `task:start --comment`, before changing anything.
+- **A milestone** (`task:checkpoint --subject "…" --comment "…"`) — a decision (what/why/what you rejected), a verification result (what was checked and how — a fact, not "it works"), or a finished sub-goal. Test: if this session died now, would a fresh agent need this to continue?
+- **Handing off** (`task:handoff --resolution "…"`) — the final summary: what changed + how it was verified.
+- **An open question** — raise it with the user, not the log (record as a plain comment only if a resumer must see it).
+- **An ad-hoc note** — a passing observation not worth a checkpoint → `task:comment-add`.
 
-Keep the task's own state out of comments — name / status / description / tags change through `task:update`.
+Keep the task's own state out of comments — name / description / tags change through `task:update`. The agent's own transitions (`in_progress`, `ready_to_test`) go through the intent commands above, not a manual `--status`; a user-directed status they don't cover (`ready_for_development` / `completed` / `closed`) is set with `task:update --status`, only when the user explicitly asks.
 
 Findings along the way:
 
 - **Contextual** ("while doing X, noticed Y nearby is fragile") — a comment on this task.
 - **Standalone, needs its own action** — create a new task (skeleton), don't bury it in an unrelated task's comments where it won't be found.
 
-**Hand-off comment** (`→ ready_to_test`) — the one structured comment, two points: **what changed** and **how it was verified**. Nothing else; it exists for whoever takes the task to test.
+The `task:start` / `task:checkpoint` / `task:handoff` records are structured by markdown headings in the comment body (`# Start`, `# Checkpoint` / `## subject` / `## Notes`, `# Handoff`) — that's what distinguishes them from a plain note; there's no separate type field.
 
 ### Documentation
 
