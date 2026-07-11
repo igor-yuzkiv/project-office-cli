@@ -1,55 +1,55 @@
-# Flow: task — read / create / update project tasks
+# Flow: task — work with the project's tasks
 
-Read and maintain the project's tasks and comments through the `project-office` CLI. Everyday
-interface: read, list, update, comment, and light (skeleton) create. Larger scoping — interviews,
-decomposition into several tasks, plan sign-off — happens outside this flow; see Boundary.
+Everyday interface to the project's tasks and comments through the `project-office` CLI.
 
-The operation → command map is in `references/office-cli.md`; a command's exact options and
-output come from `project-office instructions <command>`.
+**The workflow itself — which command to run when, which statuses the agent may move, what
+goes into a comment vs the task's own fields — is defined in
+`<repo>/.project-office/AGENTS.md`, not here.** Read it before acting. If it is missing, offer
+to seed it (setup flow, step D1); if it is silent on what you are about to do, ask the user
+instead of deciding alone.
 
-## Operations
+This flow only covers what AGENTS.md does not: where to find a command, and where this flow
+stops.
 
-- **Find / read** — list tasks, view a task, read its comments.
-- **Update** — change a task's own fields with `task:update` (name, description, tags; `--status`
-  only for user-directed exceptions — see Status & workflow; priority, dates, and task list are
-  not settable through the CLI). Keep the `description` the statement of intent; do not overwrite
-  it with running progress.
-- **Status & workflow** — how a task moves through its statuses — the transitions the agent makes
-  and the commands for them — is defined in `<repo>/.project-office/AGENTS.md`, not here. Read it
-  before changing status; when it is absent or silent on a transition, ask the user instead of
-  deciding alone (if absent, offer to seed it — setup flow, step D1).
-- **Skeleton create** — a simple, already-decided task: `--name` + a `--description` that states
-  the outcome, why it matters, and the target repo absolute path.
-- **Comments — the work log.** Anything that is not the task's own name/description/tags is
-  recorded as a comment. Which command to use for what (e.g. `task:checkpoint` for a milestone vs
-  `task:comment-add` for an ad-hoc note) is defined in the repo's `<repo>/.project-office/AGENTS.md`.
+## Commands
 
-## Light flow (read → clarify → apply → show)
+The operation → command map is in `references/office-cli.md`. A command's exact options,
+semantics and output come from `project-office instructions <command>` — read it before first
+use in a session rather than guessing flags.
 
-1. **Read first** — locate and view the task and its comments; scan the task list for
-   related/prior work so you don't duplicate. If the task description explicitly references
-   documentation, a document key, or a documentation link, read only those referenced
-   documents before planning or implementation (`flows/documentation.md`) — do not search or
-   read unrelated project documentation.
-2. **Clarify only real gaps** — facts about code → explore / Grep; a genuine preference or scope
-   gap → one `AskUserQuestion`. Do not interview.
-3. **Apply via the CLI** — the mapped command (multi-line `--description` / `--content` via a
-   file or stdin, per `references/office-cli.md` §"Multi-line / large input").
-4. **Show the result** — re-view the task (and its comments) and report exactly what changed.
+Multi-line `--description` / `--content` goes through a file or stdin, per
+`references/office-cli.md` §"Multi-line / large input".
+
+## Before acting
+
+- **Read first.** Locate the task and read its current state and comments; scan the task list
+  for related or prior work so you don't duplicate it.
+- **Referenced docs only.** If the task explicitly names a document key or documentation link,
+  read those and nothing else (`flows/documentation.md`).
+- **Clarify only real gaps.** Facts about code → explore / Grep. A genuine preference or scope
+  gap → one `AskUserQuestion`. Do not interview.
+- **Report what changed.** After applying a change, re-read the task and say what actually
+  changed.
+
+## Creating a task
+
+A task this flow can create is one that is already decided: `--name` plus a `--description`
+stating the outcome, why it matters, and the target repo absolute path (the task itself has no
+repo field — `project-office project:view` lists the linked repos, the current one marked
+`(this repo)`).
+
+Ground it in what is known. Never invent requirements — surface open questions to the user
+rather than writing them into the description as fact.
 
 ## Boundary
 
-Known, bounded changes only. If the work needs an interview to discover requirements,
-decomposition into several tasks, or a plan the user must sign off, say so and defer to a
-planning effort — don't half-do scoping here. The backend models **tasks + comments**; richer
-structure a task needs (an implementation plan, criteria) is written as markdown inside the
-task `description`.
+Known, bounded changes only. Work that needs an interview to discover requirements,
+decomposition into several tasks, or a plan the user must sign off is outside this flow — say
+so and stop rather than half-scoping it here.
 
-## Policies
+Richer structure a task needs (an implementation plan, acceptance criteria) is written as
+markdown inside the task `description` — there are no extra fields for it.
 
-- **Name the target repo** (absolute path) in the task `description` — the backend task has no
-  repo field. The current repo and the other repos linked to the project are listed by
-  `project-office project:view` (the current one is marked `(this repo)`).
-- **Ground claims; never invent** requirements — surface open questions to the user; record one
-  as a task comment only if a resumer must see it, never as invented description text.
-- The access invariants (CLI-only, marker ownership) are in `SKILL.md` — they apply here.
+## Access invariants
+
+CLI-only, marker ownership — see `SKILL.md`. They apply here.
