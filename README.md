@@ -73,6 +73,15 @@ project-office task:create --name "Fix login bug" --tags "bug,backend"
 project-office task:view --task TASK-123
 ```
 
+Drive a task through its workflow — the agent's intents; the status transitions live on the
+backend:
+
+```bash
+project-office task:start --task TASK-123 --comment "Plan: endpoints, then tests."
+project-office task:checkpoint --task TASK-123 --subject "Milestone reached" --comment "Details..."
+project-office task:handoff --task TASK-123 --resolution "Implemented and verified."
+```
+
 Create and read project documentation:
 
 ```bash
@@ -143,6 +152,9 @@ The cache stores a project snapshot plus the local repositories linked to it. Se
 | `task:view` | Show one task. |
 | `task:create` | Create a task. |
 | `task:update` | Update a task. |
+| `task:start` | Claim a task (→ `in_progress`) and return its context with recent comments. |
+| `task:checkpoint` | Record a milestone as a structured comment (no status change). |
+| `task:handoff` | Hand a task off for testing (→ `ready_to_test`) with a resolution. |
 | `task:comments` | List task comments. |
 | `task:comment-add` | Add a task comment. |
 | `task:comment-update` | Update a task comment. |
