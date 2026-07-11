@@ -10,10 +10,10 @@ doc:update` — this flow only says when to reach for them.
 
 ## Read
 
-`doc:view` a document only when it is explicitly referenced — the user names it, the user's
-message carries a document key, or the task description references a document or documentation
-link. Read exactly those and nothing else; never browse, search, or pull in unrelated docs on
-your own. Factor what you read into planning or implementation.
+`doc:view` a document only when an explicit document key is available — the user's message carries
+a `DOC-…` key, or the task/user provides a documentation link that includes one. Read exactly
+those keyed documents and nothing else; never browse, search, infer a document from its title, or
+pull in unrelated docs on your own. Factor what you read into planning or implementation.
 
 ```bash
 project-office doc:view --doc DOC-MTM-1
