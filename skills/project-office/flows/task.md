@@ -22,8 +22,12 @@ Multi-line `--description` / `--content` goes through a file or stdin, per
 
 ## Before acting
 
-- **Read first.** Locate the task and read its current state and comments; scan the task list
-  for related or prior work so you don't duplicate it.
+- **Honor the user's verb.** A bare task key means follow the task's own scope and the repo
+  workflow. If the user says to plan a task, plan it; if they ask to inspect, explain, update, or
+  comment, do that instead of assuming implementation.
+- **Get task context first.** Use the repo's workflow rules to choose the right command for the
+  situation, then read the task's current state and relevant comments before changing project
+  data. Scan the task list for related or prior work when duplication is a real risk.
 - **Referenced docs only.** If the task explicitly names a document key or documentation link,
   read those and nothing else (`flows/documentation.md`).
 - **Clarify only real gaps.** Facts about code → explore / Grep. A genuine preference or scope

@@ -23,20 +23,27 @@ through the `project-office` CLI.
 
 ### 1. Start
 
-Taking a task into implementation:
+When taking or resuming a task for implementation, start with:
 
 ```bash
 project-office task:start --task MTM-1
 ```
 
-It claims the task for implementation, returns the full task context with recent comments, and is
-safe to re-run when resuming. It already gives you what `task:view` would — start here rather than
-viewing first, and read the returned context before changing code.
+This is the pickup command: it claims the task for implementation and returns the full task
+context with recent comments. Read that returned context before changing code. Do not run a
+separate `task:view` first unless the user only asked to inspect the task without starting work.
 
-### 2. Record the plan
+### 2. Record a plan when useful
 
-After analyzing the context and before implementing, save the plan with `task:checkpoint`
-(`--subject "Implementation plan"`). Keep it short and structured:
+After reading the `task:start` context, add an `Implementation plan` checkpoint only when the work
+needs one: multiple steps, meaningful risk, unclear sequencing, cross-file impact, or a plan worth
+preserving for review or resume.
+
+```bash
+project-office task:checkpoint --task MTM-1 --subject "Implementation plan" --comment @/tmp/plan.md
+```
+
+Keep it short and structured when you write one:
 
 ```text
 Scope:
@@ -49,7 +56,7 @@ Validation:
 - How the result will be verified.
 ```
 
-Record only what is needed to resume or review the work.
+Skip the plan checkpoint for trivial, obvious edits where it would add noise.
 
 ### 3. Record meaningful progress
 
