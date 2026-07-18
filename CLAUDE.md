@@ -34,8 +34,6 @@ build` / `bun run compile` (binary). After changing source, verify with `bunx ts
 
 - `principles.md` — general principles for any work: clarify before acting, change strategy, KISS/simple-first, self-documenting code style (always loaded).
 - `workflow.md` — two human checkpoints (plan approval, final diff review) and an independent review (always loaded).
-- `communication.md` — language and answer style (always loaded).
-- `review-gate.md` — review gate for assembled artifacts needing approval (always loaded).
 - `architecture.md` — structure (commands/entities/shared), entity API, exports (scoped to `src/**`).
 - `conventions.md` — file naming and CLI command/option style (scoped to `src/**`).
 - `agent-facing-upkeep.md` — keeping `instructions` content and the `status` checklist in sync (scoped to `src/commands/**`).
