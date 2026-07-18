@@ -6,7 +6,7 @@ paths:
 # Rule: CLI file naming and command style
 
 Stack-specific conventions for this CLI. General code style and simplicity live in
-`code-conventions.md`; project structure lives in `architecture.md`.
+`principles.md`; project structure lives in `architecture.md`.
 
 ## File naming
 

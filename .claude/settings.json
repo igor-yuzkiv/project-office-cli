@@ -1,0 +1,53 @@
+{
+    "permissions": {
+        "defaultMode": "acceptEdits",
+        "allow": [
+            "Bash(git status:*)",
+            "Bash(git diff:*)",
+            "Bash(git log:*)",
+            "Bash(git branch:*)",
+            "Bash(ls:*)",
+            "Bash(find:*)",
+            "Bash(grep:*)",
+            "Bash(bunx tsc:*)",
+            "Bash(bunx prettier:*)",
+            "Bash(bunx eslint:*)",
+            "Bash(bun run:*)",
+            "Read(//var/www/task-manager/project-office-cli/**)",
+            "Read(//tmp/**)"
+        ],
+        "ask": [
+            "Bash(bun add:*)",
+            "Bash(bun install:*)",
+            "Bash(bun remove:*)",
+            "Bash(bun update:*)",
+            "Bash(npm install:*)",
+            "Bash(npm uninstall:*)",
+            "Bash(npm update:*)"
+        ],
+        "deny": [
+            "Bash(git commit:*)",
+            "Bash(git push:*)",
+            "Bash(git reset:*)",
+            "Bash(git rebase:*)",
+            "Bash(git merge:*)",
+            "Edit(.project-office/repo-settings.json)",
+            "Write(.project-office/repo-settings.json)",
+            "Read(.env)",
+            "Read(.env.*)"
+        ]
+    },
+    "hooks": {
+        "PostToolUse": [
+            {
+                "matcher": "Edit|Write",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/prettier-edited-file.sh"
+                    }
+                ]
+            }
+        ]
+    }
+}

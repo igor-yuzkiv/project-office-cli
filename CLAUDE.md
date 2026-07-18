@@ -14,6 +14,16 @@ internals. Work stays inside one explicit project scope. The backend owns data a
 JSON; the CLI owns readable terminal output. Stack: **Bun + TypeScript** (Commander, Axios).
 See [`README.md`](./README.md) for a current overview.
 
+## Enforcement
+
+Some actions are blocked mechanically (`.claude/settings.json`) — git writes and editing
+`.project-office/repo-settings.json` (only `project:link-repo` writes it). Prettier runs
+automatically on edited `src/**` files (PostToolUse hook); do not run it yourself.
+
+When an action is blocked: stop and surface it. Do not look for an alternative route around
+the block, and do not redesign the change to avoid it silently — report what you needed to do
+and why.
+
 ## Verification
 
 `package.json` scripts are the source of truth: `bun run dev` (run from source), `bun run
@@ -22,12 +32,11 @@ build` / `bun run compile` (binary). After changing source, verify with `bunx ts
 
 ## Project rules
 
-- `principles.md` — general principles for any work: clarify before acting, change strategy, git safety (always loaded).
-- `code-conventions.md` — KISS/simple-first, self-documenting code style, abstraction discipline (always loaded).
-- `workflow.md` — task workflow phases with human-in-the-loop gates (always loaded).
+- `principles.md` — general principles for any work: clarify before acting, change strategy, KISS/simple-first, self-documenting code style (always loaded).
+- `workflow.md` — two human checkpoints (plan approval, final diff review) and an independent review (always loaded).
 - `communication.md` — language and answer style (always loaded).
-- `architecture.md` — structure (commands/entities/shared), entity API, exports (scoped to `src/**`).
 - `review-gate.md` — review gate for assembled artifacts needing approval (always loaded).
+- `architecture.md` — structure (commands/entities/shared), entity API, exports (scoped to `src/**`).
 - `conventions.md` — file naming and CLI command/option style (scoped to `src/**`).
 - `agent-facing-upkeep.md` — keeping `instructions` content and the `status` checklist in sync (scoped to `src/commands/**`).
 - `skills.md` — verification for skill changes via an independent `prompt-engineer` review, in place of the code validators (scoped to `skills/**`).

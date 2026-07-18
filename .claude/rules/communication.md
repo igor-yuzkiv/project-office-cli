@@ -2,8 +2,7 @@
 
 How to communicate with the user — which language, and in what style. Governs chat answers
 and any artifact assembled for the user's review (plans, task proposals, review-gate
-documents). Applies within the project's other rules (e.g. the phase-3 report format in
-`workflow.md`), never against them.
+documents). Applies within the project's other rules, never against them.
 
 ## Language
 

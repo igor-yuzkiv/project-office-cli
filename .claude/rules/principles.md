@@ -1,8 +1,8 @@
 # Rule: General principles
 
 Principles for any work in this repository — code, docs, plans, task proposals, even
-reorganizing these rules. Code-writing conventions live in `code-conventions.md`; workflow
-phases live in `workflow.md`.
+reorganizing these rules. Git safety (commit/push/reset/rebase/merge) is enforced mechanically
+in `.claude/settings.json`, not by prose here.
 
 ## Clarify before acting
 
@@ -45,10 +45,37 @@ Prefer minimal, surgical changes:
 Decision priority: correctness → minimal change → consistency with the codebase →
 maintainability → architectural improvements (only when requested).
 
-## Git safety
+## KISS / simple-first
 
-Hard constraints — never bypass without explicit user confirmation:
+Keep implementations simple, direct, and easy to review. Solve the current problem without
+speculative architecture, generic abstractions, or future-proofing unless the task requires
+it. Prefer boring, readable code over clever code.
 
-- Never create commits automatically.
-- Never push changes automatically.
-- Never perform merge, rebase, or reset operations without explicit user confirmation.
+- Reuse existing project patterns when they fit.
+- Do not add layers, services, managers, factories, or helpers just to look "architectural".
+- Extract a function only when it makes the code easier to read, test, or reuse right now.
+- Prefer explicit flow over generic, configuration-driven behavior.
+- Do not introduce a large abstraction until there are at least two real use cases; do not design a framework around hypothetical future commands.
+- Do not prepare for imaginary future requirements — leave the code easy to change later.
+
+A good change should be understandable from the diff without a map, a compass, and a senior
+architect.
+
+## Code style
+
+Prefer **self-documenting code**: the code should explain itself before comments are needed.
+
+- Prefer intention-revealing names over short or generic ones; a slightly longer name is fine when it aids understanding. Avoid abbreviations unless established in the project domain.
+- Introduce explanatory variables and extracted functions when they improve readability.
+- Do not add comments that restate what the code already expresses.
+- Preserve existing comments unless they are incorrect or obsolete.
+- Comments explain **why**, not **what** — non-obvious intent, constraints, trade-offs, external behavior, or a decision that would otherwise look strange.
+
+```ts
+// good
+const taskId = options.task;
+
+// avoid
+// Get task id from options
+const taskId = options.task;
+```
